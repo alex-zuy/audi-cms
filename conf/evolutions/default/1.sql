@@ -6,7 +6,7 @@ CREATE TABLE public.managers (
   id            SERIAL      NOT NULL,
   full_name     VARCHAR(50) NOT NULL,
   email         VARCHAR(50) NOT NULL,
-  password_hash VARCHAR(50) NOT NULL,
+  password_hash VARCHAR(60) NOT NULL,
   is_admin      BOOLEAN     NOT NULL DEFAULT FALSE,
   CONSTRAINT managers_pk_id PRIMARY KEY (id),
   CONSTRAINT managers_email_unique UNIQUE (email)
