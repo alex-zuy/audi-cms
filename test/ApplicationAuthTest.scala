@@ -19,7 +19,7 @@ import scala.concurrent.Future
 class ApplicationAuthTest extends PlaySpec with OneAppPerSuite with SeededDatabase {
 
   implicit override lazy val app = FakeApplication(
-    additionalConfiguration = Map("slick.dbs.default.db.properties.database" -> "audi-cms-test")
+    additionalConfiguration = Map("slick.dbs.default.db.properties.databaseName" -> "audi-cms-test")
   )
 
   implicit val dbConfig = DatabaseConfigProvider.get[JdbcProfile](app)
