@@ -1,29 +1,14 @@
 package controllers
 
-
-import internal.{DefaultDbConfiguration, DatabaseConfiguration, Authenticate}
-import models.{Manager, ManagerDAO}
-import org.mindrot.jbcrypt.BCrypt
+import internal.{DefaultDbConfiguration, Authenticate}
 import play.api._
 import play.api.libs.json._
-import play.api.libs.json.Reads._
 import play.api.mvc._
-import play.api.mvc.BodyParsers.parse._
-import play.api.libs.concurrent.Execution.Implicits._
-import play.api.db.slick.DatabaseConfigProvider
 
-import slick.backend.DatabaseConfig
-import slick.driver.JdbcProfile
-import slick.driver.PostgresDriver.api._
 
-import scala.concurrent.Future
+class Application extends Controller with DefaultDbConfiguration {
 
-abstract class ApplicationImpl
-  extends Controller
-  with DatabaseConfiguration {
-  this: Controller =>
-
-  import ApplicationImpl._
+  import Application._
 
   implicit val readsManagerRegistration = Json.reads[ManagerRegistration]
 
@@ -38,12 +23,10 @@ abstract class ApplicationImpl
   def logout = Authenticate.logoutAction()
 }
 
-object ApplicationImpl {
+object Application {
 
   case class Credentials(email: String, password: String)
 
   case class ManagerRegistration(fullName: String, email: String, password: String, isAdmin: Option[Boolean])
 
 }
-
-class Application extends ApplicationImpl with DefaultDbConfiguration
