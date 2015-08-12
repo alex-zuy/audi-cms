@@ -4,7 +4,7 @@ import play.api.libs.json._
 import play.api.libs.json.Reads._
 import play.api.libs.functional.syntax._
 
-import models.ManagerRoles.{Administrator, TypicalManager}
+import models.ManagerRoles.{TypicalManager, Administrator}
 import org.mindrot.jbcrypt.BCrypt
 import slick.backend.DatabaseConfig
 import slick.driver.JdbcProfile
@@ -14,7 +14,13 @@ import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 
 case class Manager(id: Int, fullName: String, email: String, passwordHash: String, isAdmin: Boolean) {
-  def role = if(isAdmin) TypicalManager else Administrator
+  import ManagerRoles.{Role, TypicalManager, Administrator}
+
+  def hasRole(role: Role) = role match {
+    case TypicalManager => true
+    case Administrator => isAdmin
+  }
+
 }
 
 object ManagerDAO {
