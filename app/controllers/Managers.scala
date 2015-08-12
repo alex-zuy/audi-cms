@@ -5,7 +5,7 @@ import play.api.mvc._
 import play.mvc.BodyParser._
 import internal.{DatabaseConfiguration, DefaultDbConfiguration}
 
-class Managers extends AuthAwareController with DefaultDbConfiguration {
+class Managers extends Controller with DefaultDbConfiguration {
   def list = TODO
 
   def store = TODO
