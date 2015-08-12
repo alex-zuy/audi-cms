@@ -1,8 +1,7 @@
 package controllers
 
-import javax.inject.Inject
 
-import internal.{DefaultDbConfiguration, DatabaseConfiguration}
+import internal.{DefaultDbConfiguration, DatabaseConfiguration, Authenticate}
 import models.{Manager, ManagerDAO}
 import org.mindrot.jbcrypt.BCrypt
 import play.api._
@@ -33,6 +32,10 @@ abstract class ApplicationImpl
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
   }
+
+  def login = Authenticate.loginAction()
+
+  def logout = Authenticate.logoutAction()
 }
 
 object ApplicationImpl {

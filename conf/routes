@@ -4,8 +4,8 @@
 
 # Home page
 GET         /                    controllers.Application.index
-#POST        /login               controllers.Application.login
-#POST        /logout              controllers.Application.logout
+POST        /login               controllers.Application.login
+POST        /logout              controllers.Application.logout
 
 # Managers management
 GET         /managers/list                              controllers.Managers.list
