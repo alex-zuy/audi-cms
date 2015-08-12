@@ -26,6 +26,12 @@ class ManagersControllerTest extends FakeAppPerSuite with FakeAuthenticatedReque
     FakeRequest(merthod, url).withHeaders(("X-Requested-With", "XMLHttpRequest"))
 
   def unauthorizedRequest = emptyAjaxRequest()
+
+  def jsonUnauthorizedRequest = unauthorizedRequest.withJsonBody(JsNull)
+
+  def jsonManagerRequest = managerRequest().withJsonBody(JsNull)
+
+  def jsonAdminRequest = adminRequest().withJsonBody(JsNull)
   
   def managerFromDb(email: String): Option[Manager] = await(ManagerDAO.byEmail(email))
 
@@ -47,33 +53,33 @@ class ManagersControllerTest extends FakeAppPerSuite with FakeAuthenticatedReque
     }
 
     "accept 'store' request only for admin" in {
-      status(call(controller.store, unauthorizedRequest)) mustBe UNAUTHORIZED
-      status(call(controller.store, managerRequest())) mustBe UNAUTHORIZED
-      status(call(controller.store, adminRequest())) should not equal UNAUTHORIZED
+      status(call(controller.store, jsonUnauthorizedRequest)) mustBe UNAUTHORIZED
+      status(call(controller.store, jsonManagerRequest)) mustBe UNAUTHORIZED
+      status(call(controller.store, jsonAdminRequest)) should not equal UNAUTHORIZED
     }
 
     "accept 'update' request only for admin" in {
-      status(call(controller.update(1), unauthorizedRequest)) mustBe UNAUTHORIZED
-      status(call(controller.update(1), managerRequest())) mustBe UNAUTHORIZED
-      status(call(controller.update(1), adminRequest())) should not equal UNAUTHORIZED
+      status(call(controller.update(1), jsonUnauthorizedRequest)) mustBe UNAUTHORIZED
+      status(call(controller.update(1), jsonManagerRequest)) mustBe UNAUTHORIZED
+      status(call(controller.update(1), jsonAdminRequest)) should not equal UNAUTHORIZED
     }
 
     "accept 'grantAdmin' request only for admin" in {
-      status(call(controller.grantAdmin(1), unauthorizedRequest)) mustBe UNAUTHORIZED
-      status(call(controller.grantAdmin(1), managerRequest())) mustBe UNAUTHORIZED
-      status(call(controller.grantAdmin(1), adminRequest())) should not equal UNAUTHORIZED
+      status(call(controller.grantAdmin(1), jsonUnauthorizedRequest)) mustBe UNAUTHORIZED
+      status(call(controller.grantAdmin(1), jsonManagerRequest)) mustBe UNAUTHORIZED
+      status(call(controller.grantAdmin(1), jsonAdminRequest)) should not equal UNAUTHORIZED
     }
 
     "accept 'revokeAdmin' request only for admin" in {
-      status(call(controller.revokeAdmin(1), unauthorizedRequest)) mustBe UNAUTHORIZED
-      status(call(controller.revokeAdmin(1), managerRequest())) mustBe UNAUTHORIZED
-      status(call(controller.revokeAdmin(1), adminRequest())) should not equal UNAUTHORIZED
+      status(call(controller.revokeAdmin(1), jsonUnauthorizedRequest)) mustBe UNAUTHORIZED
+      status(call(controller.revokeAdmin(1), jsonManagerRequest)) mustBe UNAUTHORIZED
+      status(call(controller.revokeAdmin(1), jsonAdminRequest)) should not equal UNAUTHORIZED
     }
 
     "accept 'delete' request only for admin" in {
-      status(call(controller.delete(1), unauthorizedRequest)) mustBe UNAUTHORIZED
-      status(call(controller.delete(1), managerRequest())) mustBe UNAUTHORIZED
-      status(call(controller.delete(1), adminRequest())) should not equal UNAUTHORIZED
+      status(call(controller.delete(1), jsonUnauthorizedRequest)) mustBe UNAUTHORIZED
+      status(call(controller.delete(1), jsonManagerRequest)) mustBe UNAUTHORIZED
+      status(call(controller.delete(1), jsonAdminRequest)) should not equal UNAUTHORIZED
     }
   }
 
@@ -134,7 +140,8 @@ class ManagersControllerTest extends FakeAppPerSuite with FakeAuthenticatedReque
 
     "reject creating new manager record with non-unique email" in {
       val recordsBefore = managersCount
-      val result = call(controller.store, adminRequest().withBody(toJson(managerTwo)))
+      val mngrStr = ManagerStore("New Manager", managerOne.email, "no matter")
+      val result = call(controller.store, adminRequest().withBody(toJson(mngrStr)))
       status(result) mustBe CONFLICT
       recordsBefore mustBe managersCount
     }
@@ -207,13 +214,13 @@ class ManagersControllerTest extends FakeAppPerSuite with FakeAuthenticatedReque
     "be rejected when manager changes password of another manager" in {
       var request = managerRequest(managerOne).withBody(changePasswordBody)
       var result = call(controller.changePassword(managerId(managerTwo)), request)
-      status(result) mustBe CONFLICT
+      status(result) mustBe UNAUTHORIZED
       val passwordHash = managerFromDb(managerTwo).get.passwordHash
       BCrypt.checkpw(ManagersSeeder.passwordOf(managerTwo), passwordHash) mustBe true
     }
 
     "be accepted when manager changes his own password" in {
-      val request = managerRequest(managerOne).withBody(changePasswordBody)
+      val request = managerRequest(managerOne).withJsonBody(changePasswordBody)
       val result = call(controller.changePassword(managerId(managerOne)), request)
       status(result) mustBe OK
       val passwordHash = managerFromDb(managerOne).get.passwordHash
@@ -221,7 +228,7 @@ class ManagersControllerTest extends FakeAppPerSuite with FakeAuthenticatedReque
     }
 
     "be accepted when admin changes somebody`s password" in {
-      val request = adminRequest().withBody(changePasswordBody)
+      val request = adminRequest().withJsonBody(changePasswordBody)
       val result = call(controller.changePassword(managerId(managerOne)), request)
       status(result) mustBe OK
       val passwordHash = managerFromDb(managerOne).get.passwordHash

@@ -44,6 +44,14 @@ object ManagerDAO {
   def byEmail(email: String)(implicit dbConfig: DatabaseConfig[JdbcProfile]): Future[Option[Manager]] =
     dbConfig.db.run(all.filter(_.email === email).take(1).result.headOption)
 
+  def byId(id: Int) = all.filter(_.id === id)
+
+  def insert(manager: Manager) = (all returning all.map(_.id)) += manager
+
+  def doesExistsAdminExcept(adminId: Int) = all.filter(_.isAdmin === true).filter(_.id =!= adminId).exists.result
+
+  def updateAdminStatus(managerId: Int, newStatus: Boolean) = byId(managerId).map(m => m.isAdmin).update(newStatus)
+
   def authorize(email: String, plainPassword: String)(implicit dbConfig: DatabaseConfig[JdbcProfile]): Option[Manager] = {
     Await.result(byEmail(email), 10 seconds) match {
       case Some(m:Manager) => if(BCrypt.checkpw(plainPassword, m.passwordHash)) Some(m) else None
