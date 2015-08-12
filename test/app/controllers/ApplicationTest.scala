@@ -1,3 +1,5 @@
+package app.controllers
+
 import controllers.Application
 import controllers.Application.{ManagerRegistration, Credentials}
 import play.api.test._
@@ -6,7 +8,7 @@ import utility.FakeAppPerSuite
 
 import scala.concurrent.Future
 
-class ApplicationAuthTest extends FakeAppPerSuite {
+class ApplicationTest extends FakeAppPerSuite {
 
   def controller = new Application
 

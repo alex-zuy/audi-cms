@@ -12,7 +12,7 @@ import play.api.test.Helpers._
 import seeders.ManagersSeeder
 import utility.{FakeAuthenticatedRequests, FakeAppPerSuite}
 
-class AuthenticationTest extends FakeAppPerSuite with FakeAuthenticatedRequests {
+class AuthenticateTest extends FakeAppPerSuite with FakeAuthenticatedRequests {
 
   import seeders.ManagersSeeder.{admin, managerOne, passwordOf}
 

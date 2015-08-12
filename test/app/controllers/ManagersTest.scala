@@ -1,3 +1,5 @@
+package app.controllers
+
 import models.{Manager, ManagerDAO}
 import org.mindrot.jbcrypt.BCrypt
 import org.scalatest._
@@ -13,7 +15,7 @@ import Json.toJson
 import slick.driver.PostgresDriver.api._
 import utility.{FakeAuthenticatedRequests, FakeAppPerSuite}
 
-class ManagersControllerTest extends FakeAppPerSuite with FakeAuthenticatedRequests {
+class ManagersTest extends FakeAppPerSuite with FakeAuthenticatedRequests {
 
   before {
     await(ManagersSeeder.clean)
