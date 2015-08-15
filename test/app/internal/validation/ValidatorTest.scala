@@ -11,7 +11,7 @@ import utility.FakeAppPerSuite
 import org.scalatest.{FlatSpec, Spec, MustMatchers}
 import org.scalatest.MustMatchers._
 
-import slick.driver.PostgresDriver.api._
+import internal.PostgresDriverExtended.api._
 
 import play.api.test.Helpers._
 

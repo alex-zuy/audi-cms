@@ -11,7 +11,7 @@ import play.api.libs.json._
 import play.api.libs.json.Json
 import internal.{Authenticate, DefaultDbConfiguration}
 
-import slick.driver.PostgresDriver.api._
+import internal.PostgresDriverExtended.api._
 
 import scala.concurrent.Future
 

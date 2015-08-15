@@ -12,7 +12,7 @@ import play.api.test._
 import seeders.ManagersSeeder
 import ManagersSeeder.{admin, managerOne, managerTwo}
 import Json.toJson
-import slick.driver.PostgresDriver.api._
+import internal.PostgresDriverExtended.api._
 import utility.{FakeAuthenticatedRequests, FakeAppPerSuite}
 
 class ManagersTest extends FakeAppPerSuite with FakeAuthenticatedRequests {

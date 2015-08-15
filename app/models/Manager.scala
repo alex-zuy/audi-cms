@@ -8,7 +8,7 @@ import models.ManagerRoles.{TypicalManager, Administrator}
 import org.mindrot.jbcrypt.BCrypt
 import slick.backend.DatabaseConfig
 import slick.driver.JdbcProfile
-import slick.driver.PostgresDriver.api._
+import internal.PostgresDriverExtended.api._
 
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
