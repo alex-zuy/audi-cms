@@ -74,4 +74,36 @@ object ContactInfoDAO {
 
   val allAddresses = TableQuery[ContactAddressesTable]
 
+  def infoById(id: Int) = allInfos.filter(_.id === id)
+
+  def numberById(id: Int) = allNumbers.filter(_.id === id)
+
+  def emailById(id: Int) = allEmails.filter(_.id === id)
+
+  def addressById(id: Int) = allAddresses.filter(_.id === id)
+
+  def insertInfo(contactInfo: ContactInfo) = (allInfos returning allInfos.map(_.id)) += contactInfo
+
+  def insertNumber(contactNumber: ContactNumber) = (allNumbers returning allNumbers.map(_.id)) += contactNumber
+
+  def insertEmail(contactEmail: ContactEmail) = (allEmails returning allEmails.map(_.id)) += contactEmail
+
+  def insertAddress(contactAddress: ContactAddress) = (allAddresses returning allAddresses.map(_.id)) += contactAddress
+
+  def updateInfo(contactInfo: ContactInfo) = infoById(contactInfo.id).update(contactInfo)
+
+  def updateNumber(contactNumber: ContactNumber) = numberById(contactNumber.id).update(contactNumber)
+
+  def updateEmail(contactEmail: ContactEmail) = emailById(contactEmail.id).update(contactEmail)
+
+  def updateAddress(contactAddress: ContactAddress) = addressById(contactAddress.id).update(contactAddress)
+
+  def deleteInfo(id: Int) = infoById(id).delete
+
+  def deleteNumber(id: Int) = numberById(id).delete
+
+  def deleteEmail(id: Int) = numberById(id).delete
+
+  def deleteAddress(id: Int) = addressById(id).delete
+
 }
