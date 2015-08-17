@@ -16,6 +16,21 @@ POST        /managers/grantAdmin/:id            controllers.Managers.grantAdmin(
 POST        /managers/revokeAdmin/:id           controllers.Managers.revokeAdmin(id: Int)
 POST        /managers/changePassword/:id        controllers.Managers.changePassword(id: Int)
 
+# Contacts
+GET         /contacts/list                      controllers.Contacts.list
+POST        /contacts/store                     controllers.Contacts.store
+GET         /contacts/:id/show                  controllers.Contacts.show(id: Int)
+POST        /contacts/:id/update                controllers.Contacts.update(id: Int)
+POST        /contacts/:id/delete                controllers.Contacts.delete(id: Int)
+POST        /contacts/:id/storeAddress          controllers.Contacts.storeAddress(id: Int)
+POST        /contacts/updateAddress/:addressId  controllers.Contacts.updateAddress(addressId: Int)
+POST        /contacts/deleteAddress/:addressId  controllers.Contacts.deleteAddress(addressId: Int)
+POST        /contacts/:id/storeNumber           controllers.Contacts.storeNumber(id: Int)
+POST        /contacts/updateNumber/:numberId    controllers.Contacts.updateNumber(numberId: Int)
+POST        /contacts/deleteNumber/:numberId    controllers.Contacts.deleteNumber(numberId: Int)
+POST        /contacts/:id/storeEmail            controllers.Contacts.storeEmail(id: Int)
+POST        /contacts/updateEmail/:emailId      controllers.Contacts.updateEmail(emailId: Int)
+POST        /contacts/deleteEmail/:emailId      controllers.Contacts.deleteEmail(emailId: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)
