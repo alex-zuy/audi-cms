@@ -4,7 +4,7 @@ import play.api.libs.json.JsValue
 
 import internal.PostgresDriverExtended.api._
 
-case class ContactInfo(id: Int, name: String, internal_name: Option[String])
+case class ContactInfo(id: Int, name: String, internalName: Option[String])
 
 case class ContactNumber(id: Int, contactInfoId: Int, name: String, number: String)
 
