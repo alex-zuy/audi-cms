@@ -25,9 +25,7 @@ case class Manager(id: Int, fullName: String, email: String, passwordHash: Strin
 
 object ManagerDAO {
 
-  class ManagersTable(tag: Tag) extends Table[Manager](tag, "managers") {
-    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-
+  class ManagersTable(tag: Tag) extends Table[Manager](tag, "managers") with IntegerIdPk {
     def fullName = column[String]("full_name")
 
     def email = column[String]("email")

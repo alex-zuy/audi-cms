@@ -14,9 +14,7 @@ case class ContactAddress(id: Int, contactInfo: Int, name: String, address: Stri
 
 object ContactInfoDAO {
 
-  class ContactInfosTable(tag: Tag) extends Table[ContactInfo](tag, "contact_infos") {
-    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-
+  class ContactInfosTable(tag: Tag) extends Table[ContactInfo](tag, "contact_infos") with IntegerIdPk {
     def name = column[String]("name")
 
     def internalName = column[Option[String]]("internal_name")
@@ -24,9 +22,7 @@ object ContactInfoDAO {
     def * = (id, name, internalName) <> (ContactInfo.tupled, ContactInfo.unapply)
   }
 
-  class ContactNumbersTable(tag: Tag) extends Table[ContactNumber](tag, "contact_numbers") {
-    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-
+  class ContactNumbersTable(tag: Tag) extends Table[ContactNumber](tag, "contact_numbers") with IntegerIdPk {
     def contactInfoId = column[Int]("contact_info_id")
 
     def contactPerson = column[String]("contact_person")
@@ -38,9 +34,7 @@ object ContactInfoDAO {
     def * = (id, contactInfoId, name, number) <> (ContactNumber.tupled, ContactNumber.unapply)
   }
 
-  class ContactEmailsTable(tag: Tag) extends Table[ContactEmail](tag, "contact_emails") {
-    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-
+  class ContactEmailsTable(tag: Tag) extends Table[ContactEmail](tag, "contact_emails") with IntegerIdPk {
     def contactInfoId = column[Int]("contact_info_id")
 
     def contactPerson = column[String]("contact_person")
@@ -52,9 +46,7 @@ object ContactInfoDAO {
     def * = (id, contactInfoId, contactPerson, email, name) <> (ContactEmail.tupled, ContactEmail.unapply)
   }
 
-  class ContactAddressesTable(tag: Tag) extends Table[ContactAddress](tag, "contact_addresses") {
-    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-
+  class ContactAddressesTable(tag: Tag) extends Table[ContactAddress](tag, "contact_addresses") with IntegerIdPk {
     def contactInfoId = column[Int]("contact_info_id")
 
     def name = column[String]("name")
