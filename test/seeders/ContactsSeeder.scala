@@ -19,21 +19,21 @@ object ContactsSeeder extends DatabaseSeeder with FutureAwaits with DefaultAwait
 
   import ContactInfoDAO._
 
-  val contactOne = ContactInfo(0, "contactOne", None)
+  val contactOne = ContactInfo(None, "contactOne", None)
 
-  val contactTwo = ContactInfo(0, "contactOne", Some("internalNameTwo"))
+  val contactTwo = ContactInfo(None, "contactTwo", Some("internalNameTwo"))
 
-  def numberOne(contactInfoId: Int) = ContactNumber(0, contactInfoId, "numberOne", "+123456789")
+  def numberOne(contactInfoId: Int) = ContactNumber(None, contactInfoId, "numberOne", "+123456789")
 
-  def numberTwo(contactInfoId: Int) = ContactNumber(0, contactInfoId, "numberTwo", "+987654321")
+  def numberTwo(contactInfoId: Int) = ContactNumber(None, contactInfoId, "numberTwo", "+987654321")
 
-  def emailOne(contactInfoId: Int) = ContactEmail(0, contactInfoId, "personOne", "emailOne@example.net", "emailOne")
+  def emailOne(contactInfoId: Int) = ContactEmail(None, contactInfoId, "personOne", "emailOne@example.net", "emailOne")
 
-  def emailTwo(contactInfoId: Int) = ContactEmail(0, contactInfoId, "personTwo", "emailTwo@example.net", "emailTwo")
+  def emailTwo(contactInfoId: Int) = ContactEmail(None, contactInfoId, "personTwo", "emailTwo@example.net", "emailTwo")
 
-  def addressOne(contactInfoId: Int) = ContactAddress(0, contactInfoId, "addressOne", "streetOne", None)
+  def addressOne(contactInfoId: Int) = ContactAddress(None, contactInfoId, "addressOne", "streetOne", None)
 
-  def addressTwo(contactInfoId: Int) = ContactAddress(0, contactInfoId, "addressTwo", "streetTwo", Some(Json.toJson("{}")))
+  def addressTwo(contactInfoId: Int) = ContactAddress(None, contactInfoId, "addressTwo", "streetTwo", Some(Json.toJson("{}")))
 
   override def seed(implicit dbConfig: DatabaseConfig[JdbcProfile]) = {
     val oneId = await(dbConfig.db.run(insertInfo(contactOne)))
