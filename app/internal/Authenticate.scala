@@ -54,12 +54,11 @@ object Authenticate {
    * Creates login action
    * @return
    */
-  def loginAction = Action(parse.json) { implicit request =>
-    request.body.asOpt[Credentials].map { credentials =>
-      ManagerDAO.authorize(credentials.email, credentials.password).map { manager =>
-        Ok.addingToSession((sessionKeyName -> manager.email))
-      } getOrElse NotFound
-    } getOrElse BadRequest
+  def loginAction = Action(parse.json[Credentials]) { implicit request =>
+    val credentials = request.body
+    ManagerDAO.authorize(credentials.email, credentials.password).map { manager =>
+      Ok.addingToSession(sessionKeyName -> manager.email)
+    } getOrElse NotFound
   }
 
   /**
