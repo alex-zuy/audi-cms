@@ -21,7 +21,11 @@ libraryDependencies ++= Seq(
   "org.webjars.npm" % "react" % "0.13.3",
   "org.webjars.bower" % "react-router" % "0.13.3",
   "org.webjars.npm" % "jquery" % "2.1.4",
-  "org.webjars.bower" % "materialize" % "0.97.0"
+  "org.webjars.bower" % "materialize" % "0.97.0",
+  // we dont put dependency for material-ui here because we use
+  // our own unmanaged webjar for it located in libs.
+  "org.webjars.npm" % "react-draggable2" % "0.5.1",
+  "org.webjars.npm" % "classnames" % "2.1.3"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
