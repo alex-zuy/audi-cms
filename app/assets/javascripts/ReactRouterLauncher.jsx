@@ -10,6 +10,8 @@ define(['react',
         'javascripts/views/ServicePage',
         'javascripts/views/SiteMapPage',
         'javascripts/views/TestDrivePage',
+        'javascripts/views/LoginPage',
+        'javascripts/views/ControlPanelPage',
     ],
     function(React,
              ReactRouter,
@@ -22,7 +24,9 @@ define(['react',
              NewsAndOffersPage,
              ServicePage,
              SiteMapPage,
-             TestDrivePage)
+             TestDrivePage,
+             LoginPage,
+             ControlPanelPage)
     {
 
         var Route = ReactRouter.Route;
@@ -39,6 +43,8 @@ define(['react',
                         <Route path="/contacts" handler={ContactsPage}/>
                         <Route path="/test-drive" handler={TestDrivePage}/>
                         <Route path="/site-map" handler={SiteMapPage}/>
+                        <Route path="/login" name="login" handler={LoginPage}/>
+                        <Route path="/control-panel" name="control-panel" handler={ControlPanelPage}/>
                     </Route>
                 );
 
