@@ -6,6 +6,7 @@
 GET         /                                   controllers.Application.index
 POST        /login                              controllers.Application.login
 POST        /logout                             controllers.Application.logout
+GET         /jsRoutes                           controllers.Application.jsRoutes
 
 # Managers management
 GET         /managers/list                      controllers.Managers.list
