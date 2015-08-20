@@ -24,8 +24,9 @@ define([
                 return (
                     <div>
                         <Navbar />
-                        <header>App</header>
-                        <RouteHandler/>
+                        <div className="container">
+                            <RouteHandler/>
+                        </div>
                     </div>
                 )
             }
