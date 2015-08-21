@@ -17,6 +17,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick-evolutions" % "1.0.0",
   "com.github.tminglei" %% "slick-pg" % "0.9.1",
   "de.svenkubiak" % "jBCrypt" % "0.4",
+  "org.hjson" % "hjson" % "1.1.0",
   "org.webjars.npm" % "requirejs" % "2.1.20",
   "org.webjars.npm" % "react" % "0.13.3",
   "org.webjars.bower" % "react-router" % "0.13.3",

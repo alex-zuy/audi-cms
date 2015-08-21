@@ -6,6 +6,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import play.api.routing.JavaScriptReverseRouter
 
+import org.hjson.JsonValue
 
 class Application extends Controller with DefaultDbConfiguration {
 
@@ -28,6 +29,8 @@ class Application extends Controller with DefaultDbConfiguration {
       JavaScriptReverseRouter("jsRoutes")(
         routes.javascript.Application.login,
         routes.javascript.Application.logout,
+        routes.javascript.Application.translations,
+        routes.javascript.Application.setLanguage,
 
         routes.javascript.Managers.list,
         routes.javascript.Managers.store,
@@ -54,6 +57,21 @@ class Application extends Controller with DefaultDbConfiguration {
       )
     ).as("text/javascript")
   }
+
+  def translations = Action { implicit request =>
+    val content = scala.io.Source.fromInputStream(getClass.getResourceAsStream(s"/translations/${getLang}.hjson")).mkString
+    Ok(JsonValue.readHjson(content).toString).as("text/json").withCookies(Cookie("lang", getLang))
+  }
+
+  def setLanguage(lang: String) = Action { implicit request =>
+    if(supportedLanguages contains lang) {
+      Ok.withCookies(Cookie("lang", lang))
+    }
+    else {
+      BadRequest("Unsupported or unknown language")
+    }
+  }
+
 }
 
 object Application {
@@ -61,5 +79,14 @@ object Application {
   case class Credentials(email: String, password: String)
 
   case class ManagerRegistration(fullName: String, email: String, password: String, isAdmin: Option[Boolean])
+
+  /**
+   * Default language for client is English
+   */
+  val defaultLang = "en";
+
+  val supportedLanguages = Set("en", "ru")
+
+  def getLang(implicit request: RequestHeader) = request.cookies.get("lang").map(_.value) getOrElse "en"
 
 }
