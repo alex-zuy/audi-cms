@@ -6,6 +6,7 @@ require.config({
         'classnames' : 'lib/classnames/index',
         'react-router': 'lib/react-router/build/umd/ReactRouter',
         'intl-messageformat': 'lib/intl-messageformat/dist/intl-messageformat-with-locales',
+        'intl-mixin': 'javascripts/intl/IntlMixin',
     },
     map: {
         '*' : {
