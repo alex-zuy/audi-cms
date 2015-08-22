@@ -1,4 +1,4 @@
-define(['react', 'react-router', 'mui'], function(React, ReactRouter, mui) {
+define(['react', 'react-router', 'mui', 'intl-mixin'], function(React, ReactRouter, mui, IntlMixin) {
 
     var TextField = mui.TextField;
     var RaisedButton = mui.RaisedButton;
@@ -7,44 +7,47 @@ define(['react', 'react-router', 'mui'], function(React, ReactRouter, mui) {
     var LoginPage = React.createClass({
         mixins: [
             ReactRouter.Navigation,
+            IntlMixin,
         ],
         getInitialState: function() {
             return {
                 buttonDisabled: true,
-                errors: '',
+                error: null,
             }
         },
         render: function() {
-            var hasErrors = this.state.errors.length !== 0;
+            var errorBlock = (this.state.error != null)
+                ? ( <div ref="errors" className="card-panel red lighten-1 white-text">
+                        {this.getIntlMessage(this.state.error)}
+                    </div>)
+                : ('');
             return (
                 <div className="row" style={{ marginTop: "100px" }}>
                     <div className="col s12 m8 offset-m2 l6 offset-l3">
                         <Paper zDepth={4} rounded={false} style={{padding: "50px"}}>
-                            <h5>key.login</h5>
+                            <h5>{this.getIntlMessage('labels.loginPage.login')}</h5>
                             <form onChange={this.enableDisableButton}>
-                                <div style={{display: hasErrors ? 'initial' : 'none'}}>
-                                    <div ref="errors" className="card-panel red lighten-1 white-text">{this.state.errors}</div>
-                                </div>
+                                {errorBlock}
                                 <TextField
                                     ref="email"
                                     onEnterKeyDown={this.enterPressed}
-                                    floatingLabelText="key.email"
+                                    floatingLabelText={this.getIntlMessage('inputs.loginPage.email.label')}
                                     fullWidth={true}
-                                    hintText="key.enter.login.email"
+                                    hintText={this.getIntlMessage('inputs.loginPage.email.placeholder')}
                                     type="text"/>
                                 <TextField
                                     ref="password"
                                     onEnterKeyDown={this.enterPressed}
-                                    floatingLabelText="key.password"
+                                    floatingLabelText={this.getIntlMessage('inputs.loginPage.password.label')}
                                     fullWidth={true}
-                                    hintText="key.enter.password"
+                                    hintText={this.getIntlMessage('inputs.loginPage.password.placeholder')}
                                     type="password"/>
                                 <p>
                                     <RaisedButton
                                         disabled={this.state.buttonDisabled}
                                         onClick={this.attemptLogin}
                                         fullWidth={true}
-                                        label="key.login"
+                                        label={this.getIntlMessage('actions.loginPage.login')}
                                         primary={true}/>
                                 </p>
                             </form>
@@ -72,7 +75,7 @@ define(['react', 'react-router', 'mui'], function(React, ReactRouter, mui) {
                     password: this.refs.password.getValue()
                 }),
                 error: function(xhr, status, error) {
-                    this.setState({errors:'key.no.such.user'});
+                    this.setState({error:'errors.loginPage.noSuchUser'});
                 }.bind(this),
                 success: function(data, status) {
                     this.transitionTo('control-panel')

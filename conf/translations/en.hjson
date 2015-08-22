@@ -1,2 +1,32 @@
 {
+    labels: {
+        loginPage: {
+            login: Login
+        }
+    }
+
+    actions: {
+        loginPage: {
+            login: Login
+        }
+    }
+
+    errors: {
+        loginPage: {
+            noSuchUser: There is no such user. Check your data!
+        }
+    }
+
+    inputs: {
+        loginPage: {
+            email: {
+                label: Email
+                placeholder: Enter email
+            }
+            password: {
+                label: Password
+                placeholder: Enter password
+            }
+        }
+    }
 }
