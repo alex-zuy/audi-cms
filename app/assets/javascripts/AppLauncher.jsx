@@ -23,18 +23,24 @@ require.config({
     ]
 });
 
-requirejs(['javascripts/ReactRouterLauncher'], function(Launcher) {
+requirejs(['react', 'react-router', 'javascripts/Routes'], function(React, ReactRouter, routes) {
+
+    function launchApp(messages) {
+
+        ReactRouter.run(routes, ReactRouter.HashLocation, function(App) {
+            React.render(<App locale={getLocale()} messages={messages}/>, document.body);
+        });
+
+        console.log('App launched');
+    }
+
+    function getLocale() {
+        var maybeLocale = $("meta[name='app-lang']").attr('content');
+        return maybeLocale ? maybeLocale : 'en';
+    }
 
     $(function() {
         var route = jsRoutes.controllers.Application.translations();
-        $.ajax({
-            url: route.url,
-            success: function(messages) {
-                var maybeLocale = $("meta[name='app-lang']").attr('content');
-                var locale = maybeLocale ? maybeLocale : 'en';
-                Launcher.launch(locale, messages);
-                console.log('App launched');
-            }
-        });
+        $.ajax({ url: route.url, success:launchApp });
     });
 });
