@@ -13,10 +13,14 @@ define([
 
         var App = React.createClass({
             childContextTypes: {
+                locale: React.PropTypes.string.isRequired,
+                messages: React.PropTypes.object.isRequired,
                 muiTheme: React.PropTypes.object
             },
             getChildContext: function() {
                 return {
+                    locale: this.props.locale,
+                    messages: this.props.messages,
                     muiTheme: ThemeManager.getCurrentTheme()
                 }
             },

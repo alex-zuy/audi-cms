@@ -5,6 +5,7 @@ require.config({
         'react-draggable2' : 'lib/react-draggable2/dist/react-draggable',
         'classnames' : 'lib/classnames/index',
         'react-router': 'lib/react-router/build/umd/ReactRouter',
+        'intl-messageformat': 'lib/intl-messageformat/dist/intl-messageformat-with-locales',
     },
     map: {
         '*' : {
@@ -22,8 +23,17 @@ require.config({
 });
 
 requirejs(['javascripts/ReactRouterLauncher'], function(Launcher) {
+
     $(function() {
-        Launcher.launch();
-        console.log('App launched');
+        var route = jsRoutes.controllers.Application.translations();
+        $.ajax({
+            url: route.url,
+            success: function(messages) {
+                var maybeLocale = $("meta[name='app-lang']").attr('content');
+                var locale = maybeLocale ? maybeLocale : 'en';
+                Launcher.launch(locale, messages);
+                console.log('App launched');
+            }
+        });
     });
 });

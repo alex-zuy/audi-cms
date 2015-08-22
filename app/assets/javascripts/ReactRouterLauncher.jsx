@@ -32,7 +32,7 @@ define(['react',
         var Route = ReactRouter.Route;
 
         return {
-            launch: function() {
+            launch: function(locale, messages) {
                 var routes = (
                     <Route handler={App}>
                         <Route path="/main" handler={MainPage}/>
@@ -49,7 +49,7 @@ define(['react',
                 );
 
                 ReactRouter.run(routes, ReactRouter.HashLocation, function(App) {
-                    React.render(<App/>, document.body);
+                    React.render(<App locale={locale} messages={messages}/>, document.body);
                 });
 
                 console.log('React router launched');
