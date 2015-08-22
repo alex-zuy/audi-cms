@@ -1,8 +1,11 @@
-define(['react', 'react-router'], function(React, Router) {
+define(['react', 'react-router', 'intl-mixin'], function(React, Router, IntlMixin) {
 
     var Link = Router.Link;
 
     var Item = React.createClass({
+        mixins: [
+            IntlMixin,
+        ],
         propTypes: {
             href: React.PropTypes.string.isRequired,
             labelKey: React.PropTypes.string.isRequired,
@@ -15,7 +18,7 @@ define(['react', 'react-router'], function(React, Router) {
             return (
                 <li>
                     <Link to={this.props.href} className={this.props.linkClassName}>
-                        {this.props.labelKey}
+                        {this.getIntlMessage('labels.navbar.' + this.props.labelKey)}
                     </Link>
                 </li>
             );
@@ -23,6 +26,9 @@ define(['react', 'react-router'], function(React, Router) {
     });
 
     var Navbar = React.createClass({
+        mixins: [
+            IntlMixin,
+        ],
         render: function() {
             var brandLogoStyle = {
                 transform: 'translateX(0%) !important',
@@ -43,9 +49,9 @@ define(['react', 'react-router'], function(React, Router) {
                                     <i className='material-icons md-dark'>menu</i>
                                 </a>
                                 <ul className='left hide-on-small-only'>
-                                    <Item href='/main' labelKey='key.main'/>
-                                    <Item href='/news-and-offers' labelKey='key.newsAndOffers'/>
-                                    <Item href='/models' labelKey='key.models'/>
+                                    <Item href='/main' labelKey='main'/>
+                                    <Item href='/news-and-offers' labelKey='newsAndOffers'/>
+                                    <Item href='/models' labelKey='models'/>
                                     <li>
                                         <a href='#'
                                            ref='topDropdown'
@@ -53,37 +59,37 @@ define(['react', 'react-router'], function(React, Router) {
                                            data-hover={true}
                                            data-beloworigin={true}
                                            data-activates='navbarTopServiceDropdown'>
-                                            key.service
+                                            {this.getIntlMessage('labels.navbar.service')}
                                         </a>
                                         <ul id='navbarTopServiceDropdown'
                                             className='dropdown-content grey lighten-4'>
-                                            <Item href='/service' labelKey='one'/>
-                                            <Item href='/service' labelKey='two'/>
-                                            <Item href='/service' labelKey='three'/>
+                                            <Item href='/service' labelKey='services.one'/>
+                                            <Item href='/service' labelKey='services.two'/>
+                                            <Item href='/service' labelKey='services.three'/>
                                             <li className='divider'></li>
-                                            <Item href='/service' labelKey='four'/>
+                                            <Item href='/service' labelKey='services.four'/>
                                         </ul>
                                     </li>
                                 </ul>
                                 <ul className='side-nav' id='navbar-mobile-items'>
-                                    <Item href='/main' labelKey='key.main'/>
-                                    <Item href='/news-and-offers' labelKey='key.newsAndOffers'/>
-                                    <Item href='/models' labelKey='key.models'/>
+                                    <Item href='/main' labelKey='main'/>
+                                    <Item href='/news-and-offers' labelKey='newsAndOffers'/>
+                                    <Item href='/models' labelKey='models'/>
                                     <li>
                                         <a href='#'
                                            ref='leftDropdown'
                                            className='dropdown-button red-text text-darken-4'
                                            data-beloworigin={true}
                                            data-activates='navbarLeftServiceDropdown'>
-                                            key.service
+                                            {this.getIntlMessage('labels.navbar.service')}
                                         </a>
                                         <ul id='navbarLeftServiceDropdown'
                                             className='dropdown-content grey lighten-4'>
-                                            <Item href='/service' labelKey='one'/>
-                                            <Item href='/service' labelKey='two'/>
-                                            <Item href='/service' labelKey='three'/>
+                                            <Item href='/service' labelKey='services.one'/>
+                                            <Item href='/service' labelKey='services.two'/>
+                                            <Item href='/service' labelKey='services.three'/>
                                             <li className='divider'></li>
-                                            <Item href='/service' labelKey='four'/>
+                                            <Item href='/service' labelKey='services.four'/>
                                         </ul>
                                     </li>
                                 </ul>

@@ -3,6 +3,18 @@
         loginPage: {
             login: Login
         }
+        navbar: {
+            main: Main
+            newsAndOffers: NewsAndOffers
+            models: Models
+            service: Service
+            services: {
+                one: One
+                two: Two
+                three: Three
+                four: Four
+            }
+        }
     }
 
     actions: {
