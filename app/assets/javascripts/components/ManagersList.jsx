@@ -8,6 +8,11 @@ define(['react', 'react-router', 'mui', 'intl-mixin'], function(React, ReactRout
         mixins: [
             IntlMixin,
         ],
+        getDefaultProps: function() {
+            return {
+                msgKeyPrefix: 'managersCtl.list'
+            };
+        },
         getInitialState: function() {
             return {
                 managers: [],
@@ -25,7 +30,7 @@ define(['react', 'react-router', 'mui', 'intl-mixin'], function(React, ReactRout
                         <td>{mgr.email}</td>
                         <td>
                             <Link to="manager-change-password" params={{id: mgr.id}}>
-                                {this.getIntlMessage('actions.managersCtl.changePassword')}
+                                {this.getMsg('actions.changePassword')}
                             </Link>
                         </td>
                         <td>
@@ -42,10 +47,10 @@ define(['react', 'react-router', 'mui', 'intl-mixin'], function(React, ReactRout
                 <table>
                     <thead>
                     <tr>
-                        <th>{this.getIntlMessage('labels.managersCtl.table.fullName')}</th>
-                        <th>{this.getIntlMessage('labels.managersCtl.table.email')}</th>
-                        <th>{this.getIntlMessage('labels.managersCtl.table.password')}</th>
-                        <th>{this.getIntlMessage('labels.managersCtl.table.isAdmin')}</th>
+                        <th>{this.getMsg('labels.table.fullName')}</th>
+                        <th>{this.getMsg('labels.table.email')}</th>
+                        <th>{this.getMsg('labels.table.password')}</th>
+                        <th>{this.getMsg('labels.table.isAdmin')}</th>
                     </tr>
                     </thead>
                     <tbody>{rows}</tbody>

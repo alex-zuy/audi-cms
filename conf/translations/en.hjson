@@ -1,57 +1,15 @@
 {
-    labels: {
-        loginPage: {
+    loginPage: {
+        labels: {
             login: Login
         }
-        managersCtl: {
-            table: {
-                fullName: Full name
-                email: Email
-                password: Password
-                isAdmin: Admin
-            }
-            changePassword: {
-                title: Changing password
-            }
-        }
-        navbar: {
-            main: Main
-            newsAndOffers: NewsAndOffers
-            models: Models
-            service: Service
-            services: {
-                one: One
-                two: Two
-                three: Three
-                four: Four
-            }
-        }
-    }
-
-    actions: {
-        loginPage: {
+        actions: {
             login: Login
         }
-        managersCtl: {
-            changePassword: Change password
-            store: Save
-        }
-    }
-
-    errors: {
-        loginPage: {
+        errors: {
             noSuchUser: There is no such user. Check your data!
         }
-        managersCtl: {
-            changePassword: {
-                passwordsNotEqual: Passwords don`t match
-                submitError: An error appeared while submitting password change
-            }
-        }
-    }
-
-    inputs: {
-        loginPage: {
+        inputs: {
             email: {
                 label: Email
                 placeholder: Enter email
@@ -61,8 +19,33 @@
                 placeholder: Enter password
             }
         }
-        managersCtl: {
-            changePassword: {
+    }
+    managersCtl: {
+        list: {
+            labels: {
+                table: {
+                    fullName: Full name
+                    email: Email
+                    password: Password
+                    isAdmin: Admin
+                }
+            }
+            actions: {
+                changePassword: Change password
+            }
+        }
+        changePassword: {
+            labels: {
+                title: Changing password
+            }
+            actions: {
+                store: Save
+            }
+            errors: {
+                passwordsNotEqual: Passwords don`t match
+                submitError: An error appeared while submitting password change
+            }
+            inputs: {
                 password: {
                     label: New password
                     placeholder: Enter password
@@ -71,6 +54,20 @@
                     label: Confirm password
                     placeholder: Enter password second time
                 }
+            }
+        }
+    }
+    navbar: {
+        labels: {
+            main: Main
+            newsAndOffers: NewsAndOffers
+            models: Models
+            service: Service
+            services: {
+                one: One
+                two: Two
+                three: Three
+                four: Four
             }
         }
     }

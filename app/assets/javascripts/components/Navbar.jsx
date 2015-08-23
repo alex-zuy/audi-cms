@@ -12,13 +12,16 @@ define(['react', 'react-router', 'intl-mixin'], function(React, Router, IntlMixi
             linkClassName: React.PropTypes.string,
         },
         getDefaultProps: function() {
-            return {linkClassName: 'red-text text-darken-4 waves-effect waves-red'};
+            return {
+                linkClassName: 'red-text text-darken-4 waves-effect waves-red',
+                msgKeyPrefix: 'navbar.labels',
+            };
         },
         render: function() {
             return (
                 <li>
                     <Link to={this.props.href} className={this.props.linkClassName}>
-                        {this.getIntlMessage('labels.navbar.' + this.props.labelKey)}
+                        {this.getMsg(this.props.labelKey)}
                     </Link>
                 </li>
             );
@@ -29,6 +32,11 @@ define(['react', 'react-router', 'intl-mixin'], function(React, Router, IntlMixi
         mixins: [
             IntlMixin,
         ],
+        getDefaultProps: function() {
+            return {
+                msgKeyPrefix: 'navbar.labels',
+            };
+        },
         render: function() {
             var brandLogoStyle = {
                 transform: 'translateX(0%) !important',
@@ -59,7 +67,7 @@ define(['react', 'react-router', 'intl-mixin'], function(React, Router, IntlMixi
                                            data-hover={true}
                                            data-beloworigin={true}
                                            data-activates='navbarTopServiceDropdown'>
-                                            {this.getIntlMessage('labels.navbar.service')}
+                                            {this.getMsg('service')}
                                         </a>
                                         <ul id='navbarTopServiceDropdown'
                                             className='dropdown-content grey lighten-4'>
@@ -81,7 +89,7 @@ define(['react', 'react-router', 'intl-mixin'], function(React, Router, IntlMixi
                                            className='dropdown-button red-text text-darken-4'
                                            data-beloworigin={true}
                                            data-activates='navbarLeftServiceDropdown'>
-                                            {this.getIntlMessage('labels.navbar.service')}
+                                            {this.getMsg('service')}
                                         </a>
                                         <ul id='navbarLeftServiceDropdown'
                                             className='dropdown-content grey lighten-4'>

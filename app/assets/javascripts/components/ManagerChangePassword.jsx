@@ -9,6 +9,11 @@ define(['react', 'react-router', 'intl-mixin', 'mui'], function(React, ReactRout
             ReactRouter.Navigation,
             IntlMixin,
         ],
+        getDefaultProps: function() {
+            return {
+                msgKeyPrefix: 'managersCtl.changePassword',
+            };
+        },
         getInitialState: function() {
             return {
                 manager: {
@@ -24,12 +29,12 @@ define(['react', 'react-router', 'intl-mixin', 'mui'], function(React, ReactRout
         render: function() {
             var submitError = (this.state.submitError != null)
                 ? ( <div ref="errors" className="card-panel red lighten-1 white-text">
-                        {this.getIntlMessage(this.state.submitError)}
+                        {this.getMsg(this.state.submitError)}
                     </div>)
                 : ('');
             return (
                 <Paper zDepth={2} rounded={false} style={{padding:"50px"}}>
-                    <h5>{this.getIntlMessage('labels.managersCtl.changePassword.title')}</h5>
+                    <h5>{this.getMsg('labels.title')}</h5>
                     <p>{this.state.manager.fullName}</p>
                     <form onChange={this.enableDisableButton}>
                         {submitError}
@@ -37,15 +42,15 @@ define(['react', 'react-router', 'intl-mixin', 'mui'], function(React, ReactRout
                             ref="password"
                             onChange={this.passwordChanged}
                             onEnterKeyDown={this.enterPressed}
-                            floatingLabelText={this.getIntlMessage('inputs.managersCtl.changePassword.password.label')}
-                            hintText={this.getIntlMessage('inputs.managersCtl.changePassword.password.placeholder')}
+                            floatingLabelText={this.getMsg('inputs.password.label')}
+                            hintText={this.getMsg('inputs.password.placeholder')}
                             type="password"
                             /><br/>
                         <TextField
                             ref="confirmPassword"
                             onEnterKeyDown={this.enterPressed}
-                            floatingLabelText={this.getIntlMessage('inputs.managersCtl.changePassword.confirmPassword.label')}
-                            hintText={this.getIntlMessage('inputs.managersCtl.changePassword.confirmPassword.placeholder')}
+                            floatingLabelText={this.getMsg('inputs.confirmPassword.label')}
+                            hintText={this.getMsg('inputs.confirmPassword.placeholder')}
                             type="password"
                             />
                         <p>
@@ -53,7 +58,7 @@ define(['react', 'react-router', 'intl-mixin', 'mui'], function(React, ReactRout
                                 disabled={this.state.buttonDisabled}
                                 ref="button"
                                 onClick={this.checkPasswordsAndStore}
-                                label={this.getIntlMessage('actions.managersCtl.store')}
+                                label={this.getMsg('actions.store')}
                                 primary={true}
                                 />
                         </p>
@@ -94,12 +99,12 @@ define(['react', 'react-router', 'intl-mixin', 'mui'], function(React, ReactRout
                         this.transitionTo('managers-list');
                     }.bind(this),
                     error: function() {
-                        this.setState({submitError:'errors.managersCtl.changePassword.submitError'});
+                        this.setState({submitError:'errors.submitError'});
                     }.bind(this)
                 });
             }
             else {
-                this.refs.confirmPassword.setErrorText(this.getIntlMessage('errors.managersCtl.changePassword.passwordsNotEqual'));
+                this.refs.confirmPassword.setErrorText(this.getMsg('errors.passwordsNotEqual'));
             }
         },
         enableDisableButton: function() {
