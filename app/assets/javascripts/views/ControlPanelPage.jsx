@@ -3,7 +3,7 @@ define(["react", "react-router", "javascripts/components/TodoDummy", "mui"],
         var ControlPanelPage = React.createClass({
             render: function() {
                 return (
-                    <TodoDummy text="control panel"/>
+                    <ReactRouter.RouteHandler />
                 );
             }
         });
