@@ -36,6 +36,12 @@ define(['react', 'intl-messageformat'], function(React) {
         getIntlMessage: function(key, args) {
             var msgFmt = new IntlMessageFormat(getNestedProperty(this.context.messages, key), this.context.locale);
             return msgFmt.format(args);
+        },
+        getMsg: function(relativeKey, args) {
+            var key = (typeof this.props.msgKeyPrefix === 'undefined')
+                ? (relativeKey)
+                : (this.props.msgKeyPrefix + '.' + relativeKey);
+            return this.getIntlMessage(key, args);
         }
     };
 
