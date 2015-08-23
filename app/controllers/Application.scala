@@ -33,6 +33,7 @@ class Application extends Controller with DefaultDbConfiguration {
         routes.javascript.Application.setLanguage,
 
         routes.javascript.Managers.list,
+        routes.javascript.Managers.show,
         routes.javascript.Managers.store,
         routes.javascript.Managers.update,
         routes.javascript.Managers.delete,

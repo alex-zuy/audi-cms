@@ -26,6 +26,15 @@ class Managers extends Controller with DefaultDbConfiguration {
     }
   }
 
+  def show(id: Int) = Authenticate(TypicalManager).async { implicit request =>
+    if(request.manager.isAdmin || request.manager.id == id) {
+      runQuery(ManagerDAO.byId(id).map(m => (m.id, m.fullName, m.email, m.isAdmin)).result.head).map { tuple =>
+        Ok(Json.toJson((ManagerList.apply _).tupled(tuple)))
+      }
+    }
+    else Future.successful(Unauthorized)
+  }
+
   def store = Authenticate(Administrator).async(parse.json) { implicit request =>
     request.body.validate[ManagerStore].map { m =>
       val manager = Manager(0, m.fullName, m.email, hashPassword(m.password), false)

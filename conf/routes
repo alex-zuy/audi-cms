@@ -12,6 +12,7 @@ POST        /setLanguage/:lang                  controllers.Application.setLangu
 
 # Managers management
 GET         /managers/list                      controllers.Managers.list
+GET         /managers/show/:id                  controllers.Managers.show(id: Int)
 POST        /managers/store                     controllers.Managers.store
 POST        /managers/update/:id                controllers.Managers.update(id: Int)
 POST        /managers/delete/:id                controllers.Managers.delete(id: Int)

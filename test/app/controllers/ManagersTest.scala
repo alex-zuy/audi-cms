@@ -131,6 +131,11 @@ class ManagersTest extends FakeAppPerSuite with FakeAuthenticatedRequests {
       }
     }
 
+    "list one manager on show request" in {
+      val response = controller.show(managerId(managerOne)).apply(adminRequest())
+      status(response) mustBe OK
+    }
+
     "create new manager record when data valid" in {
       val result = call(controller.store, adminRequest().withBody(toJson(newMngrStr)))
       status(result) mustBe OK
