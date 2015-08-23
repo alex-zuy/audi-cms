@@ -25,6 +25,9 @@ require.config({
 
 requirejs(['react', 'react-router', 'javascripts/Routes'], function(React, ReactRouter, routes) {
 
+    // hack to workaround issue in material-ui. see https://github.com/callemall/material-ui/issues/1486
+    window.process = {env:{NODE_ENV:''}};
+
     function launchApp(messages) {
 
         ReactRouter.run(routes, ReactRouter.HashLocation, function(App) {
