@@ -3,6 +3,17 @@
         loginPage: {
             login: Login
         }
+        managersCtl: {
+            table: {
+                fullName: Full name
+                email: Email
+                password: Password
+                isAdmin: Admin
+            }
+            changePassword: {
+                title: Changing password
+            }
+        }
         navbar: {
             main: Main
             newsAndOffers: NewsAndOffers
@@ -21,11 +32,21 @@
         loginPage: {
             login: Login
         }
+        managersCtl: {
+            changePassword: Change password
+            store: Save
+        }
     }
 
     errors: {
         loginPage: {
             noSuchUser: There is no such user. Check your data!
+        }
+        managersCtl: {
+            changePassword: {
+                passwordsNotEqual: Passwords don`t match
+                submitError: An error appeared while submitting password change
+            }
         }
     }
 
@@ -38,6 +59,18 @@
             password: {
                 label: Password
                 placeholder: Enter password
+            }
+        }
+        managersCtl: {
+            changePassword: {
+                password: {
+                    label: New password
+                    placeholder: Enter password
+                }
+                confirmPassword: {
+                    label: Confirm password
+                    placeholder: Enter password second time
+                }
             }
         }
     }

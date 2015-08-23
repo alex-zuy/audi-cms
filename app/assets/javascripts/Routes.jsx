@@ -11,6 +11,9 @@ define(['react',
         'javascripts/views/TestDrivePage',
         'javascripts/views/LoginPage',
         'javascripts/views/ControlPanelPage',
+        'javascripts/views/ManagersControl',
+        'javascripts/components/ManagersList',
+        'javascripts/components/ManagerChangePassword',
         'javascripts/UserLayout',
         'javascripts/ManagerLayout',
     ],
@@ -27,6 +30,9 @@ define(['react',
              TestDrivePage,
              LoginPage,
              ControlPanelPage,
+             ManagersControl,
+             ManagersList,
+             ManagerChangePassword,
              UserLayout,
              ManagerLayout)
     {
@@ -46,7 +52,12 @@ define(['react',
                     <Route path="/login" name="login" handler={LoginPage}/>
                 </Route>
                 <Route path="/control-panel" name="control-panel" handler={ManagerLayout}>
-                    <Route path="/" handler={ControlPanelPage}/>
+                    <Route handler={ControlPanelPage}>
+                        <Route path="managers" handler={ManagersControl}>
+                            <Route path="list" name="managers-list" handler={ManagersList}/>
+                            <Route path=":id/change-password" name="manager-change-password" handler={ManagerChangePassword}/>
+                        </Route>
+                    </Route>
                 </Route>
             </Route>
         );
