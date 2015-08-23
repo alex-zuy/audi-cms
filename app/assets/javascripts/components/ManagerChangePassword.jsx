@@ -1,4 +1,4 @@
-define(['react', 'react-router', 'intl-mixin', 'mui'], function(React, ReactRouter, IntlMixin, mui) {
+define(['react', 'react-router', 'intl-mixin', 'mui', 'javascripts/components/ErrorPanel'], function(React, ReactRouter, IntlMixin, mui, ErrorPanel) {
 
     var Paper = mui.Paper;
     var TextField = mui.TextField;
@@ -27,17 +27,12 @@ define(['react', 'react-router', 'intl-mixin', 'mui'], function(React, ReactRout
             }
         },
         render: function() {
-            var submitError = (this.state.submitError != null)
-                ? ( <div ref="errors" className="card-panel red lighten-1 white-text">
-                        {this.getMsg(this.state.submitError)}
-                    </div>)
-                : ('');
             return (
                 <Paper zDepth={2} rounded={false} style={{padding:"50px"}}>
                     <h5>{this.getMsg('labels.title')}</h5>
                     <p>{this.state.manager.fullName}</p>
                     <form onChange={this.enableDisableButton}>
-                        {submitError}
+                        <ErrorPanel msgKeyPrefix={this.props.msgKeyPrefix} errorKey={this.state.submitError}/>
                         <TextField
                             ref="password"
                             onChange={this.passwordChanged}
