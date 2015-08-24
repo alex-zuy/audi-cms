@@ -104,7 +104,7 @@
     validators: {
         errors: {
             string: {
-                length: String value is too long
+                length: String must not be longer than {maxLength} characters
                 noWhitespace: String must not contain whitespace characters
                 lowCase: String must be in low case
                 email: String must be valid email address
@@ -112,9 +112,9 @@
             }
             numeric: {
                 nonNegative: Value must non be negative
-                min: Value is lower than minimally acceptable
-                max: Value is bigger than maximally acceptable
-                inRange: Value is beyond acceptable range
+                min: Value must not be lower than {minValue}
+                max: Value must not be greater than {maxValue}
+                inRange: Value must be in range {minValue} - {maxValue}
             }
             value: {
                 unique: Record with such value already exists

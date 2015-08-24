@@ -14,7 +14,7 @@ import scala.concurrent.Await.result
 
 object Validators {
 
-  def Length(max: Int) = build[String]("validators.errors.string.length") {
+  def Length(max: Int) = build[String]("validators.errors.string.length", "maxLength" -> max) {
     _.length <= max }
 
   def NoWhitespace = build[String]("validators.errors.string.whitespace") {
@@ -32,13 +32,13 @@ object Validators {
   def NonNegative[T](implicit n :Numeric[T]) = build[T]("validators.errors.numeric.negative") {
     n.gteq(_, n.zero) }
 
-  def Min[T](min: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.min") {
+  def Min[T](min: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.min", "minValue" -> min) {
     n.gteq(_, min) }
 
-  def Max[T](max: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.max") {
+  def Max[T](max: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.max", "maxValue" -> max) {
     n.lteq(_, max) }
 
-  def InRange[T](min: T, max: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.range") {
+  def InRange[T](min: T, max: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.range", "minValue" -> min, "maxValue" -> max) {
     v => n.gteq(v, min) && n.lteq(v, max) }
 
   /**
