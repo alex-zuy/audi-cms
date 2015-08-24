@@ -101,4 +101,24 @@
             }
         }
     }
+    validators: {
+        errors: {
+            string: {
+                length: String value is too long
+                noWhitespace: String must not contain whitespace characters
+                lowCase: String must be in low case
+                email: String must be valid email address
+                phoneNumber: String must be correct phone number
+            }
+            numeric: {
+                nonNegative: Value must non be negative
+                min: Value is lower than minimally acceptable
+                max: Value is bigger than maximally acceptable
+                inRange: Value is beyond acceptable range
+            }
+            value: {
+                unique: Record with such value already exists
+            }
+        }
+    }
 }
