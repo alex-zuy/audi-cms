@@ -1,4 +1,4 @@
-define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPanel', 'mui', 'javascripts/mixins/AjaxMixin'], function(React, ReactRouter, IntlMixin, ErrorPanel, mui, AjaxMixin) {
+define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPanel', 'mui', 'javascripts/mixins/AjaxMixin', 'javascripts/mixins/FormMixin'], function(React, ReactRouter, IntlMixin, ErrorPanel, mui, AjaxMixin, FormMixin) {
 
     var TextField = mui.TextField;
     var RaisedButton = mui.RaisedButton;
@@ -9,16 +9,21 @@ define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPane
             ReactRouter.Navigation,
             IntlMixin,
             AjaxMixin,
+            FormMixin,
         ],
         getDefaultProps: function() {
             return {
                 msgKeyPrefix: 'managersCtl.store',
+                formMixin: {
+                    fieldRefs: ['fullName', 'email', 'password'],
+                    validateRoute: jsRoutes.controllers.Managers.validateStore(),
+                    submitRoute: jsRoutes.controllers.Managers.store(),
+                }
             }
         },
         getInitialState: function() {
             return {
                 error: null,
-                buttonDisabled: true,
             };
         },
         render: function() {
@@ -54,7 +59,7 @@ define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPane
                         <RaisedButton
                             onClick={this.submitStore}
                             label={this.getMsg('actions.store')}
-                            disabled={this.state.buttonDisabled}
+                            disabled={!this.state.formMixin.fieldsValid}
                             primary={true}
                             />
                     </form>
@@ -63,6 +68,7 @@ define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPane
         },
         clearConfirmPassword: function() {
             this.refs.confirmPassword.clearValue();
+            this.refs.confirmPassword.setErrorText('');
         },
         onConfirmPasswordBlur: function() {
             if(!this.passwordsMatch()) {
@@ -72,38 +78,13 @@ define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPane
         passwordsMatch: function() {
             return this.refs.password.getValue() === this.refs.confirmPassword.getValue();
         },
-        getAllFields: function() {
-            var fieldNames = ['fullName', 'email', 'password', 'confirmPassword'];
-            return fieldNames.reduce(function(fields, field) {
-                fields[field] = this.refs[field].getValue();
-                return fields;
-            }.bind(this), {});
-        },
-        allFieldsNotEmpty: function() {
-            var allFields = this.getAllFields();
-            return Object.getOwnPropertyNames(allFields).every(function(fieldName) {
-                return allFields[fieldName].length !== 0;
-            });
-        },
         onChange: function() {
-            if(this.passwordsMatch() && this.allFieldsNotEmpty()) {
-                this.ajax(jsRoutes.controllers.Managers.validateStore(), {
-                    data: this.getAllFields(),
-                    success: function(violations) {
-                        Object.getOwnPropertyNames(violations).forEach(function(field) {
-                            this.refs[field].setErrorText(this.getIntlMessage(violations[field].key, violations[field].args));
-                        }, this);
-                    }.bind(this),
-                });
-                this.setState({buttonDisabled: false});
-            }
-            else {
-                this.setState({buttonDisabled: true});
+            if(this.passwordsMatch()) {
+                this.validateForm();
             }
         },
         submitStore: function() {
-            this.ajax(jsRoutes.controllers.Managers.store(), {
-                data: this.getAllFields(),
+            this.submitForm({
                 success: function() {
                     this.transitionTo('managers-list');
                 }.bind(this),
