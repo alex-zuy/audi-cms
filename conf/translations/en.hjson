@@ -34,6 +34,36 @@
                 changePassword: Change password
             }
         }
+        store: {
+            labels: {
+                title: Creating new  manager
+            }
+            actions: {
+                store: Save
+            }
+            inputs: {
+                fullName: {
+                    label: Full name
+                    placeholder: Manager full name
+                }
+                email: {
+                    label: Email
+                    placeholder: Email used to login
+                }
+                password: {
+                    label: Password
+                    placeholder: Enter password
+                }
+                confirmPassword: {
+                    label: Confirm password
+                    placeholder: Repeat password
+                }
+            }
+            errors: {
+                passwordsNotEqual: Passwords don`t match
+                submitError: An error appeared while submitting manager store
+            }
+        }
         changePassword: {
             labels: {
                 title: Changing password

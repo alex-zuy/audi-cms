@@ -13,6 +13,7 @@ define(['react',
         'javascripts/views/ControlPanelPage',
         'javascripts/views/ManagersControl',
         'javascripts/components/ManagersList',
+        'javascripts/components/ManagerStore',
         'javascripts/components/ManagerChangePassword',
         'javascripts/UserLayout',
         'javascripts/ManagerLayout',
@@ -32,6 +33,7 @@ define(['react',
              ControlPanelPage,
              ManagersControl,
              ManagersList,
+             ManagerStore,
              ManagerChangePassword,
              UserLayout,
              ManagerLayout)
@@ -55,6 +57,7 @@ define(['react',
                     <Route handler={ControlPanelPage}>
                         <Route path="managers" handler={ManagersControl}>
                             <Route path="list" name="managers-list" handler={ManagersList}/>
+                            <Route path="store" name="manager-store" handler={ManagerStore}/>
                             <Route path=":id/change-password" name="manager-change-password" handler={ManagerChangePassword}/>
                         </Route>
                     </Route>
