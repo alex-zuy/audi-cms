@@ -1,4 +1,4 @@
-define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPanel', 'mui'], function(React, ReactRouter, IntlMixin, ErrorPanel, mui) {
+define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPanel', 'mui', 'javascripts/mixins/AjaxMixin'], function(React, ReactRouter, IntlMixin, ErrorPanel, mui, AjaxMixin) {
 
     var TextField = mui.TextField;
     var RaisedButton = mui.RaisedButton;
@@ -8,6 +8,7 @@ define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPane
         mixins: [
             ReactRouter.Navigation,
             IntlMixin,
+            AjaxMixin,
         ],
         getDefaultProps: function() {
             return {
@@ -86,12 +87,8 @@ define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPane
         },
         onChange: function() {
             if(this.passwordsMatch() && this.allFieldsNotEmpty()) {
-                var route = jsRoutes.controllers.Managers.validateStore();
-                $.ajax({
-                    method: route.type,
-                    url: route.url,
-                    contentType: 'text/json',
-                    data: JSON.stringify(this.getAllFields()),
+                this.ajax(jsRoutes.controllers.Managers.validateStore(), {
+                    data: this.getAllFields(),
                     success: function(violations) {
                         Object.getOwnPropertyNames(violations).forEach(function(field) {
                             this.refs[field].setErrorText(this.getIntlMessage(violations[field].key, violations[field].args));
@@ -105,12 +102,8 @@ define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPane
             }
         },
         submitStore: function() {
-            var route = jsRoutes.controllers.Managers.store();
-            $.ajax({
-                method: route.type,
-                url: route.url,
-                contentType: 'text/json',
-                data: JSON.stringify(this.getAllFields()),
+            this.ajax(jsRoutes.controllers.Managers.store(), {
+                data: this.getAllFields(),
                 success: function() {
                     this.transitionTo('managers-list');
                 }.bind(this),
