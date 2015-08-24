@@ -1,4 +1,4 @@
-define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPanel', 'mui', 'javascripts/mixins/AjaxMixin', 'javascripts/mixins/FormMixin'], function(React, ReactRouter, IntlMixin, ErrorPanel, mui, AjaxMixin, FormMixin) {
+define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPanel', 'mui', 'javascripts/mixins/AjaxMixin', 'javascripts/mixins/FormMixin', 'javascripts/mixins/DelayedFormValidateMixin'], function(React, ReactRouter, IntlMixin, ErrorPanel, mui, AjaxMixin, FormMixin, DelayedValidate) {
 
     var TextField = mui.TextField;
     var RaisedButton = mui.RaisedButton;
@@ -10,10 +10,14 @@ define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPane
             IntlMixin,
             AjaxMixin,
             FormMixin,
+            DelayedValidate,
         ],
         getDefaultProps: function() {
             return {
                 msgKeyPrefix: 'managersCtl.store',
+                delayedFormValidateMixin: {
+                    delay: 800,
+                },
                 formMixin: {
                     fieldRefs: ['fullName', 'email', 'password'],
                     validateRoute: jsRoutes.controllers.Managers.validateStore(),
@@ -30,7 +34,7 @@ define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPane
             return (
                 <Paper zDepth={2} rounded={false} style={{padding: "50px"}}>
                     <h5>{this.getMsg('labels.title')}</h5>
-                    <form onChange={this.onChange}>
+                    <form onChange={this.onFormChangedCallback}>
                         <ErrorPanel errorKey={this.state.error}/>
                         <TextField
                             ref="fullName"
