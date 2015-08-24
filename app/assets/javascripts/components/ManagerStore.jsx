@@ -1,4 +1,5 @@
-define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPanel', 'mui', 'javascripts/mixins/AjaxMixin', 'javascripts/mixins/FormMixin', 'javascripts/mixins/DelayedFormValidateMixin'], function(React, ReactRouter, IntlMixin, ErrorPanel, mui, AjaxMixin, FormMixin, DelayedValidate) {
+define(['react', 'react-router', 'javascripts/components/ErrorPanel', 'mui', 'javascripts/mixins/allMixins'],
+    function(React, ReactRouter, ErrorPanel, mui, allMixins) {
 
     var TextField = mui.TextField;
     var RaisedButton = mui.RaisedButton;
@@ -7,10 +8,10 @@ define(['react', 'react-router', 'intl-mixin', 'javascripts/components/ErrorPane
     return React.createClass({
         mixins: [
             ReactRouter.Navigation,
-            IntlMixin,
-            AjaxMixin,
-            FormMixin,
-            DelayedValidate,
+            allMixins.IntlMixin,
+            allMixins.AjaxMixin,
+            allMixins.FormMixin,
+            allMixins.DelayedFormValidateMixin,
         ],
         getDefaultProps: function() {
             return {
