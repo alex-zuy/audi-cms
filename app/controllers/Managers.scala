@@ -11,6 +11,8 @@ import play.api.libs.json._
 import play.api.libs.json.Json
 import internal.{Authenticate, DefaultDbConfiguration}
 
+import internal.validation.{Required, Validator}
+import internal.validation.Validators._
 import internal.PostgresDriverExtended.api._
 
 import scala.concurrent.Future
@@ -42,6 +44,10 @@ class Managers extends Controller with DefaultDbConfiguration {
         Ok(Json.obj("id" -> id))
       } fallbackTo Future.successful(Conflict)
     } getOrElse Future.successful(BadRequest)
+  }
+
+  def validateStore = Authenticate(Administrator)(parse.json[ManagerStore]) { implicit request =>
+    Ok(Json.toJson(storeValidator(request.body).violations))
   }
 
   def update(id: Int) = Authenticate(Administrator).async(parse.json) { implicit request =>
@@ -105,4 +111,12 @@ class Managers extends Controller with DefaultDbConfiguration {
   implicit val readsManagerUpdate = Json.reads[ManagerUpdate]
 
   implicit val readsPasswordUpdate = Json.reads[PasswordUpdate]
+
+  def storeValidator(mgr: ManagerStore) = new Validator {
+    def rules = Seq(
+      "fullName" -> Required(mgr.fullName)( Length(50) ),
+      "email" -> Required(mgr.email)( Length(50), Email ),
+      "password" -> Required(mgr.password)( Length(50) )
+    )
+  }
 }
