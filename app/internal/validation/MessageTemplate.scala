@@ -1,5 +1,7 @@
 package internal.validation
 
+import play.api.libs.json._
+
 import scala.collection.{parallel, mutable}
 import scala.collection.parallel.immutable
 
@@ -26,5 +28,11 @@ object MessageTemplate {
     val mt = new MessageTemplate(key)
     parameters.foreach(mt.putParameter(_))
     mt
+  }
+  implicit val writesMessageTemplate = new Writes[MessageTemplate] {
+    def writes(o: MessageTemplate): JsValue = Json.obj(
+      "key" -> o.key,
+      "args" -> JsObject(o.parameterMap.map(m => m._1 -> JsString(m._2)))
+    )
   }
 }
