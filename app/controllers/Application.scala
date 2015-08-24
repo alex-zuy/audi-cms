@@ -35,6 +35,7 @@ class Application extends Controller with DefaultDbConfiguration {
         routes.javascript.Managers.list,
         routes.javascript.Managers.show,
         routes.javascript.Managers.store,
+        routes.javascript.Managers.validateStore,
         routes.javascript.Managers.update,
         routes.javascript.Managers.delete,
         routes.javascript.Managers.grantAdmin,
