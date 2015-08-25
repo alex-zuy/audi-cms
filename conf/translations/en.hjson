@@ -64,6 +64,24 @@
                 submitError: An error appeared while submitting manager store
             }
         }
+        update: {
+            labels: {
+                title: Updating manager
+            }
+            actions: {
+                update: Save
+            }
+            inputs: {
+                fullName: {
+                    label: Full name
+                    placeholder: Enter new full name
+                }
+                email: {
+                    label: Email
+                    placeholder: Enter new email
+                }
+            }
+        }
         changePassword: {
             labels: {
                 title: Changing password
