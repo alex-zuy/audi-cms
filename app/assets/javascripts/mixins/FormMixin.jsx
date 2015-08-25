@@ -11,14 +11,8 @@ define(['react'], function(React) {
             formMixin: React.PropTypes.shape({
                 fieldRefs: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
                 optionalFieldRefs: React.PropTypes.arrayOf(React.PropTypes.string),
-                validateRoute: React.PropTypes.shape({
-                    type: React.PropTypes.string,
-                    url: React.PropTypes.string,
-                }).isRequired,
-                submitRoute: React.PropTypes.shape({
-                    type: React.PropTypes.string,
-                    url: React.PropTypes.string,
-                }).isRequired,
+                validateRoute: React.PropTypes.func.isRequired,
+                submitRoute: React.PropTypes.func.isRequired,
             }).isRequired
         },
         getInitialState: function() {
@@ -49,7 +43,7 @@ define(['react'], function(React) {
         },
         validateForm: function() {
             if (this.allRequiredFieldsNotEmpty()) {
-                this.ajax(this.props.formMixin.validateRoute, {
+                this.ajax(this.props.formMixin.validateRoute.apply(this), {
                     data: this.getAllFields(),
                     success: function(violations) {
                         this.setState({formMixin: {fieldsValid: objectEmpty(violations)}});
@@ -62,7 +56,7 @@ define(['react'], function(React) {
         },
         submitForm: function(callbacks) {
             if(this.state.formMixin.fieldsValid) {
-                this.ajax(this.props.formMixin.submitRoute, {
+                this.ajax(this.props.formMixin.submitRoute.apply(this), {
                     data: this.getAllFields(),
                     success: callbacks.success,
                     error: callbacks.error,
