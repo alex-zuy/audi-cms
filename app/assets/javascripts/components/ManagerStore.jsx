@@ -29,13 +29,14 @@ define(['react', 'react-router', 'javascripts/components/ErrorPanel', 'mui', 'ja
         getInitialState: function() {
             return {
                 error: null,
+                passwordsMatch: false,
             };
         },
         render: function() {
             return (
                 <Paper zDepth={2} rounded={false} style={{padding: "50px"}}>
                     <h5>{this.getMsg('labels.title')}</h5>
-                    <form onChange={this.onFormChangedCallback}>
+                    <form onChange={this.onChange}>
                         <ErrorPanel errorKey={this.state.error}/>
                         <TextField
                             ref="fullName"
@@ -64,7 +65,7 @@ define(['react', 'react-router', 'javascripts/components/ErrorPanel', 'mui', 'ja
                         <RaisedButton
                             onClick={this.submitStore}
                             label={this.getMsg('actions.store')}
-                            disabled={!this.state.formMixin.fieldsValid}
+                            disabled={!(this.state.formMixin.fieldsValid && this.state.passwordsMatch)}
                             primary={true}
                             />
                     </form>
@@ -84,9 +85,8 @@ define(['react', 'react-router', 'javascripts/components/ErrorPanel', 'mui', 'ja
             return this.refs.password.getValue() === this.refs.confirmPassword.getValue();
         },
         onChange: function() {
-            if(this.passwordsMatch()) {
-                this.validateForm();
-            }
+            this.setState({passwordsMatch: this.passwordsMatch()});
+            this.onFormChangedCallback();
         },
         submitStore: function() {
             this.submitForm({
