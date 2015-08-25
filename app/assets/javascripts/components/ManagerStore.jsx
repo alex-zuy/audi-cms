@@ -21,8 +21,8 @@ define(['react', 'react-router', 'javascripts/components/ErrorPanel', 'mui', 'ja
                 },
                 formMixin: {
                     fieldRefs: ['fullName', 'email', 'password'],
-                    validateRoute: jsRoutes.controllers.Managers.validateStore(),
-                    submitRoute: jsRoutes.controllers.Managers.store(),
+                    validateRoute: function() { return jsRoutes.controllers.Managers.validateStore(); },
+                    submitRoute: function() { return jsRoutes.controllers.Managers.store(); },
                 }
             }
         },
