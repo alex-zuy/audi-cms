@@ -53,6 +53,9 @@ define(['react'], function(React) {
                     }.bind(this)
                 })
             }
+            else {
+                this.setState({formMixin: {fieldsValid: false}});
+            }
         },
         submitForm: function(callbacks) {
             if(this.state.formMixin.fieldsValid) {

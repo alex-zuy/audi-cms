@@ -11,6 +11,9 @@ define(['react'], function(React) {
         onFormChangedCallback: function() {
             this._lastChanged = new Date();
             this._wasValidated = false;
+            if(!this.allRequiredFieldsNotEmpty()) {
+                this.setState({formMixin: {fieldsValid: false}});
+            }
         },
         componentDidMount: function() {
             this._lastChanged = new Date();
