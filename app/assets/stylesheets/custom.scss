@@ -1,0 +1,22 @@
+table.manager-list {
+  tr td i {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 800ms;
+  }
+  tr:hover {
+    td i {
+      visibility: visible;
+      opacity: 1.0;
+    }
+    td {
+      cursor: pointer;
+    }
+    td.hover-group.update {
+      background-color: #e0f7fa;
+    }
+    td.hover-group.delete {
+      background-color: #ef9a9a;
+    }
+  }
+}

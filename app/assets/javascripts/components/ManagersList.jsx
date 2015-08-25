@@ -1,11 +1,26 @@
-define(['react', 'react-router', 'mui', 'intl-mixin'], function(React, ReactRouter, mui, IntlMixin) {
+define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMixin'],
+    function(React, ReactRouter, mui, IntlMixin, AjaxMixin) {
 
     var Toggle = mui.Toggle;
+    var FlatButton = mui.FlatButton;
+    var RaisedButton = mui.RaisedButton;
+    var FontIcon = mui.FontIcon;
+    var Dialog = mui.Dialog;
     var Link = ReactRouter.Link;
 
+    var fontIconStyle = {
+        height: '100%',
+        display: 'inline-block',
+        verticalAlign: 'middle',
+        float: 'left',
+        paddingLeft: '12px',
+        lineHeight: '36px',
+    };
 
     var ManagersList = React.createClass({
         mixins: [
+            ReactRouter.Navigation,
+            AjaxMixin,
             IntlMixin,
         ],
         getDefaultProps: function() {
@@ -16,18 +31,29 @@ define(['react', 'react-router', 'mui', 'intl-mixin'], function(React, ReactRout
         getInitialState: function() {
             return {
                 managers: [],
+                deletingManager: null,
             }
         },
         render: function() {
-            var rows = this.state.managers.sort(function(l,r) {
+            var tableRows = this.state.managers.sort(function(l,r) {
                 if(l.fullName < r.fullName) return -1;
                 else if(l.fullName > r.fullName) return 1;
                 else return 0;
             }).map(function(mgr) {
                 return (
                     <tr key={mgr.id}>
-                        <td>{mgr.fullName}</td>
-                        <td>{mgr.email}</td>
+                        <td className="hover-group delete" onClick={this.deleteManager.bind(this, mgr.id)}>
+                            <i className="material-icons" style={{fontSize: "24px"}}>delete</i>
+                        </td>
+                        <td className="hover-group update" onClick={this.goToUpdate.bind(this, mgr.id)}>
+                            {mgr.fullName}
+                        </td>
+                        <td className="hover-group update" onClick={this.goToUpdate.bind(this, mgr.id)}>
+                            {mgr.email}
+                        </td>
+                        <td className="hover-group update" onClick={this.goToUpdate.bind(this, mgr.id)}>
+                            <i className="material-icons" style={{fontSize: "24px"}}>mode_edit</i>
+                        </td>
                         <td>
                             <Link to="manager-change-password" params={{id: mgr.id}}>
                                 {this.getMsg('actions.changePassword')}
@@ -43,22 +69,68 @@ define(['react', 'react-router', 'mui', 'intl-mixin'], function(React, ReactRout
                     </tr>
                 );
             }, this);
+            var dialogButtons = [
+                <FlatButton
+                    key="cancel"
+                    label={this.getMsg('actions.delete.cancel')}
+                    secondary={true}
+                    onClick={this.cancelDelete}/>,
+                <FlatButton
+                    key="confirm"
+                    label={this.getMsg('actions.delete.confirm')}
+                    primary={true}
+                    onClick={this.confirmDelete}/>
+            ];
             return (
-                <table>
-                    <thead>
-                    <tr>
-                        <th>{this.getMsg('labels.table.fullName')}</th>
-                        <th>{this.getMsg('labels.table.email')}</th>
-                        <th>{this.getMsg('labels.table.password')}</th>
-                        <th>{this.getMsg('labels.table.isAdmin')}</th>
-                    </tr>
-                    </thead>
-                    <tbody>{rows}</tbody>
-                </table>
+                <div>
+                    <table className="manager-list">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>{this.getMsg('labels.table.fullName')}</th>
+                            <th>{this.getMsg('labels.table.email')}</th>
+                            <th></th>
+                            <th>{this.getMsg('labels.table.password')}</th>
+                            <th>{this.getMsg('labels.table.isAdmin')}</th>
+                        </tr>
+                        </thead>
+                        <tbody>{tableRows}</tbody>
+                    </table>
+                    <RaisedButton
+                        linkButton={true}
+                        href={this.makeHref('manager-store')}
+                        label={this.getMsg('actions.add')}>
+                        <FontIcon className="material-icons" style={fontIconStyle}>person_add</FontIcon>
+                    </RaisedButton>
+                    <Dialog
+                        ref="deleteDialog"
+                        title={this.getMsg('labels.deleting')}
+                        actions={dialogButtons}>
+                        {this.getMsg('labels.confirmDelete')}
+                    </Dialog>
+                </div>
             );
         },
         componentWillMount: function() {
             this.loadManagers();
+        },
+        goToUpdate: function(id) {
+            this.transitionTo('manager-update', {id: id});
+        },
+        deleteManager: function(id) {
+            this.setState({deletingManager: id});
+            this.refs.deleteDialog.show();
+        },
+        confirmDelete: function() {
+            this.ajax(jsRoutes.controllers.Managers.delete(this.state.deletingManager), {
+                complete: function() {
+                    this.loadManagers();
+                }.bind(this)
+            });
+            this.refs.deleteDialog.dismiss();
+        },
+        cancelDelete: function() {
+            this.refs.deleteDialog.dismiss();
         },
         loadManagers: function() {
             var route = jsRoutes.controllers.Managers.list();

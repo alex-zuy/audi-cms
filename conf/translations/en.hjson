@@ -23,6 +23,8 @@
     managersCtl: {
         list: {
             labels: {
+                deleting: Deleting manager
+                confirmDelete: Are you sure you want to delete this manager ?
                 table: {
                     fullName: Full name
                     email: Email
@@ -31,7 +33,12 @@
                 }
             }
             actions: {
-                changePassword: Change password
+                changePassword: Change
+                add: Add manager
+                delete: {
+                    cancel: Cancel
+                    confirm: Delete
+                }
             }
         }
         store: {
