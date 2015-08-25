@@ -57,6 +57,10 @@ class Managers extends Controller with DefaultDbConfiguration {
     } getOrElse Future.successful(BadRequest)
   }
 
+  def validateUpdate(id: Int) = Authenticate(Administrator)(parse.json[ManagerUpdate]) { implicit request =>
+    Ok(Json.toJson(updateValidator(request.body).violations))
+  }
+
   def delete(id: Int) = Authenticate(Administrator).async { implicit request =>
     dbConfig.db.run(ManagerDAO.byId(id).filter(_.isAdmin === false).delete).map { affectedRows =>
       if (affectedRows == 0) Conflict
@@ -117,6 +121,13 @@ class Managers extends Controller with DefaultDbConfiguration {
       "fullName" -> Required(mgr.fullName)( Length(50) ),
       "email" -> Required(mgr.email)( Length(50), Email ),
       "password" -> Required(mgr.password)( Length(50) )
+    )
+  }
+
+  def updateValidator(mgr: ManagerUpdate) = new Validator {
+    def rules = Seq(
+      "fullName" -> Required(mgr.fullName)( Length(50) ),
+      "email" -> Required(mgr.email)( Length(50), Email )
     )
   }
 }

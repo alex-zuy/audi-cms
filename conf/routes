@@ -16,6 +16,7 @@ GET         /managers/show/:id                  controllers.Managers.show(id: In
 POST        /managers/store                     controllers.Managers.store
 POST        /managers/validateStore             controllers.Managers.validateStore
 POST        /managers/update/:id                controllers.Managers.update(id: Int)
+POST        /managers/validateUpdate/:id        controllers.Managers.validateUpdate(id: Int)
 POST        /managers/delete/:id                controllers.Managers.delete(id: Int)
 POST        /managers/grantAdmin/:id            controllers.Managers.grantAdmin(id: Int)
 POST        /managers/revokeAdmin/:id           controllers.Managers.revokeAdmin(id: Int)
