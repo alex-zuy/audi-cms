@@ -1,21 +1,10 @@
-define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMixin'],
-    function(React, ReactRouter, mui, IntlMixin, AjaxMixin) {
+define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMixin', 'javascripts/widgets/IconedButton'],
+    function(React, ReactRouter, mui, IntlMixin, AjaxMixin, IconedButton) {
 
     var Toggle = mui.Toggle;
     var FlatButton = mui.FlatButton;
-    var RaisedButton = mui.RaisedButton;
-    var FontIcon = mui.FontIcon;
     var Dialog = mui.Dialog;
     var Link = ReactRouter.Link;
-
-    var fontIconStyle = {
-        height: '100%',
-        display: 'inline-block',
-        verticalAlign: 'middle',
-        float: 'left',
-        paddingLeft: '12px',
-        lineHeight: '36px',
-    };
 
     var ManagersList = React.createClass({
         mixins: [
@@ -96,12 +85,11 @@ define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMi
                         </thead>
                         <tbody>{tableRows}</tbody>
                     </table>
-                    <RaisedButton
+                    <IconedButton
                         linkButton={true}
                         href={this.makeHref('manager-store')}
-                        label={this.getMsg('actions.add')}>
-                        <FontIcon className="material-icons" style={fontIconStyle}>person_add</FontIcon>
-                    </RaisedButton>
+                        label={this.getMsg('actions.add')}
+                        iconName="person_add"/>
                     <Dialog
                         ref="deleteDialog"
                         title={this.getMsg('labels.deleting')}
