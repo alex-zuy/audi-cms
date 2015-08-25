@@ -19,9 +19,7 @@ define(function() {
                 contentType: 'text/json',
             };
 
-            if(propDefined(options, 'data')) {
-                ajaxOptions.data = JSON.stringify(options.data);
-            }
+            ajaxOptions.data = JSON.stringify(propDefined(options, 'data') ? options.data : {});
 
             ['complete', 'success', 'error'].forEach(function(propName) {
                 appendIfDefined(ajaxOptions, options, propName);
