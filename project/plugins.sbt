@@ -16,3 +16,5 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-digest" % "1.1.0")
 addSbtPlugin("com.typesafe.sbt" % "sbt-mocha" % "1.1.0")
 
 addSbtPlugin("com.github.ddispaltro" % "sbt-reactjs" % "0.5.2")
+
+addSbtPlugin("org.madoushi.sbt" % "sbt-sass" % "0.9.0")
