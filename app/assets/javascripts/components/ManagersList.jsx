@@ -1,6 +1,7 @@
 define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMixin', 'javascripts/widgets/IconedButton', 'lib/js-cookie/js.cookie'],
     function(React, ReactRouter, mui, IntlMixin, AjaxMixin, IconedButton, Cookies) {
 
+    var Paper = mui.Paper;
     var Toggle = mui.Toggle;
     var FlatButton = mui.FlatButton;
     var Dialog = mui.Dialog;
@@ -74,7 +75,16 @@ define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMi
                     onClick={this.confirmDelete}/>
             ];
             return (
-                <div>
+                <Paper zDepth={2} rounded={false} style={{padding: "20px"}}>
+                    <h3>Managers control</h3>
+                    <blockquote>
+                        {this.getMsg('labels.yourAccountNotListedHere')}
+                    </blockquote>
+                    <IconedButton
+                        linkButton={true}
+                        href={this.makeHref('manager-store')}
+                        label={this.getMsg('actions.add')}
+                        iconName="person_add"/>
                     <table className="manager-list">
                         <thead>
                         <tr>
@@ -88,11 +98,6 @@ define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMi
                         </thead>
                         <tbody>{tableRows}</tbody>
                     </table>
-                    <IconedButton
-                        linkButton={true}
-                        href={this.makeHref('manager-store')}
-                        label={this.getMsg('actions.add')}
-                        iconName="person_add"/>
                     <Dialog
                         ref="deletingAdminDialog"
                         title={this.getMsg('labels.deleting.admin')}
@@ -105,7 +110,7 @@ define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMi
                         actions={dialogButtons}>
                         {this.getMsg('labels.deleting.confirm')}
                     </Dialog>
-                </div>
+                </Paper>
             );
         },
         componentWillMount: function() {

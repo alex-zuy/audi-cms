@@ -23,6 +23,7 @@
     managersCtl: {
         list: {
             labels: {
+                yourAccountNotListedHere: Your account not listed here
                 deleting: {
                  manager: Deleting manager
                  admin: Deleting admin
