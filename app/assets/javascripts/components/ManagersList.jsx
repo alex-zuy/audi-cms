@@ -1,5 +1,5 @@
-define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMixin', 'javascripts/widgets/IconedButton'],
-    function(React, ReactRouter, mui, IntlMixin, AjaxMixin, IconedButton) {
+define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMixin', 'javascripts/widgets/IconedButton', 'lib/js-cookie/js.cookie'],
+    function(React, ReactRouter, mui, IntlMixin, AjaxMixin, IconedButton, Cookies) {
 
     var Toggle = mui.Toggle;
     var FlatButton = mui.FlatButton;
@@ -24,7 +24,10 @@ define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMi
             }
         },
         render: function() {
-            var tableRows = this.state.managers.sort(function(l,r) {
+            var managerId = parseInt(Cookies.get('managerId'));
+            var tableRows = this.state.managers.filter(function(mgr) {
+                return mgr.id !== managerId;
+            }).sort(function(l,r) {
                 if(l.fullName < r.fullName) return -1;
                 else if(l.fullName > r.fullName) return 1;
                 else return 0;
