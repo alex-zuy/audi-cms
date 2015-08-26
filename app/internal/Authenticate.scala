@@ -51,13 +51,18 @@ object Authenticate {
   val sessionKeyName = "managerEmail"
 
   /**
+   * Name of cookie key which contains identification info.
+   */
+  val cookieKeyName = "managerId"
+
+  /**
    * Creates login action
    * @return
    */
   def loginAction = Action(parse.json[Credentials]) { implicit request =>
     val credentials = request.body
     ManagerDAO.authorize(credentials.email, credentials.password).map { manager =>
-      Ok.addingToSession(sessionKeyName -> manager.email)
+      Ok.addingToSession(sessionKeyName -> manager.email).withCookies(Cookie(cookieKeyName, manager.id.toString))
     } getOrElse NotFound
   }
 
@@ -66,7 +71,7 @@ object Authenticate {
    * @return
    */
   def logoutAction = Action { implicit request =>
-    Ok.removingFromSession(sessionKeyName)
+    Ok.removingFromSession(sessionKeyName).discardingCookies(DiscardingCookie(cookieKeyName))
   }
 
 }
