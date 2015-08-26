@@ -23,8 +23,12 @@
     managersCtl: {
         list: {
             labels: {
-                deleting: Deleting manager
-                confirmDelete: Are you sure you want to delete this manager ?
+                deleting: {
+                 manager: Deleting manager
+                 admin: Deleting admin
+                 confirm: Are you sure you want to delete this manager ?
+                 unacceptable: Admin cannot be deleted! Revoke privileges first
+                }
                 table: {
                     fullName: Full name
                     email: Email

@@ -34,7 +34,7 @@ define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMi
             }).map(function(mgr) {
                 return (
                     <tr key={mgr.id}>
-                        <td className="hover-group delete" onClick={this.deleteManager.bind(this, mgr.id)}>
+                        <td className="hover-group delete" onClick={this.deleteManager.bind(this, mgr.id, mgr.isAdmin)}>
                             <i className="material-icons" style={{fontSize: "24px"}}>delete</i>
                         </td>
                         <td className="hover-group update" onClick={this.goToUpdate.bind(this, mgr.id)}>
@@ -94,10 +94,16 @@ define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMi
                         label={this.getMsg('actions.add')}
                         iconName="person_add"/>
                     <Dialog
-                        ref="deleteDialog"
-                        title={this.getMsg('labels.deleting')}
+                        ref="deletingAdminDialog"
+                        title={this.getMsg('labels.deleting.admin')}
+                        actions={[{text:'Ok', onClick: this.hideDeleteAdminDialog}]}>
+                        {this.getMsg('labels.deleting.unacceptable')}
+                    </Dialog>
+                    <Dialog
+                        ref="deleteConfirmDialog"
+                        title={this.getMsg('labels.deleting.manager')}
                         actions={dialogButtons}>
-                        {this.getMsg('labels.confirmDelete')}
+                        {this.getMsg('labels.deleting.confirm')}
                     </Dialog>
                 </div>
             );
@@ -108,9 +114,17 @@ define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMi
         goToUpdate: function(id) {
             this.transitionTo('manager-update', {id: id});
         },
-        deleteManager: function(id) {
-            this.setState({deletingManager: id});
-            this.refs.deleteDialog.show();
+        deleteManager: function(id, isAdmin) {
+            if(isAdmin) {
+                this.refs.deletingAdminDialog.show();
+            }
+            else {
+                this.setState({deletingManager: id});
+                this.refs.deleteConfirmDialog.show();
+            }
+        },
+        hideDeleteAdminDialog: function() {
+            this.refs.deletingAdminDialog.dismiss();
         },
         confirmDelete: function() {
             this.ajax(jsRoutes.controllers.Managers.delete(this.state.deletingManager), {
@@ -118,10 +132,10 @@ define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMi
                     this.loadManagers();
                 }.bind(this)
             });
-            this.refs.deleteDialog.dismiss();
+            this.refs.deleteConfirmDialog.dismiss();
         },
         cancelDelete: function() {
-            this.refs.deleteDialog.dismiss();
+            this.refs.deleteConfirmDialog.dismiss();
         },
         loadManagers: function() {
             var route = jsRoutes.controllers.Managers.list();
@@ -142,6 +156,9 @@ define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMi
             $.ajax({
                 method: route.type,
                 url: route.url,
+                complete: function() {
+                    this.loadManagers();
+                }.bind(this),
                 error: function(managers) {
                     this.refs['toggle'+id].setToggled(oldValue);
                 }.bind(this)
