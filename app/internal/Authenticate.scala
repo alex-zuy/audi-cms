@@ -62,7 +62,7 @@ object Authenticate {
   def loginAction = Action(parse.json[Credentials]) { implicit request =>
     val credentials = request.body
     ManagerDAO.authorize(credentials.email, credentials.password).map { manager =>
-      Ok.addingToSession(sessionKeyName -> manager.email).withCookies(Cookie(cookieKeyName, manager.id.toString))
+      Ok.addingToSession(sessionKeyName -> manager.email).withCookies(Cookie(cookieKeyName, manager.id.toString, httpOnly = false))
     } getOrElse NotFound
   }
 

@@ -63,12 +63,12 @@ class Application extends Controller with DefaultDbConfiguration {
 
   def translations = Action { implicit request =>
     val content = scala.io.Source.fromInputStream(getClass.getResourceAsStream(s"/translations/${getLang}.hjson")).mkString
-    Ok(JsonValue.readHjson(content).toString).as("text/json").withCookies(Cookie("lang", getLang))
+    Ok(JsonValue.readHjson(content).toString).as("text/json").withCookies(Cookie("lang", getLang, httpOnly = false))
   }
 
   def setLanguage(lang: String) = Action { implicit request =>
     if(supportedLanguages contains lang) {
-      Ok.withCookies(Cookie("lang", lang))
+      Ok.withCookies(Cookie("lang", lang, httpOnly = false))
     }
     else {
       BadRequest("Unsupported or unknown language")
