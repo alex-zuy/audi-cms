@@ -1,3 +1,6 @@
+import com.typesafe.sbt.web.js.JS
+import com.typesafe.sbt.web.js.JS.Object
+
 name := """audi-cms"""
 
 version := "1.0-SNAPSHOT"
@@ -39,3 +42,7 @@ resolvers += "Madoushi sbt-plugins" at "https://dl.bintray.com/madoushi/sbt-plug
 routesGenerator := InjectedRoutesGenerator
 
 parallelExecution in Test := false
+
+JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
+
+BabelJSKeys.options :=  Object(("sourceMaps", JS("both")))
