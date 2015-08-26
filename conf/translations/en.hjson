@@ -131,6 +131,13 @@
             }
         }
     }
+    controlPanel: {
+        navbar: {
+            labels: {
+                managers: Managers
+            }
+        }
+    }
     validators: {
         errors: {
             string: {
