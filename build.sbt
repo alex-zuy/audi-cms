@@ -23,6 +23,7 @@ libraryDependencies ++= Seq(
   "org.webjars.bower" % "react-router" % "0.13.3",
   "org.webjars.npm" % "jquery" % "2.1.4",
   "org.webjars.npm" % "intl-messageformat" % "1.1.0",
+  "org.webjars" % "js-cookie" % "2.0.2",
   // we dont put dependency for material-ui here because we use
   // our own unmanaged webjar for it located in libs.
   "org.webjars.npm" % "react-draggable2" % "0.5.1",
