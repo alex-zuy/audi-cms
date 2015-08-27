@@ -1,4 +1,4 @@
-define(['react', 'react-router', 'javascripts/mixins/allMixins', 'mui'], function(React, ReactRouter, allMixin, mui) {
+define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui'], function(React, ReactRouter, allMixin, mui) {
 
     var TextField = mui.TextField;
     var Paper = mui.Paper;

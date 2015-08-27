@@ -1,5 +1,5 @@
-define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMixin', 'javascripts/widgets/IconedButton', 'lib/js-cookie/js.cookie'],
-    function(React, ReactRouter, mui, IntlMixin, AjaxMixin, IconedButton, Cookies) {
+define(['react', 'reactRouter', 'mui', 'allMixins', 'javascripts/mixins/AjaxMixin', 'javascripts/widgets/IconedButton', 'lib/js-cookie/js.cookie'],
+    function(React, ReactRouter, mui, allMixins, AjaxMixin, IconedButton, Cookies) {
 
     var Paper = mui.Paper;
     var Toggle = mui.Toggle;
@@ -11,7 +11,7 @@ define(['react', 'react-router', 'mui', 'intl-mixin', 'javascripts/mixins/AjaxMi
         mixins: [
             ReactRouter.Navigation,
             AjaxMixin,
-            IntlMixin,
+            allMixins.IntlMixin,
         ],
         getDefaultProps: function() {
             return {

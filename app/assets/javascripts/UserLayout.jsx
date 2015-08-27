@@ -1,4 +1,4 @@
-define(['react', 'react-router'], function(React, ReactRouter) {
+define(['react', 'reactRouter'], function(React, ReactRouter) {
 
     var RouteHandler = ReactRouter.RouteHandler;
 

@@ -1,6 +1,6 @@
 define([
         'react',
-        'react-router',
+        'reactRouter',
         'javascripts/components/TodoDummy',
         'javascripts/components/Navbar',
         'mui'

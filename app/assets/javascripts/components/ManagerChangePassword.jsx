@@ -1,4 +1,4 @@
-define(['react', 'react-router', 'intl-mixin', 'mui', 'javascripts/components/ErrorPanel'], function(React, ReactRouter, IntlMixin, mui, ErrorPanel) {
+define(['react', 'reactRouter', 'allMixins', 'mui', 'javascripts/components/ErrorPanel'], function(React, ReactRouter, allMixins, mui, ErrorPanel) {
 
     var Paper = mui.Paper;
     var TextField = mui.TextField;
@@ -7,7 +7,7 @@ define(['react', 'react-router', 'intl-mixin', 'mui', 'javascripts/components/Er
     return React.createClass({
         mixins: [
             ReactRouter.Navigation,
-            IntlMixin,
+            allMixins.IntlMixin,
         ],
         getDefaultProps: function() {
             return {

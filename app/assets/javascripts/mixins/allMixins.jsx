@@ -2,7 +2,7 @@ define([
     'javascripts/mixins/AjaxMixin',
     'javascripts/mixins/DelayedFormValidateMixin',
     'javascripts/mixins/FormMixin',
-    'intl-mixin'],
+    'javascripts/mixins/IntlMixin'],
     function(AjaxMixin,
              DelayedFormValidateMixin,
              FormMixin,

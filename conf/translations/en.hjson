@@ -135,6 +135,7 @@
         navbar: {
             labels: {
                 managers: Managers
+                contacts: Contacts
             }
         }
     }

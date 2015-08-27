@@ -1,32 +1,6 @@
-require.config({
-    baseUrl: '/assets',
-    paths: {
-        'react': 'lib/react/dist/react-with-addons',
-        'react-draggable2' : 'lib/react-draggable2/dist/react-draggable',
-        'classnames' : 'lib/classnames/index',
-        'react-router': 'lib/react-router/build/umd/ReactRouter',
-        'intl-messageformat': 'lib/intl-messageformat/dist/intl-messageformat-with-locales',
-        'intl-mixin': 'javascripts/mixins/IntlMixin',
-    },
-    map: {
-        '*' : {
-            'react/addons' : 'react',
-            'React' : 'react'
-        }
-    },
-    packages: [
-        {
-            name: 'mui',
-            location: 'lib/material-ui/lib',
-            main: 'index'
-        }
-    ]
-});
+define(['react', 'reactRouter', 'js/Routes', 'jquery', 'react-tap-event-plugin', 'materialize', 'jsRoutes'], function(React, ReactRouter, routes, $, injectTapEventPlugin) {
 
-requirejs(['react', 'react-router', 'javascripts/Routes'], function(React, ReactRouter, routes) {
-
-    // hack to workaround issue in material-ui. see https://github.com/callemall/material-ui/issues/1486
-    window.process = {env:{NODE_ENV:''}};
+    injectTapEventPlugin();
 
     function launchApp(messages) {
 

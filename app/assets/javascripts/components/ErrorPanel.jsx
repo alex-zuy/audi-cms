@@ -1,8 +1,8 @@
-define(['react', 'intl-mixin'], function(React, IntlMixin) {
+define(['react', 'allMixins'], function(React, allMixins) {
 
     return React.createClass({
         mixins: [
-            IntlMixin,
+            allMixins.IntlMixin,
         ],
         getDefaultProps: function() {
             return {

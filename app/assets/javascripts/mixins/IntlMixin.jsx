@@ -1,4 +1,4 @@
-define(['react', 'intl-messageformat'], function(React) {
+define(['react', 'IntlMessageFormat'], function(React, IntlMessageFormat) {
 
     function getNestedProperty(obj, prop) {
         try {

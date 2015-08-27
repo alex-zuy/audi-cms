@@ -1,17 +1,17 @@
-define(["react", "react-router", "javascripts/components/TodoDummy", "mui", "intl-mixin"],
-    function(React, ReactRouter, TodoDummy, mui, IntlMixin) {
+define(["react", "reactRouter", "javascripts/components/TodoDummy", "mui", "allMixins"],
+    function(React, ReactRouter, TodoDummy, mui, allMixins) {
 
         const {Menu, MenuItem, FontIcon} = mui;
 
         const menuItemsData = [
             { msgKey: "managers", route: "managers-list", icon: "supervisor_account"},
-            { msgKey: "managers", route: "manager-store", icon: "supervisor_account"},
+            { msgKey: "contacts", route: "unimplemented", icon: "perm_phone_msg"},
         ];
 
         return React.createClass({
             mixins: [
                 ReactRouter.Navigation,
-                IntlMixin,
+                allMixins.IntlMixin,
             ],
             getDefaultProps() {
                 return {
@@ -23,7 +23,7 @@ define(["react", "react-router", "javascripts/components/TodoDummy", "mui", "int
                     <MenuItem
                         key={`menu-item-${index}`}
                         primaryText={this.getMsg(data.msgKey)}
-                        value={this.makeHref(data.route)}
+                        value={data.route}
                         leftIcon={<FontIcon className="material-icons">{data.icon}</FontIcon>}/>
                 );
                 return (

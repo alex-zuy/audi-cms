@@ -21,14 +21,14 @@ libraryDependencies ++= Seq(
   "com.github.tminglei" %% "slick-pg" % "0.9.1",
   "de.svenkubiak" % "jBCrypt" % "0.4",
   "org.hjson" % "hjson" % "1.1.0",
-  "org.webjars.npm" % "requirejs" % "2.1.20",
+
+  // Client-side asset packages
+  "org.webjars.bower" % "system.js" % "0.18.4",
   "org.webjars.npm" % "react" % "0.13.3",
   "org.webjars.bower" % "react-router" % "0.13.3",
   "org.webjars.npm" % "jquery" % "2.1.4",
   "org.webjars.npm" % "intl-messageformat" % "1.1.0",
   "org.webjars" % "js-cookie" % "2.0.2",
-  // we dont put dependency for material-ui here because we use
-  // our own unmanaged webjar for it located in libs.
   "org.webjars.npm" % "react-draggable2" % "0.5.1",
   "org.webjars.npm" % "classnames" % "2.1.3"
 )

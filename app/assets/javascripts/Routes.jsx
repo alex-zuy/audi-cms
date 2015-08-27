@@ -1,5 +1,5 @@
 define(['react',
-        'react-router',
+        'reactRouter',
         'javascripts/App',
         'javascripts/views/ContactsPage',
         'javascripts/views/HistoryPage',

@@ -1,4 +1,4 @@
-define(['react', 'react-router', 'mui', 'intl-mixin'], function(React, ReactRouter, mui, IntlMixin) {
+define(['react', 'reactRouter', 'mui', 'allMixins'], function(React, ReactRouter, mui, allMixins) {
 
     var Toggle = mui.Toggle;
     var RouteHandler = ReactRouter.RouteHandler;
@@ -6,7 +6,7 @@ define(['react', 'react-router', 'mui', 'intl-mixin'], function(React, ReactRout
 
     var ManagersControl = React.createClass({
         mixins: [
-            IntlMixin,
+            allMixins.IntlMixin,
         ],
         getInitialState: function() {
             return {

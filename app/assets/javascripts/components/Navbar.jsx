@@ -1,10 +1,10 @@
-define(['react', 'react-router', 'intl-mixin'], function(React, Router, IntlMixin) {
+define(['react', 'reactRouter', 'allMixins'], function(React, Router, allMixins) {
 
     var Link = Router.Link;
 
     var Item = React.createClass({
         mixins: [
-            IntlMixin,
+            allMixins.IntlMixin,
         ],
         propTypes: {
             href: React.PropTypes.string.isRequired,
@@ -30,7 +30,7 @@ define(['react', 'react-router', 'intl-mixin'], function(React, Router, IntlMixi
 
     var Navbar = React.createClass({
         mixins: [
-            IntlMixin,
+            allMixins.IntlMixin,
         ],
         getDefaultProps: function() {
             return {

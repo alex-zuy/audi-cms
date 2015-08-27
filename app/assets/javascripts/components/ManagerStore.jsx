@@ -1,4 +1,4 @@
-define(['react', 'react-router', 'javascripts/components/ErrorPanel', 'mui', 'javascripts/mixins/allMixins'],
+define(['react', 'reactRouter', 'javascripts/components/ErrorPanel', 'mui', 'allMixins'],
     function(React, ReactRouter, ErrorPanel, mui, allMixins) {
 
     var TextField = mui.TextField;
