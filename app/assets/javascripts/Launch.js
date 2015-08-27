@@ -18,6 +18,7 @@ System.config({
         jquery: 'lib/jquery/dist/jquery',
         materialize: 'lib/materializecss/js/materialize',
         jsRoutes: '/jsRoutes',
+        jsCookie: 'lib/js-cookie/js.cookie',
     },
     meta: {
         jquery: {

@@ -1,4 +1,4 @@
-define(['react', 'reactRouter', 'js/Routes', 'jquery', 'react-tap-event-plugin', 'materialize', 'jsRoutes'], function(React, ReactRouter, routes, $, injectTapEventPlugin) {
+define(['react', 'reactRouter', 'js/Routes', 'jquery', 'jsCookie', 'react-tap-event-plugin', 'materialize', 'jsRoutes'], function(React, ReactRouter, routes, $, jsCookie, injectTapEventPlugin) {
 
     injectTapEventPlugin();
 
@@ -12,7 +12,7 @@ define(['react', 'reactRouter', 'js/Routes', 'jquery', 'react-tap-event-plugin',
     }
 
     function getLocale() {
-        var maybeLocale = $("meta[name='app-lang']").attr('content');
+        var maybeLocale = jsCookie.get('lang');
         return maybeLocale ? maybeLocale : 'en';
     }
 
