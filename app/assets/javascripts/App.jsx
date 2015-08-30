@@ -3,9 +3,10 @@ define([
         'reactRouter',
         'javascripts/components/TodoDummy',
         'javascripts/components/Navbar',
+        'js/components/Footer',
         'mui'
     ],
-    function(React, ReactRouter, TodoDummy, Navbar, mui) {
+    function(React, ReactRouter, TodoDummy, Navbar, Footer, mui) {
 
         var RouteHandler = ReactRouter.RouteHandler;
         var RaisedButton = mui.RaisedButton;
@@ -27,8 +28,13 @@ define([
             render: function() {
                 return (
                     <div>
-                        <Navbar />
-                        <RouteHandler/>
+                        <header>
+                            <Navbar />
+                        </header>
+                        <main>
+                            <RouteHandler/>
+                        </main>
+                        <Footer/>
                     </div>
                 )
             }

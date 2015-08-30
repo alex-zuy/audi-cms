@@ -40,7 +40,7 @@ define(['react',
              UserLayout,
              ManagerLayout)
     {
-        var Route = ReactRouter.Route;
+        const {Route, DefaultRoute} = ReactRouter;
 
         return (
             <Route handler={App}>
@@ -57,6 +57,7 @@ define(['react',
                 </Route>
                 <Route path="/control-panel" name="control-panel" handler={ManagerLayout}>
                     <Route handler={ControlPanelPage}>
+                        <DefaultRoute handler={ManagersControl}/>
                         <Route path="managers" handler={ManagersControl}>
                             <Route path="list" name="managers-list" handler={ManagersList}/>
                             <Route path="store" name="manager-store" handler={ManagerStore}/>
