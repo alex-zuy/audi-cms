@@ -27,16 +27,8 @@ define([
             },
             render: function() {
                 return (
-                    <div>
-                        <header>
-                            <Navbar />
-                        </header>
-                        <main>
-                            <RouteHandler/>
-                        </main>
-                        <Footer/>
-                    </div>
-                )
+                    <RouteHandler/>
+                );
             }
         });
 
