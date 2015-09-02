@@ -75,6 +75,10 @@ class Contacts extends Controller with DefaultDbConfiguration {
     runQuery(ContactInfoDAO.deleteInfo(id)).map(_ => Ok)
   }
 
+  def validate = Authenticate(TypicalManager)(parse.json[ContactInfo]) { implicit request =>
+    Ok(toJson(new ContactInfoValidator(request.body).violations))
+  }
+
   def storeAddress = Authenticate(TypicalManager).async(parse.json[ContactAddress].validate(
     adapter(new ContactAddressValidator(_)))) { implicit request =>
     runQuery(ContactInfoDAO.insertAddress(request.body)).map { id =>
@@ -89,6 +93,10 @@ class Contacts extends Controller with DefaultDbConfiguration {
 
   def deleteAddress(addressId: Int) = (Authenticate(TypicalManager) andThen CheckExists(addressId, allAddresses)).async { implicit request =>
     runQuery(ContactInfoDAO.deleteAddress(addressId)).map(_ => Ok)
+  }
+
+  def validateAddress = Authenticate(TypicalManager)(parse.json[ContactAddress]) { implicit request =>
+    Ok(toJson(new ContactAddressValidator(request.body).violations))
   }
 
   def storeNumber = Authenticate(TypicalManager).async(parse.json[ContactNumber].validate(
@@ -107,6 +115,10 @@ class Contacts extends Controller with DefaultDbConfiguration {
     runQuery(ContactInfoDAO.deleteNumber(numberId)).map(_ => Ok)
   }
 
+  def validateNumber = Authenticate(TypicalManager)(parse.json[ContactNumber]) { implicit request =>
+    Ok(toJson(new ContactNumberValidator(request.body).violations))
+  }
+
   def storeEmail = Authenticate(TypicalManager).async(parse.json[ContactEmail].validate(
     adapter(new ContactEmailValidator(_)))) { implicit request =>
     runQuery(ContactInfoDAO.insertEmail(request.body)).map{ id =>
@@ -121,6 +133,10 @@ class Contacts extends Controller with DefaultDbConfiguration {
 
   def deleteEmail(emailId: Int) = (Authenticate(TypicalManager) andThen CheckExists(emailId, allEmails)).async { implicit request =>
     runQuery(ContactInfoDAO.deleteEmail(emailId)).map(_ => Ok)
+  }
+
+  def validateEmail = Authenticate(TypicalManager)(parse.json[ContactEmail]) { implicit request =>
+    Ok(toJson(new ContactEmailValidator(request.body).violations))
   }
 
 }
