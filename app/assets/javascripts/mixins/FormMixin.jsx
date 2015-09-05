@@ -57,6 +57,9 @@ define(['react'], function(React) {
                 this.setState({formMixin: {fieldsValid: false}});
             }
         },
+        fillForm(model) {
+            this.props.formMixin.fieldRefs.forEach((field) => this.refs[field].setValue(model[field]));
+        },
         submitForm: function(callbacks) {
             if(this.state.formMixin.fieldsValid) {
                 this.ajax(this.props.formMixin.submitRoute.apply(this), {
