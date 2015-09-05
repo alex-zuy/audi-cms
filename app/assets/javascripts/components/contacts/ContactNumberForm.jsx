@@ -16,7 +16,7 @@ define(['react', 'allMixins', 'mui', 'js/widgets/HiddenInput'], function(React, 
         },
         getDefaultProps() {
             return {
-                msgKeyPrefix: 'controlPanel.contacts.numberForm',
+                msgKeyPrefix: 'controlPanel.contacts.fillForm.numberForm',
                 formMixin: {
                     fieldRefs: ['name', 'number', 'contactInfoId'],
                     validateRoute: () => jsRoutes.controllers.Contacts.validateNumber(),
