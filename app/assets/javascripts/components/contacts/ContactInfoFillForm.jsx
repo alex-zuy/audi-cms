@@ -42,7 +42,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
                     <p>{`${this.getMsg('labels.name')}: ${this.state.contactInfo.name}`}</p>
                     <p>{`${this.getMsg('labels.internalName')}: ${this.state.contactInfo.internalName}`}</p>
                     <div>
-                        <p>{this.getMsg('labels.numbers')}:</p>
+                        <h5 className="center-align">{this.getMsg('labels.numbers')}</h5>
                         <ArrayDataFillForm
                             data={this.state.contactInfo.numbers}
                             fieldNames={['name', 'number']}
@@ -51,7 +51,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
                             itemFormProps={{contactInfoId: this.state.contactInfo.id}}
                             onItemSubmited={this.dataSubmited}
                             performDelete={this.performNumberDelete}/>
-                        <p>{this.getMsg('labels.emails')}:</p>
+                        <h5 className="center-align">{this.getMsg('labels.emails')}</h5>
                         <ArrayDataFillForm
                             data={this.state.contactInfo.emails}
                             fieldNames={['name', 'email', 'contactPerson']}

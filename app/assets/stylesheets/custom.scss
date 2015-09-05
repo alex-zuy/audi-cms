@@ -21,6 +21,15 @@ table.manager-list {
   }
 }
 
+table.compactTable {
+  tr>th {
+    padding: 5px;
+  }
+  tr>td {
+    padding: 5px;
+  }
+}
+
 // styles for sticky footer
 body>div {
   display: flex;

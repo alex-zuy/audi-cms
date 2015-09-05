@@ -30,7 +30,7 @@ define(['react', 'allMixins', 'mui',
             ];
             return (
                 <div>
-                    <table>
+                    <table className="compactTable">
                         <thead>
                             <tr>
                                 { this.props.fieldNames.map((field) => <th>{this.getMsg(`labels.${field}`)}</th> ) }
@@ -45,11 +45,13 @@ define(['react', 'allMixins', 'mui',
                                     <td>
                                         <IconButton
                                             onClick={this.updateItem.bind(this, item)}
+                                            style={{padding: "0px", height: "auto"}}
                                             iconClassName="material-icons">mode_edit</IconButton>
                                     </td>
                                     <td>
                                         <IconButton
                                             onClick={this.attemptDeleteItem.bind(this, item)}
+                                            style={{padding: "0px", height: "auto"}}
                                             iconClassName="material-icons">delete</IconButton>
                                     </td>
                                 </tr>
@@ -74,7 +76,8 @@ define(['react', 'allMixins', 'mui',
                         <Default>
                             <FloatingActionButton
                                 mini={true}
-                                onClick={this.storeItem}>
+                                onClick={this.storeItem}
+                                style={{marginLeft: "2%"}}>
                                 <FontIcon className="material-icons">playlist_add</FontIcon>
                             </FloatingActionButton>
                         </Default>
