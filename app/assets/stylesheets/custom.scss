@@ -31,3 +31,9 @@ body>div {
 main {
   flex: 1 0 auto;
 }
+
+.form-horizontal>* {
+  vertical-align: text-bottom;
+  margin-left: 20px;
+  margin-right: 20px;
+}

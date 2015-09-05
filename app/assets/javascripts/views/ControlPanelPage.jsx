@@ -5,7 +5,7 @@ define(["react", "reactRouter", "javascripts/components/TodoDummy", "mui", "allM
 
         const menuItemsData = [
             { msgKey: "managers", route: "managers-list", icon: "supervisor_account"},
-            { msgKey: "contacts", route: "unimplemented", icon: "perm_phone_msg"},
+            { msgKey: "contacts", route: "contacts-list", icon: "perm_phone_msg"},
         ];
 
         return React.createClass({

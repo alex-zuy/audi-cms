@@ -137,6 +137,66 @@
         }
     }
     controlPanel: {
+        contacts: {
+            list: {
+                labels: {
+                    name: Name
+                    internalName: Internal name
+                }
+                actions: {
+                    addInfo: Add contact info
+                }
+            }
+            form: {
+                labels: {
+                    title: Creating manager
+                }
+                actions: {
+                    store: Save
+                }
+                inputs: {
+                    name: {
+                        label: Name
+                    }
+                    internalName: {
+                        label: Internal name
+                    }
+                }
+            }
+            fillForm: {
+                labels: {
+                    name: Name
+                    internalName: Internal name
+                    numbers: Phone numbers
+                }
+                numberForm: {
+                    inputs: {
+                        name: {
+                            placeholder: Name
+                        }
+                        number: {
+                            placeholder: Number
+                        }
+                    }
+                }
+                numberDataFillForm: {
+                    actions: {
+                        delete: {
+                            confirm: Confirm
+                            cancel: Cancel
+                        }
+                    }
+                    labels: {
+                        name: Name
+                        number: Number
+                        delete: {
+                            dialog: Are you sure you want to delete this number ?
+                            dialogTitle: Deleting number
+                        }
+                    }
+                }
+            }
+        }
         navbar: {
             labels: {
                 managers: Managers
