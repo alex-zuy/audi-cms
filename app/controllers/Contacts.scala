@@ -1,6 +1,6 @@
 package controllers
 
-import internal.validation.{RuleSet, Optional, Required, Validator}
+import internal.validation._
 import internal.validation.Validators._
 import internal.{CheckExists, Authenticate, DefaultDbConfiguration}
 import internal.PostgresDriverExtended.api._
@@ -75,9 +75,7 @@ class Contacts extends Controller with DefaultDbConfiguration {
     runQuery(ContactInfoDAO.deleteInfo(id)).map(_ => Ok)
   }
 
-  def validate = Authenticate(TypicalManager)(parse.json[ContactInfo]) { implicit request =>
-    Ok(toJson(new ContactInfoValidator(request.body).violations))
-  }
+  def validate = ValidateAction[ContactInfo](TypicalManager, new ContactInfoValidator(_))
 
   def storeAddress = Authenticate(TypicalManager).async(parse.json[ContactAddress].validate(
     adapter(new ContactAddressValidator(_)))) { implicit request =>
@@ -95,9 +93,7 @@ class Contacts extends Controller with DefaultDbConfiguration {
     runQuery(ContactInfoDAO.deleteAddress(addressId)).map(_ => Ok)
   }
 
-  def validateAddress = Authenticate(TypicalManager)(parse.json[ContactAddress]) { implicit request =>
-    Ok(toJson(new ContactAddressValidator(request.body).violations))
-  }
+  def validateAddress = ValidateAction[ContactAddress](TypicalManager, new ContactAddressValidator(_))
 
   def storeNumber = Authenticate(TypicalManager).async(parse.json[ContactNumber].validate(
     adapter(new ContactNumberValidator(_)))) { implicit request =>
@@ -115,9 +111,7 @@ class Contacts extends Controller with DefaultDbConfiguration {
     runQuery(ContactInfoDAO.deleteNumber(numberId)).map(_ => Ok)
   }
 
-  def validateNumber = Authenticate(TypicalManager)(parse.json[ContactNumber]) { implicit request =>
-    Ok(toJson(new ContactNumberValidator(request.body).violations))
-  }
+  def validateNumber = ValidateAction[ContactNumber](TypicalManager, new ContactNumberValidator(_))
 
   def storeEmail = Authenticate(TypicalManager).async(parse.json[ContactEmail].validate(
     adapter(new ContactEmailValidator(_)))) { implicit request =>
@@ -135,9 +129,7 @@ class Contacts extends Controller with DefaultDbConfiguration {
     runQuery(ContactInfoDAO.deleteEmail(emailId)).map(_ => Ok)
   }
 
-  def validateEmail = Authenticate(TypicalManager)(parse.json[ContactEmail]) { implicit request =>
-    Ok(toJson(new ContactEmailValidator(request.body).violations))
-  }
+  def validateEmail = ValidateAction[ContactEmail](TypicalManager, new ContactEmailValidator(_))
 
 }
 

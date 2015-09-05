@@ -11,7 +11,7 @@ import play.api.libs.json._
 import play.api.libs.json.Json
 import internal.{Authenticate, DefaultDbConfiguration}
 
-import internal.validation.{Required, Validator}
+import internal.validation.{ValidateAction, Required, Validator}
 import internal.validation.Validators._
 import internal.PostgresDriverExtended.api._
 
@@ -46,9 +46,7 @@ class Managers extends Controller with DefaultDbConfiguration {
     } getOrElse Future.successful(BadRequest)
   }
 
-  def validateStore = Authenticate(Administrator)(parse.json[ManagerStore]) { implicit request =>
-    Ok(Json.toJson(storeValidator(request.body).violations))
-  }
+  def validateStore = ValidateAction[ManagerStore](Administrator, storeValidator(_))
 
   def update(id: Int) = Authenticate(Administrator).async(parse.json) { implicit request =>
     request.body.validate[ManagerUpdate].map { updated =>
@@ -57,9 +55,7 @@ class Managers extends Controller with DefaultDbConfiguration {
     } getOrElse Future.successful(BadRequest)
   }
 
-  def validateUpdate(id: Int) = Authenticate(Administrator)(parse.json[ManagerUpdate]) { implicit request =>
-    Ok(Json.toJson(updateValidator(request.body).violations))
-  }
+  def validateUpdate(id: Int) = ValidateAction[ManagerUpdate](Administrator, updateValidator(_))
 
   def delete(id: Int) = Authenticate(Administrator).async { implicit request =>
     dbConfig.db.run(ManagerDAO.byId(id).filter(_.isAdmin === false).delete).map { affectedRows =>

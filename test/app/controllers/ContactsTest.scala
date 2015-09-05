@@ -106,6 +106,21 @@ class ContactsTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
       val id = idOf(contactOne)
       infoTestHelper.testInvalidUpdate(controller.update(id), id, newOrUpdatedInvalidContactInfo)
     }
+    "validate contact info" in {
+      val ci = new ContactInfo(None, "asdadasd", Some("asdsad s"))
+      val response = invokeWithRecordCheckingStatus(controller.validate, ci, OK)
+      val expectedJson = Json.parse(
+        """{
+          | "internalName": {
+          |  "key":"validators.errors.string.whitespace",
+          |  "args":{
+          |   "field":"internalName"
+          |  }
+          | }
+          |}
+        """.stripMargin)
+      contentAsJson(response) mustBe expectedJson
+    }
     "store new contact number" in {
       val id = idOf(contactOne)
       numbersTestHelper.testValidStore(controller.storeNumber, newOrUpdatedValidContactNumber(id))
