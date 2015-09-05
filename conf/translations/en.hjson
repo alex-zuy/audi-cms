@@ -148,8 +148,8 @@
         errors: {
             string: {
                 length: String must not be longer than {maxLength} characters
-                noWhitespace: String must not contain whitespace characters
-                lowCase: String must be in low case
+                whitespace: String must not contain whitespace characters
+                uppercase: String must be in low case
                 email: String must be valid email address
                 phoneNumber: String must be correct phone number
             }
