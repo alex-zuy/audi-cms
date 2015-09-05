@@ -2,17 +2,18 @@ define(['react', 'IntlMessageFormat'], function(React, IntlMessageFormat) {
 
     function getNestedProperty(obj, prop) {
         try {
-            return getNestedPropertyImpl(obj, prop);
-        }
-        catch(err) {
-            if(err.name === 'TypeError') {
-                console.warn('IntlMixin: failed to find message by key \"' + prop + '\"');
-                console.warn('IntlMixin: Exception: ' + err.toString());
-                return prop;
+            const property = getNestedPropertyImpl(obj, prop);
+            if(typeof property === 'string') {
+                return property
             }
             else {
-                throw err;
+                throw new Error(`Key '${prop}' is not string`);
             }
+        }
+        catch(err) {
+            console.warn('IntlMixin: failed to find message by key \"' + prop + '\"');
+            console.warn('IntlMixin: Exception: ' + err.toString());
+            return prop;
         }
     }
 
