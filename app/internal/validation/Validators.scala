@@ -26,7 +26,7 @@ object Validators {
   def Email = build[String]("validators.errors.string.email") {
     emailPattern.matcher(_).matches }
 
-  def PhoneNumber = build[String]("validators.errors.string.phonenumber") {
+  def PhoneNumber = build[String]("validators.errors.string.phoneNumber") {
     phoneNumberPattern.matcher(_).matches }
 
   def NonNegative[T](implicit n :Numeric[T]) = build[T]("validators.errors.numeric.negative") {
