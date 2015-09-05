@@ -1,8 +1,9 @@
 define(['react', 'reactRouter', 'mui', 'allMixins',
     'js/components/contacts/ContactNumberForm',
+    'js/components/contacts/ContactEmailForm',
     'js/widgets/Switch',
     'js/components/ArrayDataFillForm'
-], function(React, ReactRouter, mui, allMixins, ContactNumberForm, switchWidget, ArrayDataFillForm) {
+], function(React, ReactRouter, mui, allMixins, ContactNumberForm, ContactEmailForm, switchWidget, ArrayDataFillForm) {
 
     const {Paper, FloatingActionButton, FontIcon, IconButton} = mui;
     const {Switch, Case, Default} = switchWidget;
@@ -50,6 +51,15 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
                             itemFormProps={{contactInfoId: this.state.contactInfo.id}}
                             onItemSubmited={this.dataSubmited}
                             performDelete={this.performNumberDelete}/>
+                        <p>{this.getMsg('labels.emails')}:</p>
+                        <ArrayDataFillForm
+                            data={this.state.contactInfo.emails}
+                            fieldNames={['name', 'email', 'contactPerson']}
+                            msgKeyPrefix="controlPanel.contacts.fillForm.emailDataFillForm"
+                            itemForm={ContactEmailForm}
+                            itemFormProps={{contactInfoId: this.state.contactInfo.id}}
+                            onItemSubmited={this.dataSubmited}
+                            performDelete={this.performEmailDelete}/>
                     </div>
                 </Paper>
             );
@@ -67,6 +77,11 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
         },
         performNumberDelete(number) {
             this.ajax(jsRoutes.controllers.Contacts.deleteNumber(number.id), {
+                success: () => this.loadContactInfo(),
+            });
+        },
+        performEmailDelete(email) {
+            this.ajax(jsRoutes.controllers.Contacts.deleteEmail(email.id), {
                 success: () => this.loadContactInfo(),
             });
         }
