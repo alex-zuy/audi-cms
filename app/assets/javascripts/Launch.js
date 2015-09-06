@@ -19,6 +19,7 @@ System.config({
         materialize: 'lib/materializecss/js/materialize',
         jsRoutes: '/jsRoutes',
         jsCookie: 'lib/js-cookie/js.cookie',
+        ymaps: 'https://api-maps.yandex.ru/2.1/?lang=en_US&ext=s',
     },
     meta: {
         jquery: {
@@ -35,6 +36,10 @@ System.config({
             format: 'global',
             exports: 'jsRoutes',
         },
+        'https://api-maps.yandex.ru/2.1/?lang=en_US&ext=s': {
+            format: 'global',
+            exports: 'ymaps',
+        }
     },
 });
 
