@@ -1,9 +1,10 @@
 define(['react', 'reactRouter', 'mui', 'allMixins',
     'js/components/contacts/ContactNumberForm',
     'js/components/contacts/ContactEmailForm',
+    'js/components/contacts/ContactAddressForm',
     'js/widgets/Switch',
     'js/components/ArrayDataFillForm'
-], function(React, ReactRouter, mui, allMixins, ContactNumberForm, ContactEmailForm, switchWidget, ArrayDataFillForm) {
+], function(React, ReactRouter, mui, allMixins, ContactNumberForm, ContactEmailForm, ContactAddressForm, switchWidget, ArrayDataFillForm) {
 
     const {Paper, FloatingActionButton, FontIcon, IconButton} = mui;
     const {Switch, Case, Default} = switchWidget;
@@ -60,6 +61,15 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
                             itemFormProps={{contactInfoId: this.state.contactInfo.id}}
                             onItemSubmited={this.dataSubmited}
                             performDelete={this.performEmailDelete}/>
+                        <h5 className="center-align">{this.getMsg('labels.addresses')}</h5>
+                        <ArrayDataFillForm
+                            data={this.state.contactInfo.addresses}
+                            fieldNames={['name', 'address']}
+                            msgKeyPrefix="controlPanel.contacts.fillForm.addressDataFillForm"
+                            itemForm={ContactAddressForm}
+                            itemFormProps={{contactInfoId: this.state.contactInfo.id}}
+                            onItemSubmited={this.dataSubmited}
+                            performDelete={this.performAddressDelete}/>
                     </div>
                 </Paper>
             );
@@ -82,6 +92,11 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
         },
         performEmailDelete(email) {
             this.ajax(jsRoutes.controllers.Contacts.deleteEmail(email.id), {
+                success: () => this.loadContactInfo(),
+            });
+        },
+        performAddressDelete(address) {
+            this.ajax(jsRoutes.controllers.Contacts.deleteAddress(address.id), {
                 success: () => this.loadContactInfo(),
             });
         }
