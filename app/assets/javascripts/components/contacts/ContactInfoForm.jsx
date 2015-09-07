@@ -1,5 +1,6 @@
-define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/HiddenInput', 'js/components/ErrorPanel'], function(React, ReactRouter, allMixins, mui, HiddenInput, ErrorPanel) {
+define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/inputs', 'js/components/ErrorPanel'], function(React, ReactRouter, allMixins, mui, inputs, ErrorPanel) {
 
+    const {TextInput, HiddenInput} = inputs;
     const {Paper, TextField, RaisedButton} = mui;
 
     return React.createClass({
@@ -39,11 +40,11 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/HiddenInput', 'js
                     <form onChange={this.onFormChangedCallback}>
                         <ErrorPanel errorKey={this.state.error}/>
                         <HiddenInput ref="id"/> <br/>
-                        <TextField
+                        <TextInput
                             ref="name"
                             floatingLabelText={this.getMsg('inputs.name.label')}
                             /> <br/>
-                        <TextField
+                        <TextInput
                             ref="internalName"
                             floatingLabelText={this.getMsg('inputs.internalName.label')}
                             /> <br/>

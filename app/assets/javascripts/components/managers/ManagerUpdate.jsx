@@ -1,6 +1,6 @@
-define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui'], function(React, ReactRouter, allMixin, mui) {
+define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui', 'js/inputs/inputs'], function(React, ReactRouter, allMixin, mui, inputs) {
 
-    var TextField = mui.TextField;
+    const {TextInput} = inputs;
     var Paper = mui.Paper;
     var RaisedButton = mui.RaisedButton;
 
@@ -31,12 +31,12 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui'], function
                 <Paper zDepth={2} rounded={false} style={{padding: "50px"}}>
                     <h5>{this.getMsg('labels.title')}</h5>
                     <form onChange={this.onFormChange}>
-                        <TextField
+                        <TextInput
                             ref="fullName"
                             floatingLabelText={this.getMsg('inputs.fullName.label')}
                             hintText={this.getMsg('inputs.fullName.placeholder')}
                             /><br/>
-                        <TextField
+                        <TextInput
                             ref="email"
                             floatingLabelText={this.getMsg('inputs.email.label')}
                             hintText={this.getMsg('inputs.email.placeholder')}

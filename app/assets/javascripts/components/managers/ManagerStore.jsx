@@ -1,7 +1,7 @@
-define(['react', 'reactRouter', 'javascripts/components/ErrorPanel', 'mui', 'allMixins'],
-    function(React, ReactRouter, ErrorPanel, mui, allMixins) {
+define(['react', 'reactRouter', 'javascripts/components/ErrorPanel', 'mui', 'allMixins', 'js/inputs/inputs'],
+    function(React, ReactRouter, ErrorPanel, mui, allMixins, inputs) {
 
-    var TextField = mui.TextField;
+    const {TextInput} = inputs;
     var RaisedButton = mui.RaisedButton;
     var Paper = mui.Paper;
 
@@ -35,24 +35,24 @@ define(['react', 'reactRouter', 'javascripts/components/ErrorPanel', 'mui', 'all
                     <h5>{this.getMsg('labels.title')}</h5>
                     <form onChange={this.onChange}>
                         <ErrorPanel errorKey={this.state.error}/>
-                        <TextField
+                        <TextInput
                             ref="fullName"
                             floatingLabelText={this.getMsg('inputs.fullName.label')}
                             hintText={this.getMsg('inputs.fullName.placeholder')}
                             /><br/>
-                        <TextField
+                        <TextInput
                             ref="email"
                             floatingLabelText={this.getMsg('inputs.email.label')}
                             hintText={this.getMsg('inputs.email.placeholder')}
                             /><br/>
-                        <TextField
+                        <TextInput
                             ref="password"
                             onChange={this.clearConfirmPassword}
                             floatingLabelText={this.getMsg('inputs.password.label')}
                             hintText={this.getMsg('inputs.password.placeholder')}
                             type="password"
                             /><br/>
-                        <TextField
+                        <TextInput
                             ref="confirmPassword"
                             onBlur={this.onConfirmPasswordBlur}
                             floatingLabelText={this.getMsg('inputs.confirmPassword.label')}
@@ -70,7 +70,7 @@ define(['react', 'reactRouter', 'javascripts/components/ErrorPanel', 'mui', 'all
             );
         },
         clearConfirmPassword: function() {
-            this.refs.confirmPassword.clearValue();
+            this.refs.confirmPassword.setValue('');
             this.refs.confirmPassword.setErrorText('');
         },
         onConfirmPasswordBlur: function() {

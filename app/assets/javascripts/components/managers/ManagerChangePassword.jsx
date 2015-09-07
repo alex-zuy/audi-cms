@@ -79,7 +79,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'javascripts/components/Erro
             }
         },
         passwordChanged: function() {
-            this.refs.confirmPassword.clearValue();
+            this.refs.confirmPassword.setValue('');
         },
         checkPasswordsAndStore: function() {
             var password = this.refs.password.getValue();

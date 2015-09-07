@@ -1,6 +1,7 @@
-define(['react', 'allMixins', 'mui', 'js/inputs/MapInput', 'js/inputs/HiddenInput'], function(React, allMixins, mui, MapInput, HiddenInput) {
+define(['react', 'allMixins', 'mui', 'js/inputs/inputs'], function(React, allMixins, mui, inputs) {
 
-    const {TextField, FloatingActionButton, FontIcon, Paper} = mui;
+    const {HiddenInput, TextInput, MapInput} = inputs;
+    const {FloatingActionButton, FontIcon, Paper} = mui;
 
     return React.createClass({
         mixins: [
@@ -42,10 +43,10 @@ define(['react', 'allMixins', 'mui', 'js/inputs/MapInput', 'js/inputs/HiddenInpu
                             <FontIcon className="material-icons">cancel</FontIcon>
                         </FloatingActionButton>
                         <HiddenInput ref="contactInfoId" value={this.props.contactInfoId}/>
-                        <TextField
+                        <TextInput
                             ref="name"
                             hintText={this.getMsg('inputs.name.placeholder')}/>
-                        <TextField
+                        <TextInput
                             ref="address"
                             hintText={this.getMsg('inputs.address.placeholder')}/>
                         <FloatingActionButton
