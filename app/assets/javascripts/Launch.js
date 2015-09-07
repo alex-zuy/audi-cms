@@ -16,6 +16,7 @@ System.config({
         'intl-messageformat-parser': 'lib/intl-messageformat-parser/index',
         classnames: 'lib/classnames/index',
         jquery: 'lib/jquery/dist/jquery',
+        underscore: 'lib/underscore/underscore',
         materialize: 'lib/materializecss/js/materialize',
         jsRoutes: '/jsRoutes',
         jsCookie: 'lib/js-cookie/js.cookie',
@@ -25,6 +26,10 @@ System.config({
         jquery: {
             format: 'global',
             exports: '$',
+        },
+        underscore: {
+            format: 'global',
+            exports: '_',
         },
         materialize: {
             format: 'global',

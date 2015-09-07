@@ -29,6 +29,7 @@ libraryDependencies ++= Seq(
   "org.webjars.npm" % "jquery" % "2.1.4",
   "org.webjars.npm" % "intl-messageformat" % "1.1.0",
   "org.webjars" % "js-cookie" % "2.0.2",
+  "org.webjars.npm" % "underscore" % "1.8.3",
   "org.webjars.npm" % "react-draggable2" % "0.5.1",
   "org.webjars.npm" % "classnames" % "2.1.3"
 )

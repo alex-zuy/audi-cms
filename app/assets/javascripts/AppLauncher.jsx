@@ -1,4 +1,4 @@
-define(['react', 'reactRouter', 'js/Routes', 'jquery', 'jsCookie', 'react-tap-event-plugin', 'materialize', 'jsRoutes'], function(React, ReactRouter, routes, $, jsCookie, injectTapEventPlugin) {
+define(['react', 'reactRouter', 'js/Routes', 'jquery', 'underscore', 'jsCookie', 'react-tap-event-plugin', 'materialize', 'jsRoutes'], function(React, ReactRouter, routes, $, _, jsCookie, injectTapEventPlugin) {
 
     injectTapEventPlugin();
 
