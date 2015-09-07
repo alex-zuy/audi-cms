@@ -40,8 +40,7 @@ define(['react'], function(React) {
             }, {});
         },
         allRequiredFieldsNotEmpty() {
-            const allFields = this.getAllFields();
-            return this.getRequiredFieldRefs().every((fieldName) => !allFields[fieldName].isEmpty());
+            return this.getRequiredFieldRefs().every((fieldRef) => !this.refs[fieldRef].isEmpty());
         },
         validateForm: function() {
             if (this.allRequiredFieldsNotEmpty()) {
