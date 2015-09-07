@@ -11,18 +11,15 @@ define(['react', 'reactRouter', 'javascripts/components/ErrorPanel', 'mui', 'all
             allMixins.IntlMixin,
             allMixins.AjaxMixin,
             allMixins.FormMixin,
-            allMixins.DelayedFormValidateMixin,
         ],
         getDefaultProps: function() {
             return {
                 msgKeyPrefix: 'managersCtl.store',
-                delayedFormValidateMixin: {
-                    delay: 800,
-                },
                 formMixin: {
                     fieldRefs: ['fullName', 'email', 'password'],
                     validateRoute: function() { return jsRoutes.controllers.Managers.validateStore(); },
                     submitRoute: function() { return jsRoutes.controllers.Managers.store(); },
+                    validateDelay: 800,
                 }
             }
         },
@@ -86,7 +83,7 @@ define(['react', 'reactRouter', 'javascripts/components/ErrorPanel', 'mui', 'all
         },
         onChange: function() {
             this.setState({passwordsMatch: this.passwordsMatch()});
-            this.onFormChangedCallback();
+            this.onFormChange();
         },
         submitStore: function() {
             this.submitForm({

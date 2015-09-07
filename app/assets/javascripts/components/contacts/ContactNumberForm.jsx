@@ -7,7 +7,6 @@ define(['react', 'allMixins', 'mui', 'js/inputs/HiddenInput'], function(React, a
             allMixins.IntlMixin,
             allMixins.AjaxMixin,
             allMixins.FormMixin,
-            allMixins.DelayedFormValidateMixin,
         ],
         propTypes: {
             onItemSubmited: React.PropTypes.func.isRequired,
@@ -28,9 +27,7 @@ define(['react', 'allMixins', 'mui', 'js/inputs/HiddenInput'], function(React, a
                             return jsRoutes.controllers.Contacts.storeNumber();
                         }
                     },
-                },
-                delayedFormValidateMixin: {
-                    delay: 800,
+                    validateDelay: 800,
                 },
             };
         },

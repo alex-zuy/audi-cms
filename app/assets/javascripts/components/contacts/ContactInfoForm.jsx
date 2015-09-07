@@ -7,7 +7,6 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/HiddenInput', 'js
             allMixins.AjaxMixin,
             allMixins.IntlMixin,
             allMixins.FormMixin,
-            allMixins.DelayedFormValidateMixin,
             ReactRouter.Navigation,
         ],
         getDefaultProps() {
@@ -23,10 +22,8 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/HiddenInput', 'js
                             case 'update': return jsRoutes.controllers.Contacts.update();
                             default: throw new Error(`Invalid action '${action}'`);
                         }
-                    }
-                },
-                delayedFormValidateMixin: {
-                    delay: 800,
+                    },
+                    validateDelay: 800,
                 },
             };
         },

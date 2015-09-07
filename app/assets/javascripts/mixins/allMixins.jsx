@@ -1,10 +1,8 @@
 define([
     'javascripts/mixins/AjaxMixin',
-    'javascripts/mixins/DelayedFormValidateMixin',
     'javascripts/mixins/FormMixin',
     'javascripts/mixins/IntlMixin'],
     function(AjaxMixin,
-             DelayedFormValidateMixin,
              FormMixin,
              IntlMixin) {
 
@@ -12,7 +10,6 @@ define([
 
     return {
         AjaxMixin: AjaxMixin,
-        DelayedFormValidateMixin: DelayedFormValidateMixin,
         FormMixin: FormMixin,
         IntlMixin: IntlMixin,
     };

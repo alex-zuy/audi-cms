@@ -10,7 +10,6 @@ define(['react', 'allMixins', 'mui',
             allMixins.AjaxMixin,
             allMixins.IntlMixin,
             allMixins.FormMixin,
-            allMixins.DelayedFormValidateMixin,
         ],
         propTypes: {
             onItemSubmited: React.PropTypes.func.isRequired,
@@ -27,10 +26,8 @@ define(['react', 'allMixins', 'mui',
                         return (typeof this.props.item === 'object')
                             ? jsRoutes.controllers.Contacts.updateEmail(this.props.item.id)
                             : jsRoutes.controllers.Contacts.storeEmail();
-                    }
-                },
-                delayedFormValidateMixin: {
-                    delay: 800,
+                    },
+                    validateDelay: 800,
                 },
             };
         },

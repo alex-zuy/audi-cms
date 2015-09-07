@@ -7,7 +7,6 @@ define(['react', 'allMixins', 'mui', 'js/inputs/MapInput', 'js/inputs/HiddenInpu
             allMixins.IntlMixin,
             allMixins.AjaxMixin,
             allMixins.FormMixin,
-            allMixins.DelayedFormValidateMixin,
         ],
         propTypes: {
             onItemSubmited: React.PropTypes.func.isRequired,
@@ -29,9 +28,7 @@ define(['react', 'allMixins', 'mui', 'js/inputs/MapInput', 'js/inputs/HiddenInpu
                             return jsRoutes.controllers.Contacts.storeAddress();
                         }
                     },
-                },
-                delayedFormValidateMixin: {
-                    delay: 800,
+                    validateDelay: 800,
                 },
             };
         },

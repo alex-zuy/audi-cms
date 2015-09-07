@@ -1,9 +1,5 @@
 define(['react'], function(React) {
 
-    function objectEmpty(obj) {
-        return Object.getOwnPropertyNames(obj).length === 0;
-    }
-
     /* Class-user of this mixin must mix in IntlMixin and AjaxMixin */
 
     return {
@@ -13,6 +9,7 @@ define(['react'], function(React) {
                 optionalFieldRefs: React.PropTypes.arrayOf(React.PropTypes.string),
                 validateRoute: React.PropTypes.func.isRequired,
                 submitRoute: React.PropTypes.func.isRequired,
+                validateDelay: React.PropTypes.number.isRequired,
             }).isRequired
         },
         getInitialState: function() {
@@ -22,34 +19,39 @@ define(['react'], function(React) {
                 }
             }
         },
-        getRequiredFieldRefs: function() {
-            return (typeof this.props.formMixin.optionalFieldRefs !== 'undefined')
-                ? (this.props.formMixin.fieldRefs.filter(function(fieldName) {
-                    return this.props.formMixin.optionalFieldRefs.indexOf(fieldName) < 0;
-                    }.bind(this)))
-                : (this.props.formMixin.fieldRefs);
+        componentDidMount() {
+            this._lastChanged = new Date();
+            setInterval(function() {
+                var now = new Date();
+                if(!this._wasValidated && now.getTime() - this._lastChanged.getTime() > this.props.formMixin.validateDelay) {
+                    this._wasValidated = true;
+                    this.validateForm();
+                }
+            }.bind(this), 100);
         },
-        getAllFields: function() {
-            return this.props.formMixin.fieldRefs.reduce(function(fields, fieldRef) {
-                fields[fieldRef] = this.refs[fieldRef].getValue();
-                return fields;
-            }.bind(this), {});
+        getRequiredFieldRefs() {
+            const {fieldRefs: fields, optionalFieldRefs: optFields} = this.props.formMixin;
+            return _.difference(fields, optFields);
         },
-        allRequiredFieldsNotEmpty: function() {
-            var allFields = this.getAllFields();
-            return this.getRequiredFieldRefs().every(function(fieldName) {
-                return allFields[fieldName].length !== 0;
-            }.bind(this));
+        getAllFields() {
+            return _.reduce(this.props.formMixin.fieldRefs, (result, fieldRef) => {
+                result[fieldRef] = this.refs[fieldRef].getValue();
+                return result;
+            }, {});
+        },
+        allRequiredFieldsNotEmpty() {
+            const allFields = this.getAllFields();
+            return this.getRequiredFieldRefs().every((fieldName) => !allFields[fieldName].isEmpty());
         },
         validateForm: function() {
             if (this.allRequiredFieldsNotEmpty()) {
                 this.ajax(this.props.formMixin.validateRoute.apply(this), {
                     data: this.getAllFields(),
                     success: function(violations) {
-                        this.setState({formMixin: {fieldsValid: objectEmpty(violations)}});
-                        Object.getOwnPropertyNames(violations).forEach(function(field) {
+                        this.setState({formMixin: {fieldsValid: _.isEmpty(violations)}});
+                        _.keys(violations).forEach((field) => {
                             this.refs[field].setErrorText(this.getIntlMessage(violations[field].key, violations[field].args));
-                        }, this);
+                        });
                     }.bind(this)
                 })
             }
@@ -69,6 +71,15 @@ define(['react'], function(React) {
                     complete: callbacks.complete,
                 });
             }
-        }
+        },
+        _lastChanged: null,
+        _wasValidated: false,
+        onFormChange() {
+            this._lastChanged = new Date();
+            this._wasValidated = false;
+            if(!this.allRequiredFieldsNotEmpty()) {
+                this.setState({formMixin: {fieldsValid: false}});
+            }
+        },
     }
 });

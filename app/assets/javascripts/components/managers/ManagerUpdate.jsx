@@ -10,7 +10,6 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui'], function
             allMixin.IntlMixin,
             allMixin.AjaxMixin,
             allMixin.FormMixin,
-            allMixin.DelayedFormValidateMixin,
         ],
         getDefaultProps: function() {
             return {
@@ -23,9 +22,7 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui'], function
                     submitRoute: function() {
                         return jsRoutes.controllers.Managers.update(this.props.params.id);
                     },
-                },
-                delayedFormValidateMixin: {
-                    delay: 800,
+                    validateDelay: 800,
                 },
             };
         },
@@ -33,7 +30,7 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui'], function
             return (
                 <Paper zDepth={2} rounded={false} style={{padding: "50px"}}>
                     <h5>{this.getMsg('labels.title')}</h5>
-                    <form onChange={this.onFormChangedCallback}>
+                    <form onChange={this.onFormChange}>
                         <TextField
                             ref="fullName"
                             floatingLabelText={this.getMsg('inputs.fullName.label')}
