@@ -1,5 +1,5 @@
 define(['react', 'allMixins', 'mui',
-    'js/widgets/HiddenInput'
+    'js/inputs/HiddenInput'
 ], function(React, allMixins, mui, HiddenInput) {
 
     const {Paper, FloatingActionButton, FontIcon, TextField} = mui;

@@ -1,4 +1,4 @@
-define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/HiddenInput', 'js/components/ErrorPanel'], function(React, ReactRouter, allMixins, mui, HiddenInput, ErrorPanel) {
+define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/HiddenInput', 'js/components/ErrorPanel'], function(React, ReactRouter, allMixins, mui, HiddenInput, ErrorPanel) {
 
     const {Paper, TextField, RaisedButton} = mui;
 

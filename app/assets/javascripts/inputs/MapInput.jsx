@@ -59,6 +59,9 @@ define(['react', 'ymaps', 'js/widgets/YandexMaps'], function(React, ymaps, Yande
             else {
                 return this.placemark.geometry.getCoordinates();
             }
+        },
+        isEmpty() {
+            return this.getValue() == null;
         }
     });
 });

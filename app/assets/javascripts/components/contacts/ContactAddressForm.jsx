@@ -1,4 +1,4 @@
-define(['react', 'allMixins', 'mui', 'js/widgets/MapInput', 'js/widgets/HiddenInput'], function(React, allMixins, mui, MapInput, HiddenInput) {
+define(['react', 'allMixins', 'mui', 'js/inputs/MapInput', 'js/inputs/HiddenInput'], function(React, allMixins, mui, MapInput, HiddenInput) {
 
     const {TextField, FloatingActionButton, FontIcon, Paper} = mui;
 
