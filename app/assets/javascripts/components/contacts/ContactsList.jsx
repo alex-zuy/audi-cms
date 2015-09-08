@@ -1,6 +1,6 @@
-define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/IconedButton'], function(React, ReactRouter, allMixins, mui, IconedButton) {
+define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/IconedButton', 'js/components/ConfirmDialog'], function(React, ReactRouter, allMixins, mui, IconedButton, ConfirmDialog) {
 
-    const {Paper, IconButton, Dialog} = mui;
+    const {Paper, IconButton} = mui;
 
     return React.createClass({
         mixins: [
@@ -20,10 +20,6 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/IconedButton'], 
             };
         },
         render() {
-            const deleteDialogActions = [
-                {text: this.getMsg('actions.delete.cancel'), onTouchTap: this.cancelDelete},
-                {text: this.getMsg('actions.delete.confirm'), onTouchTap: this.confirmDelete}
-            ];
             return (
                 <Paper zDepth={2} rounded={false} style={{padding: "50px"}}>
                     <IconedButton
@@ -62,14 +58,12 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/IconedButton'], 
                         }
                         </tbody>
                     </table>
-                    <Dialog
+                    <ConfirmDialog
                         ref="deleteDialog"
-                        title={this.getMsg('labels.delete.dialogTitle')}
-                        actions={deleteDialogActions}
-                        actionFocus="submit"
-                        modal={true}>
+                        onConfirm={this.confirmDelete}
+                        title={this.getMsg('labels.delete.dialogTitle')}>
                         {this.getMsg('labels.delete.dialog')}
-                    </Dialog>
+                    </ConfirmDialog>
                 </Paper>
             );
         },
@@ -90,9 +84,6 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/IconedButton'], 
             this.ajax(jsRoutes.controllers.Contacts.delete(this.state.itemToDelete.id), {
                 success: () => this.loadContacts()
             });
-        },
-        cancelDelete() {
-            this.refs.deleteDialog.dismiss();
         },
         goToUpdate(item) {
             this.transitionTo('contacts-update', {id: item.id});
