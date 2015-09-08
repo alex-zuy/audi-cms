@@ -17,13 +17,6 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/inputs', 'js/comp
                     fieldRefs: ['name', 'internalName'],
                     optionalFieldRefs: ['internalName'],
                     validateRoute: () => jsRoutes.controllers.Contacts.validate(),
-                    submitRoute() {
-                        switch(this.getAction()) {
-                            case 'store': return jsRoutes.controllers.Contacts.store();
-                            case 'update': return jsRoutes.controllers.Contacts.update();
-                            default: throw new Error(`Invalid action '${action}'`);
-                        }
-                    },
                     validateDelay: 800,
                 },
             };
@@ -37,7 +30,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/inputs', 'js/comp
             return (
                 <Paper zDepth={2} rounded={false} style={{padding:"50px"}}>
                     <h5>{this.getMsg('labels.title')}</h5>
-                    <form onChange={this.onFormChangedCallback}>
+                    <form onChange={this.onFormChangeValidate}>
                         <ErrorPanel errorKey={this.state.error}/>
                         <HiddenInput ref="id"/> <br/>
                         <TextInput
@@ -57,8 +50,11 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/inputs', 'js/comp
             );
         },
         onSubmitClick() {
-            this.submitForm({
-                success: (response) => { console.log(response); this.transitionTo('contacts-update', {id: response.id});},
+            const route = (this.getAction() === 'update')
+                ? jsRoutes.controllers.Contacts.update()
+                : jsRoutes.controllers.Contacts.store();
+            this.submitForm(route, {
+                success: (response) => { this.transitionTo('contacts-update', {id: response.id});},
                 error: (error) => this.setState({error: error})
             });
         },
@@ -67,9 +63,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/inputs', 'js/comp
         },
         componentWillMount() {
             if(this.getAction() === 'update') {
-                this.ajax(jsRoutes.controller.Contacts.show(this.props.params.id), {
-                    success: (model) => this.fillForm(model),
-                });
+                this.loadItem(jsRoutes.controller.Contacts.show(this.props.params.id));
             }
         }
     });

@@ -20,14 +20,6 @@ define(['react', 'allMixins', 'mui', 'js/inputs/inputs'], function(React, allMix
                 formMixin: {
                     fieldRefs: ['name', 'number', 'contactInfoId'],
                     validateRoute: () => jsRoutes.controllers.Contacts.validateNumber(),
-                    submitRoute: function() {
-                        if(typeof this.props.item === 'object') {
-                            return jsRoutes.controllers.Contacts.updateNumber(this.props.item.id);
-                        }
-                        else {
-                            return jsRoutes.controllers.Contacts.storeNumber();
-                        }
-                    },
                     validateDelay: 800,
                 },
             };
@@ -35,7 +27,7 @@ define(['react', 'allMixins', 'mui', 'js/inputs/inputs'], function(React, allMix
         render() {
             return (
                 <Paper zDepth={2} rounded={false} style={{padding: "10px"}}>
-                    <form onChange={this.onFormChangedCallback} className="form-horizontal" style={{width: "100%"}}>
+                    <form onChange={this.onFormChangeValidate} className="form-horizontal" style={{width: "100%"}}>
                         <FloatingActionButton
                             onClick={this.props.onCancel}
                             mini={true}>
@@ -66,7 +58,10 @@ define(['react', 'allMixins', 'mui', 'js/inputs/inputs'], function(React, allMix
             }
         },
         onClick() {
-            this.submitForm({
+            const route = _.isUndefined(this.props.item)
+                ? jsRoutes.controllers.Contacts.storeNumber()
+                : jsRoutes.controllers.Contacts.updateNumber();
+            this.submitForm(route, {
                 success: () => this.props.onItemSubmited()
             });
         }

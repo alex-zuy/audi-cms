@@ -19,9 +19,6 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui', 'js/input
                     validateRoute: function() {
                         return jsRoutes.controllers.Managers.validateUpdate(this.props.params.id);
                     },
-                    submitRoute: function() {
-                        return jsRoutes.controllers.Managers.update(this.props.params.id);
-                    },
                     validateDelay: 800,
                 },
             };
@@ -30,7 +27,7 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui', 'js/input
             return (
                 <Paper zDepth={2} rounded={false} style={{padding: "50px"}}>
                     <h5>{this.getMsg('labels.title')}</h5>
-                    <form onChange={this.onFormChange}>
+                    <form onChange={this.onFormChangeValidate}>
                         <TextInput
                             ref="fullName"
                             floatingLabelText={this.getMsg('inputs.fullName.label')}
@@ -51,18 +48,13 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui', 'js/input
                 </Paper>
             );
         },
-        onSubmitForm: function() {
-            this.submitForm({complete: function() {
-                this.transitionTo('managers-list');
-            }.bind(this)});
-        },
-        componentDidMount: function() {
-            this.ajax(jsRoutes.controllers.Managers.show(this.props.params.id), {
-                success: function(mgr) {
-                    this.refs.fullName.setValue(mgr.fullName);
-                    this.refs.email.setValue(mgr.email);
-                }.bind(this)
+        onSubmitForm() {
+            this.submitForm(jsRoutes.controllers.Managers.update(this.props.params.id), {
+                complete: () => this.transitionTo('managers-list')
             });
+        },
+        componentDidMount() {
+            this.loadItem(jsRoutes.controllers.Managers.show(this.props.params.id));
         }
     });
 });

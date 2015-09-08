@@ -8,7 +8,6 @@ define(['react'], function(React) {
                 fieldRefs: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
                 optionalFieldRefs: React.PropTypes.arrayOf(React.PropTypes.string),
                 validateRoute: React.PropTypes.func.isRequired,
-                submitRoute: React.PropTypes.func.isRequired,
                 validateDelay: React.PropTypes.number.isRequired,
             }).isRequired
         },
@@ -21,13 +20,7 @@ define(['react'], function(React) {
         },
         componentDidMount() {
             this._lastChanged = new Date();
-            setInterval(function() {
-                var now = new Date();
-                if(!this._wasValidated && now.getTime() - this._lastChanged.getTime() > this.props.formMixin.validateDelay) {
-                    this._wasValidated = true;
-                    this.validateForm();
-                }
-            }.bind(this), 100);
+            setInterval(this._formPollingCallback.bind(this), 100);
         },
         getRequiredFieldRefs() {
             const {fieldRefs: fields, optionalFieldRefs: optFields} = this.props.formMixin;
@@ -42,7 +35,7 @@ define(['react'], function(React) {
         allRequiredFieldsNotEmpty() {
             return this.getRequiredFieldRefs().every((fieldRef) => !this.refs[fieldRef].isEmpty());
         },
-        validateForm: function() {
+        validateForm() {
             if (this.allRequiredFieldsNotEmpty()) {
                 this.ajax(this.props.formMixin.validateRoute.apply(this), {
                     data: this.getAllFields(),
@@ -61,9 +54,12 @@ define(['react'], function(React) {
         fillForm(model) {
             this.props.formMixin.fieldRefs.forEach((field) => this.refs[field].setValue(model[field]));
         },
-        submitForm: function(callbacks) {
+        loadItem(loadRoute) {
+            this.ajax(loadRoute, { success: (item) => this.fillForm(item) });
+        },
+        submitForm(route, callbacks) {
             if(this.state.formMixin.fieldsValid) {
-                this.ajax(this.props.formMixin.submitRoute.apply(this), {
+                this.ajax(route, {
                     data: this.getAllFields(),
                     success: callbacks.success,
                     error: callbacks.error,
@@ -71,14 +67,21 @@ define(['react'], function(React) {
                 });
             }
         },
-        _lastChanged: null,
-        _wasValidated: false,
-        onFormChange() {
+        onFormChangeValidate() {
             this._lastChanged = new Date();
             this._wasValidated = false;
             if(!this.allRequiredFieldsNotEmpty()) {
                 this.setState({formMixin: {fieldsValid: false}});
             }
         },
+        _formPollingCallback() {
+            var now = new Date();
+            if(!this._wasValidated && now.getTime() - this._lastChanged.getTime() > this.props.formMixin.validateDelay) {
+                this._wasValidated = true;
+                this.validateForm();
+            }
+        },
+        _lastChanged: null,
+        _wasValidated: false,
     }
 });

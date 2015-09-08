@@ -18,18 +18,17 @@ define(['react', 'reactRouter', 'javascripts/components/ErrorPanel', 'mui', 'all
                 formMixin: {
                     fieldRefs: ['fullName', 'email', 'password'],
                     validateRoute: function() { return jsRoutes.controllers.Managers.validateStore(); },
-                    submitRoute: function() { return jsRoutes.controllers.Managers.store(); },
                     validateDelay: 800,
                 }
             }
         },
-        getInitialState: function() {
+        getInitialState() {
             return {
                 error: null,
                 passwordsMatch: false,
             };
         },
-        render: function() {
+        render() {
             return (
                 <Paper zDepth={2} rounded={false} style={{padding: "50px"}}>
                     <h5>{this.getMsg('labels.title')}</h5>
@@ -69,30 +68,26 @@ define(['react', 'reactRouter', 'javascripts/components/ErrorPanel', 'mui', 'all
                 </Paper>
             );
         },
-        clearConfirmPassword: function() {
+        clearConfirmPassword() {
             this.refs.confirmPassword.setValue('');
             this.refs.confirmPassword.setErrorText('');
         },
-        onConfirmPasswordBlur: function() {
+        onConfirmPasswordBlur() {
             if(!this.passwordsMatch()) {
                 this.refs.confirmPassword.setErrorText(this.getMsg('errors.passwordsNotEqual'));
             }
         },
-        passwordsMatch: function() {
+        passwordsMatch() {
             return this.refs.password.getValue() === this.refs.confirmPassword.getValue();
         },
-        onChange: function() {
+        onChange() {
             this.setState({passwordsMatch: this.passwordsMatch()});
-            this.onFormChange();
+            this.onFormChangeValidate();
         },
-        submitStore: function() {
-            this.submitForm({
-                success: function() {
-                    this.transitionTo('managers-list');
-                }.bind(this),
-                error: function() {
-                    this.setState({error:'errors.submitError'});
-                }.bind(this),
+        submitStore() {
+            this.submitForm(jsRoutes.controllers.Managers.store(), {
+                success: () => this.transitionTo('managers-list'),
+                error: () => this.setState({error:'errors.submitError'})
             });
         },
     });
