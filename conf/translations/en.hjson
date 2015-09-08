@@ -136,6 +136,14 @@
             controlPanel: Control panel
         }
     }
+    components: {
+        confirmDialog: {
+            actions: {
+                confirm: Confirm
+                cancel: Cancel
+            }
+        }
+    }
     controlPanel: {
         contacts: {
             list: {
