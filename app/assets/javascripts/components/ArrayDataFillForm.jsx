@@ -1,8 +1,9 @@
 define(['react', 'allMixins', 'mui',
-    'js/widgets/Switch'
-], function(React, allMixins, mui, switchWidget) {
+    'js/widgets/Switch',
+    'js/components/ConfirmDialog'
+], function(React, allMixins, mui, switchWidget, ConfirmDialog) {
 
-    const {IconButton,FloatingActionButton, FontIcon, Dialog} = mui;
+    const {IconButton,FloatingActionButton, FontIcon} = mui;
     const {Switch, Case, Default} = switchWidget;
 
     return React.createClass({
@@ -24,10 +25,6 @@ define(['react', 'allMixins', 'mui',
             };
         },
         render() {
-            const deleteDialogActions = [
-                {text: this.getMsg('actions.delete.cancel'), onTouchTap: this.cancelDeleteItem},
-                {text: this.getMsg('actions.delete.confirm'), onTouchTap: this.confirmDeleteItem}
-            ];
             return (
                 <div>
                     <table className="compactTable">
@@ -82,14 +79,13 @@ define(['react', 'allMixins', 'mui',
                             </FloatingActionButton>
                         </Default>
                     </Switch>
-                    <Dialog
+                    <ConfirmDialog
                         ref="deleteDialog"
-                        title={this.getMsg('labels.delete.dialogTitle')}
-                        actions={deleteDialogActions}
-                        actionFocus="submit"
-                        modal={true}>
+                        onConfirm={this.confirmDeleteItem}
+                        onCancel={this.cancelDeleteItem}
+                        title={this.getMsg('labels.delete.dialogTitle')}>
                         {this.getMsg('labels.delete.dialog')}
-                    </Dialog>
+                    </ConfirmDialog>
                 </div>
             );
         },
@@ -104,13 +100,11 @@ define(['react', 'allMixins', 'mui',
             this.refs.deleteDialog.show();
         },
         confirmDeleteItem() {
-            this.refs.deleteDialog.dismiss();
             this.props.performDelete(this.state.actionData);
             this.setState({action: ''});
         },
         cancelDeleteItem() {
             this.setState({action:''});
-            this.refs.deleteDialog.dismiss();
         },
         onItemSubmited() {
             this.setState({action:''});
