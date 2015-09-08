@@ -4,7 +4,7 @@ define(['react', 'mui'], function(React, mui) {
 
     return React.createClass({
         propTypes: {
-            emptyMeansNull: React.PropTypes.boolean,
+            emptyMeansNull: React.PropTypes.bool,
         },
         getDefaultProps() {
             return {
