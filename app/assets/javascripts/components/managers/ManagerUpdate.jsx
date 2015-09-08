@@ -1,15 +1,19 @@
-define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui', 'js/inputs/inputs'], function(React, ReactRouter, allMixin, mui, inputs) {
+define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui', 'js/inputs/inputs', 'js/components/GenericForm'], function(React, ReactRouter, allMixin, mui, inputs, GenericForm) {
 
     const {TextInput} = inputs;
     var Paper = mui.Paper;
     var RaisedButton = mui.RaisedButton;
+
+    const formFields = [
+        { ref: 'fullName', editorComponent: TextInput},
+        { ref: 'email', editorComponent: TextInput}
+    ];
 
     return React.createClass({
         mixins: [
             ReactRouter.Navigation,
             allMixin.IntlMixin,
             allMixin.AjaxMixin,
-            allMixin.FormMixin,
         ],
         getDefaultProps: function() {
             return {
@@ -18,7 +22,7 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui', 'js/input
                     fieldRefs: ['fullName', 'email'],
                     validateRoute: function() {
                         return jsRoutes.controllers.Managers.validateUpdate(this.props.params.id);
-                    },
+                    }.bind(this),
                     validateDelay: 800,
                 },
             };
@@ -27,34 +31,28 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui', 'js/input
             return (
                 <Paper zDepth={2} rounded={false} style={{padding: "50px"}}>
                     <h5>{this.getMsg('labels.title')}</h5>
-                    <form onChange={this.onFormChangeValidate}>
-                        <TextInput
-                            ref="fullName"
-                            floatingLabelText={this.getMsg('inputs.fullName.label')}
-                            hintText={this.getMsg('inputs.fullName.placeholder')}
-                            /><br/>
-                        <TextInput
-                            ref="email"
-                            floatingLabelText={this.getMsg('inputs.email.label')}
-                            hintText={this.getMsg('inputs.email.placeholder')}
-                            /><br/>
-                        <RaisedButton
-                            onClick={this.onSubmitForm}
-                            label={this.getMsg('actions.update')}
-                            primary={true}
-                            disabled={!this.state.formMixin.fieldsValid}
-                            />
-                    </form>
+                    <GenericForm
+                        ref="form"
+                        fields={formFields}
+                        msgKeyPrefix={this.props.msgKeyPrefix}
+                        formMixin={{
+                            fieldRefs: ['fullName', 'email'],
+                            validateRoute: () => {
+                                return jsRoutes.controllers.Managers.validateUpdate(this.props.params.id);
+                            },
+                            validateDelay: 800,
+                        }}
+                        onSubmitAttempt={this.onSubmitForm}/>
                 </Paper>
             );
         },
         onSubmitForm() {
-            this.submitForm(jsRoutes.controllers.Managers.update(this.props.params.id), {
+            this.refs.form.submitForm(jsRoutes.controllers.Managers.update(this.props.params.id), {
                 complete: () => this.transitionTo('managers-list')
             });
         },
         componentDidMount() {
-            this.loadItem(jsRoutes.controllers.Managers.show(this.props.params.id));
+            this.refs.form.loadItem(jsRoutes.controllers.Managers.show(this.props.params.id));
         }
     });
 });

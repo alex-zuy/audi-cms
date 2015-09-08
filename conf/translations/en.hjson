@@ -81,7 +81,7 @@
                 title: Updating manager
             }
             actions: {
-                update: Save
+                submit: Save
             }
             inputs: {
                 fullName: {
