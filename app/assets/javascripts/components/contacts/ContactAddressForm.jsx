@@ -63,7 +63,7 @@ define(['react', 'allMixins', 'mui', 'js/inputs/inputs'], function(React, allMix
         onClick() {
             const route = _.isUndefined(this.props.item)
                 ? jsRoutes.controllers.Contacts.storeAddress()
-                : jsRoutes.controllers.Contacts.updateAddress();
+                : jsRoutes.controllers.Contacts.updateAddress(this.props.item.id);
             this.submitForm(route, {
                 success: () => this.props.onItemSubmited()
             });

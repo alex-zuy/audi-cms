@@ -142,9 +142,17 @@
                 labels: {
                     name: Name
                     internalName: Internal name
+                    delete: {
+                        dialogTitle: Deleting contact info
+                        dialog: Are you sure you want to delete it ?
+                    }
                 }
                 actions: {
                     addInfo: Add contact info
+                    delete: {
+                        confirm: Delete
+                        cancel: Cancel
+                    }
                 }
             }
             form: {

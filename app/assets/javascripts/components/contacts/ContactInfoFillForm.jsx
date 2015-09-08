@@ -2,17 +2,19 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
     'js/components/contacts/ContactNumberForm',
     'js/components/contacts/ContactEmailForm',
     'js/components/contacts/ContactAddressForm',
+    'js/components/contacts/ContactInfoForm',
     'js/widgets/Switch',
     'js/components/ArrayDataFillForm'
-], function(React, ReactRouter, mui, allMixins, ContactNumberForm, ContactEmailForm, ContactAddressForm, switchWidget, ArrayDataFillForm) {
+], function(React, ReactRouter, mui, allMixins, ContactNumberForm, ContactEmailForm, ContactAddressForm, ContactInfoForm, switchWidget, ArrayDataFillForm) {
 
     const {Paper, FloatingActionButton, FontIcon, IconButton} = mui;
-    const {Switch, Case, Default} = switchWidget;
+    const {Navigation} = ReactRouter;
 
     return React.createClass({
         mixins: [
             allMixins.AjaxMixin,
             allMixins.IntlMixin,
+            Navigation,
         ],
         getDefaultProps() {
             return {
@@ -22,14 +24,10 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
         getInitialState() {
             return {
                 contactInfo: {
-                    name: '',
-                    internalName: '',
                     numbers:[],
                     emails:[],
                     addresses:[],
                 },
-                currentAction: '',
-                actionData: null,
             };
         },
         render() {
@@ -40,8 +38,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
             };
             return (
                 <Paper zDepth={2} rounded={false} style={{padding: "20px"}}>
-                    <p>{`${this.getMsg('labels.name')}: ${this.state.contactInfo.name}`}</p>
-                    <p>{`${this.getMsg('labels.internalName')}: ${this.state.contactInfo.internalName}`}</p>
+                    <ContactInfoForm action="update" contactInfoId={this.props.params.id}/>
                     <div>
                         <h5 className="center-align">{this.getMsg('labels.numbers')}</h5>
                         <ArrayDataFillForm

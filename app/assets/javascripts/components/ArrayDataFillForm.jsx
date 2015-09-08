@@ -33,9 +33,9 @@ define(['react', 'allMixins', 'mui',
                     <table className="compactTable">
                         <thead>
                             <tr>
-                                { this.props.fieldNames.map((field) => <th>{this.getMsg(`labels.${field}`)}</th> ) }
-                                <th></th>
-                                <th></th>
+                                { this.props.fieldNames.map((field) => <td>{this.getMsg(`labels.${field}`)}</td> ) }
+                                <td></td>
+                                <td></td>
                             </tr>
                         </thead>
                         <tbody>{

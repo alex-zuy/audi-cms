@@ -13,6 +13,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/inputs', 'js/comp
         getDefaultProps() {
             return {
                 msgKeyPrefix: 'controlPanel.contacts.form',
+                action: 'store',
                 formMixin: {
                     fieldRefs: ['name', 'internalName'],
                     optionalFieldRefs: ['internalName'],
@@ -29,7 +30,6 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/inputs', 'js/comp
         render() {
             return (
                 <Paper zDepth={2} rounded={false} style={{padding:"50px"}}>
-                    <h5>{this.getMsg('labels.title')}</h5>
                     <form onChange={this.onFormChangeValidate}>
                         <ErrorPanel errorKey={this.state.error}/>
                         <HiddenInput ref="id"/> <br/>
@@ -51,19 +51,24 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/inputs/inputs', 'js/comp
         },
         onSubmitClick() {
             const route = (this.getAction() === 'update')
-                ? jsRoutes.controllers.Contacts.update()
+                ? jsRoutes.controllers.Contacts.update(this.props.contactInfoId)
                 : jsRoutes.controllers.Contacts.store();
             this.submitForm(route, {
-                success: (response) => { this.transitionTo('contacts-update', {id: response.id});},
+                success: (response) => {
+                    if(this.getAction() === 'update')
+                        this.transitionTo('contacts-list');
+                    else
+                        this.transitionTo('contacts-update', {id: response.id});
+                },
                 error: (error) => this.setState({error: error})
             });
         },
         getAction() {
-            return this.props.query.action;
+            return this.props.action;
         },
         componentWillMount() {
             if(this.getAction() === 'update') {
-                this.loadItem(jsRoutes.controller.Contacts.show(this.props.params.id));
+                this.loadItem(jsRoutes.controllers.Contacts.show(this.props.contactInfoId));
             }
         }
     });
