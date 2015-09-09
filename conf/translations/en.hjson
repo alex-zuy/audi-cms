@@ -168,14 +168,16 @@
                     title: Creating manager
                 }
                 actions: {
-                    store: Save
+                    submit: Save
                 }
                 inputs: {
                     name: {
                         label: Name
+                        placeholder: Name
                     }
                     internalName: {
                         label: Internal name
+                        placeholder: Internal name
                     }
                 }
             }

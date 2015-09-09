@@ -17,8 +17,8 @@ define(['react',
         'javascripts/components/managers/ManagerUpdate',
         'javascripts/components/managers/ManagerChangePassword',
         'js/components/contacts/ContactsList',
-        'js/components/contacts/ContactInfoForm',
-        'js/components/contacts/ContactInfoFillForm',
+        'js/components/contacts/ContactInfoStore',
+        'js/components/contacts/ContactInfoFill',
         'javascripts/UserLayout',
         'javascripts/ManagerLayout',
     ],
@@ -41,7 +41,7 @@ define(['react',
              ManagerUpdate,
              ManagerChangePassword,
              ContactsList,
-             ContactInfoForm,
+             ContactInfoStore,
              ContactInfoFillForm,
              UserLayout,
              ManagerLayout)
@@ -72,7 +72,7 @@ define(['react',
                         </Route>
                         <Route path="contacts">
                             <Route path="list" name="contacts-list" handler={ContactsList}/>
-                            <Route path="store" name="contacts-store" handler={ContactInfoForm}/>
+                            <Route path="store" name="contacts-store" handler={ContactInfoStore}/>
                             <Route path=":id/update" name="contacts-update" handler={ContactInfoFillForm}/>
                         </Route>
                     </Route>

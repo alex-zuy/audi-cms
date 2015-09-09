@@ -38,7 +38,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
             };
             return (
                 <Paper zDepth={2} rounded={false} style={{padding: "20px"}}>
-                    <ContactInfoForm action="update" contactInfoId={this.props.params.id}/>
+                    <ContactInfoForm ref="form" onSubmitItem={this.onSubmitItem}/>
                     <div>
                         <h5 className="center-align">{this.getMsg('labels.numbers')}</h5>
                         <ArrayDataFillForm
@@ -71,12 +71,20 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
                 </Paper>
             );
         },
+        onSubmitItem() {
+            this.refs.form.getForm().submitForm(jsRoutes.controllers.Contacts.update(this.props.params.id), {
+                success: () => this.transitionTo('contacts-list'),
+            });
+        },
         componentWillMount() {
             this.loadContactInfo();
         },
         loadContactInfo() {
             this.ajax(jsRoutes.controllers.Contacts.show(this.props.params.id), {
-                success: (ci) => this.setState({contactInfo: ci})
+                success: (ci) => {
+                    this.setState({contactInfo: ci});
+                    this.refs.form.getForm().fillForm(ci);
+                }
             });
         },
         dataSubmited() {
