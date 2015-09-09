@@ -5,26 +5,18 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui', 'js/input
     var RaisedButton = mui.RaisedButton;
 
     const formFields = [
-        { ref: 'fullName', editorComponent: TextInput},
-        { ref: 'email', editorComponent: TextInput}
+        { ref: 'fullName', editorComponent: TextInput, isRequired: true},
+        { ref: 'email', editorComponent: TextInput, isRequired: true},
     ];
 
     return React.createClass({
         mixins: [
             ReactRouter.Navigation,
             allMixin.IntlMixin,
-            allMixin.AjaxMixin,
         ],
         getDefaultProps: function() {
             return {
                 msgKeyPrefix: 'managersCtl.update',
-                formMixin: {
-                    fieldRefs: ['fullName', 'email'],
-                    validateRoute: function() {
-                        return jsRoutes.controllers.Managers.validateUpdate(this.props.params.id);
-                    }.bind(this),
-                    validateDelay: 800,
-                },
             };
         },
         render: function() {
@@ -35,13 +27,7 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui', 'js/input
                         ref="form"
                         fields={formFields}
                         msgKeyPrefix={this.props.msgKeyPrefix}
-                        formMixin={{
-                            fieldRefs: ['fullName', 'email'],
-                            validateRoute: () => {
-                                return jsRoutes.controllers.Managers.validateUpdate(this.props.params.id);
-                            },
-                            validateDelay: 800,
-                        }}
+                        validateRoute={() => jsRoutes.controllers.Managers.validateUpdate(this.props.params.id)}
                         onSubmitAttempt={this.onSubmitForm}/>
                 </Paper>
             );
