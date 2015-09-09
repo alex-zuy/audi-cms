@@ -1,8 +1,7 @@
-define(['react', 'reactRouter', 'allMixins', 'mui',
+define(['react',
     'js/inputs/inputs',
-    'js/components/ErrorPanel',
     'js/components/GenericForm'
-], function(React, ReactRouter, allMixins, mui, inputs, ErrorPanel, GenericForm) {
+], function(React, inputs, GenericForm) {
 
     const {TextInput, HiddenInput} = inputs;
 

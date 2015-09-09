@@ -1,11 +1,8 @@
 define(['react', 'reactRouter', 'allMixins', 'mui',
-    'js/inputs/inputs',
-    'js/components/ErrorPanel',
     'js/components/contacts/ContactInfoForm'
-], function(React, ReactRouter, allMixins, mui, inputs, ErrorPanel, ContactInfoForm) {
+], function(React, ReactRouter, allMixins, mui, ContactInfoForm) {
 
-    const {TextInput, HiddenInput} = inputs;
-    const {Paper, TextField, RaisedButton} = mui;
+    const {Paper} = mui;
 
     return React.createClass({
         mixins: [

@@ -3,18 +3,16 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
     'js/components/contacts/ContactEmailForm',
     'js/components/contacts/ContactAddressForm',
     'js/components/contacts/ContactInfoForm',
-    'js/widgets/Switch',
     'js/components/ArrayDataFillForm'
-], function(React, ReactRouter, mui, allMixins, ContactNumberForm, ContactEmailForm, ContactAddressForm, ContactInfoForm, switchWidget, ArrayDataFillForm) {
+], function(React, ReactRouter, mui, allMixins, ContactNumberForm, ContactEmailForm, ContactAddressForm, ContactInfoForm, ArrayDataFillForm) {
 
-    const {Paper, FloatingActionButton, FontIcon, IconButton} = mui;
-    const {Navigation} = ReactRouter;
+    const {Paper} = mui;
 
     return React.createClass({
         mixins: [
             allMixins.AjaxMixin,
             allMixins.IntlMixin,
-            Navigation,
+            ReactRouter.Navigation,
         ],
         getDefaultProps() {
             return {
