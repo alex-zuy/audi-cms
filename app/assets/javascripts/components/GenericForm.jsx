@@ -19,7 +19,7 @@ define(['react', 'allMixins', 'mui'], function(React, allMixins, mui) {
                                     floatingLabelText={this.getMsg(`inputs.${field.ref}.label`)}
                                     hintText={this.getMsg(`inputs.${field.ref}.placeholder`)}
                                     {...field.props}/>
-                                <br/>
+                                {(() => this.props.formVertical ? <br/> : <div/>)()}
                             </div>
                     )
                 }
@@ -43,14 +43,20 @@ define(['react', 'allMixins', 'mui'], function(React, allMixins, mui) {
             })),
             validateRoute: React.PropTypes.func.isRequired,
             formProps: React.PropTypes.object,
+            formVertical: React.PropTypes.bool,
             onSubmitAttempt: React.PropTypes.func.isRequired
+        },
+        getDefaultProps() {
+            return {
+                formVertical: true,
+            };
         },
         render() {
             return (
                 <FormImpl
                     ref="form"
                     formMixin={getFormMixinProps(this.props.fields, this.props.validateRoute)}
-                    {..._.pick(this.props, 'fields', 'formProps', 'onSubmitAttempt', 'msgKeyPrefix')}/>
+                    {..._.omit(this.props, 'validateRoute')}/>
             );
         },
         fillForm(...a) { this.refs.form.fillForm(...a) },
