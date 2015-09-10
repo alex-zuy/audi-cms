@@ -1,5 +1,5 @@
-define(["react", "reactRouter", "javascripts/components/TodoDummy", "mui", "allMixins"],
-    function(React, ReactRouter, TodoDummy, mui, allMixins) {
+define(["react", "reactRouter", "javascripts/components/TodoDummy", "mui", "allMixins", 'js/Auth'],
+    function(React, ReactRouter, TodoDummy, mui, allMixins, Auth) {
 
         const {Menu, MenuItem, FontIcon} = mui;
 
@@ -13,6 +13,13 @@ define(["react", "reactRouter", "javascripts/components/TodoDummy", "mui", "allM
                 ReactRouter.Navigation,
                 allMixins.IntlMixin,
             ],
+            statics: {
+                willTransitionTo(transition, params, query) {
+                    if(!Auth.isLoggedIn()) {
+                        transition.redirect('login');
+                    }
+                }
+            },
             getDefaultProps() {
                 return {
                     msgKeyPrefix: 'controlPanel.navbar.labels',
