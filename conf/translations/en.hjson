@@ -2,9 +2,14 @@
     loginPage: {
         labels: {
             login: Login
+            alreadyLoggedIn: {
+                title: Already logged in
+                text: "You are already logged in as {fullName}"
+            }
         }
         actions: {
             login: Login
+            logout: Logout
         }
         errors: {
             noSuchUser: There is no such user. Check your data!
