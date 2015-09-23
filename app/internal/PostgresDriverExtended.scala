@@ -1,6 +1,7 @@
 package internal
 
 import com.github.tminglei.slickpg._
+import models.Model.{TransmissionTypes, GearboxTypes, EngineTypes}
 
 import play.api.libs.json.{Json, JsValue}
 
@@ -23,7 +24,17 @@ with array.PgArrayJdbcTypes {
   }
 
   trait EnumImplicits {
+    implicit val engineTypeMapper = createEnumJdbcType("engine_types", EngineTypes)
+    implicit val engineTypeListMapper = createEnumListJdbcType("engine_types", EngineTypes)
+    implicit val engineTypeColumnExtensionMethodsBuilder = createEnumColumnExtensionMethodsBuilder(EngineTypes)
 
+    implicit val gearboxTypeMapper = createEnumJdbcType("gearbox_types", GearboxTypes)
+    implicit val gearboxTypeListMapper = createEnumListJdbcType("gearbox_types", GearboxTypes)
+    implicit val gearboxTypeColumnExtensionMethodsBuilder = createEnumColumnExtensionMethodsBuilder(GearboxTypes)
+
+    implicit val transmissionTypeMapper = createEnumJdbcType("transmission_types", TransmissionTypes)
+    implicit val transmissionTypeListMapper = createEnumListJdbcType("transmission_types", TransmissionTypes)
+    implicit val transmissionTypeColumnExtensionMethodsBuilder = createEnumColumnExtensionMethodsBuilder(TransmissionTypes)
   }
 
 }
