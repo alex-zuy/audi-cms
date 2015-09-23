@@ -147,8 +147,10 @@ object Contacts {
       )
     )
 
-    def existsConflictRowQuery =
-      allInfos.filter(c => c.id =!= contactInfo.id && c.internalName === contactInfo.internalName).exists.result
+    def existsConflictRowQuery = {
+      val id = contactInfo.id.getOrElse(0)
+      allInfos.filter(c => c.id =!= id && c.internalName === contactInfo.internalName).exists.result
+    }
   }
 
   class ContactNumberValidator(contactNumber: ContactNumber) extends Validator {
