@@ -43,6 +43,17 @@ object Validators {
   def InRange[T](min: T, max: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.range", "minValue" -> min, "maxValue" -> max) {
     (v, mt) => n.gteq(v, min) && n.lteq(v, max) }
 
+  def JsonObject(keys: Seq[String] = Seq.empty) = build[JsValue]("validators.errors.jsonObject.keys") { (json, mt) =>
+    json match {
+      case jsObj:JsObject => {
+        val absentKeys = keys.filter(!jsObj.keys.contains(_))
+        mt.putParameter("absentKeys" -> JsArray(absentKeys.map(JsString.apply)).toString())
+        absentKeys.isEmpty
+      }
+      case _ => false
+    }
+  }
+
   /**
    * @param existsConflictRow a query that returns true if there is some record that will conflict with
    *                          record under validation
