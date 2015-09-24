@@ -140,7 +140,7 @@ object Contacts {
   class ContactInfoValidator(contactInfo: ContactInfo)(implicit dbConfig: DatabaseConfig[JdbcProfile]) extends Validator {
     override def rules: Seq[(String, RuleSet[_])] = Seq(
       "name" -> Required(contactInfo.name)(
-        Length(50)
+        JsonObject(Seq(Application.defaultLang))
       ),
       "internalName" -> Optional(contactInfo.internalName)(
         Length(50), LowCase, NoWhitespace, Unique(existsConflictRowQuery)

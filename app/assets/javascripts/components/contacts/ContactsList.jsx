@@ -39,7 +39,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/IconedButton', '
                         <tbody>{
                             this.state.contacts.map((c, index) =>
                                 <tr key={`row-${index}`}>
-                                    <td>{c.name}</td>
+                                    <td>{this.getPreferedText(c.name)}</td>
                                     <td>{c.internalName}</td>
                                     <td>
                                         <IconButton

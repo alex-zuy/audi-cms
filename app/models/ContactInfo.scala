@@ -4,7 +4,7 @@ import play.api.libs.json.JsValue
 
 import internal.PostgresDriverExtended.api._
 
-case class ContactInfo(id: Option[Int], name: String, internalName: Option[String])
+case class ContactInfo(id: Option[Int], name: JsValue, internalName: Option[String])
 
 case class ContactNumber(id: Option[Int], contactInfoId: Int, name: String, number: String)
 
@@ -15,7 +15,7 @@ case class ContactAddress(id: Option[Int], contactInfoId: Int, name: String, add
 object ContactInfoDAO {
 
   class ContactInfosTable(tag: Tag) extends Table[ContactInfo](tag, "contact_infos") with IntegerIdPk {
-    def name = column[String]("name")
+    def name = column[JsValue]("name")
 
     def internalName = column[Option[String]]("internal_name")
 

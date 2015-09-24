@@ -46,10 +46,10 @@ class ContactsTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
 
   lazy val addressesTestHelper = new CrudTestHelper[ContactAddress, ContactAddressesTable](allAddresses)
 
-  val newOrUpdatedValidContactInfo = ContactInfo(None, "new info", Some("new.internal.name"))
+  val newOrUpdatedValidContactInfo = ContactInfo(None, Json.obj("en" -> "new info"), Some("new.internal.name"))
 
   // violation: breaks unique value constraint for 'internal_name'
-  val newOrUpdatedInvalidContactInfo = ContactInfo(None, "new info", Some("internalNameTwo"))
+  val newOrUpdatedInvalidContactInfo = ContactInfo(None, Json.obj("en" -> "new info"), Some("internalNameTwo"))
 
   def newOrUpdatedValidContactNumber(id: Int) = ContactNumber(None, id, "new number name", "+123456789")
 
@@ -107,7 +107,7 @@ class ContactsTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
       infoTestHelper.testInvalidUpdate(controller.update(id), id, newOrUpdatedInvalidContactInfo)
     }
     "validate contact info" in {
-      val ci = new ContactInfo(None, "asdadasd", Some("asdsad s"))
+      val ci = new ContactInfo(None, Json.obj("en" -> "asdadasd"), Some("asdsad s"))
       val response = invokeWithRecordCheckingStatus(controller.validate, ci, OK)
       val expectedJson = Json.parse(
         """{

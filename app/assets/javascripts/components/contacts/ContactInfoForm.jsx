@@ -3,7 +3,7 @@ define(['react',
     'js/components/GenericForm'
 ], function(React, inputs, GenericForm) {
 
-    const {TextInput, HiddenInput} = inputs;
+    const {TextInput, HiddenInput, I18nTextInput} = inputs;
 
     return React.createClass({
         render() {
@@ -12,7 +12,7 @@ define(['react',
                     ref="form"
                     fields={[
                         {ref: 'id', editorComponent: HiddenInput, isRequired: false},
-                        {ref: 'name', editorComponent: TextInput, isRequired: true},
+                        {ref: 'name', editorComponent: I18nTextInput, isRequired: true, props: {languages: ["en", "ru"], requiredLanguages: ["en"]}},
                         {ref: 'internalName', editorComponent: TextInput, isRequired: false},
                     ]}
                     validateRoute={() => jsRoutes.controllers.Contacts.validate()}
