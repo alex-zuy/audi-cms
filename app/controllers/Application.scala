@@ -2,6 +2,7 @@ package controllers
 
 import internal.{DefaultDbConfiguration, Authenticate}
 import play.api._
+import play.api.Play.current
 import play.api.libs.json._
 import play.api.mvc._
 import play.api.routing.JavaScriptReverseRouter
@@ -90,9 +91,9 @@ object Application {
   /**
    * Default language for client is English
    */
-  val defaultLang = "en";
+  val defaultLang = Play.application.configuration.getString("app.i18n.defaultLanguage").get
 
-  val supportedLanguages = Set("en", "ru")
+  val supportedLanguages = Play.application.configuration.getStringList("app.i18n.supportedLanguages").get
 
   def getLang(implicit request: RequestHeader) = request.cookies.get("lang").map(_.value) getOrElse "en"
 
