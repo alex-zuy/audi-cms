@@ -148,6 +148,14 @@
                 cancel: Cancel
             }
         }
+        I18nTextInput: {
+            labels: {
+                languages: {
+                    en: English
+                    ru: Russian
+                }
+            }
+        }
     }
     controlPanel: {
         contacts: {

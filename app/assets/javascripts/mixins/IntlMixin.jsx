@@ -43,6 +43,10 @@ define(['react', 'IntlMessageFormat'], function(React, IntlMessageFormat) {
                 ? (relativeKey)
                 : (this.props.msgKeyPrefix + '.' + relativeKey);
             return this.getIntlMessage(key, args);
+        },
+        getPreferedText(texts) {
+            //TODO make this function more intelligent
+            return texts.en;
         }
     };
 
