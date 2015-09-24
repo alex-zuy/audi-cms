@@ -4,6 +4,8 @@ import ValidatorBuilder.build
 
 import java.util.regex.Pattern
 
+import play.api.libs.json.{JsString, JsArray, JsObject, JsValue}
+
 import slick.backend.DatabaseConfig
 import slick.dbio.{NoStream, DBIOAction}
 import slick.driver.JdbcProfile
@@ -14,39 +16,39 @@ import scala.concurrent.Await.result
 
 object Validators {
 
-  def Length(max: Int) = build[String]("validators.errors.string.length", "maxLength" -> max) {
-    _.length <= max }
+  def Length(max: Int) = build[String]("validators.errors.string.length", "maxLength" -> max) { (s, mt) =>
+    s.length <= max }
 
-  def NoWhitespace = build[String]("validators.errors.string.whitespace") {
-    ! _.exists(_.isWhitespace) }
+  def NoWhitespace = build[String]("validators.errors.string.whitespace") { (s, mt) =>
+    ! s.exists(_.isWhitespace) }
 
-  def LowCase = build[String]("validators.errors.string.uppercase") {
-    ! _.exists(_.isUpper) }
+  def LowCase = build[String]("validators.errors.string.uppercase") { (s, mt) =>
+    ! s.exists(_.isUpper) }
 
-  def Email = build[String]("validators.errors.string.email") {
-    emailPattern.matcher(_).matches }
+  def Email = build[String]("validators.errors.string.email") { (s, mt) =>
+    emailPattern.matcher(s).matches }
 
-  def PhoneNumber = build[String]("validators.errors.string.phoneNumber") {
-    phoneNumberPattern.matcher(_).matches }
+  def PhoneNumber = build[String]("validators.errors.string.phoneNumber") { (s, mt) =>
+    phoneNumberPattern.matcher(s).matches }
 
-  def NonNegative[T](implicit n :Numeric[T]) = build[T]("validators.errors.numeric.negative") {
-    n.gteq(_, n.zero) }
+  def NonNegative[T](implicit n :Numeric[T]) = build[T]("validators.errors.numeric.negative") { (v, mt) =>
+    n.gteq(v, n.zero) }
 
-  def Min[T](min: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.min", "minValue" -> min) {
-    n.gteq(_, min) }
+  def Min[T](min: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.min", "minValue" -> min) { (v, mt) =>
+    n.gteq(v, min) }
 
-  def Max[T](max: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.max", "maxValue" -> max) {
-    n.lteq(_, max) }
+  def Max[T](max: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.max", "maxValue" -> max) { (v, mt) =>
+    n.lteq(v, max) }
 
   def InRange[T](min: T, max: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.range", "minValue" -> min, "maxValue" -> max) {
-    v => n.gteq(v, min) && n.lteq(v, max) }
+    (v, mt) => n.gteq(v, min) && n.lteq(v, max) }
 
   /**
    * @param existsConflictRow a query that returns true if there is some record that will conflict with
    *                          record under validation
    */
   def Unique[V](existsConflictRow: DBIOAction[Boolean, NoStream, Nothing])(implicit dbConfig: DatabaseConfig[JdbcProfile]) =
-    build[V]("validators.errors.value.nonunique") { _ => result(dbConfig.db.run(existsConflictRow), 10 seconds) == false }
+    build[V]("validators.errors.value.nonunique") { (_,_) => result(dbConfig.db.run(existsConflictRow), 10 seconds) == false }
 
   val emailPattern = Pattern.compile("""^\p{Alpha}[a-zA-Z_.0-9]*@\p{Alpha}+\.\p{Alpha}+$""")
 
