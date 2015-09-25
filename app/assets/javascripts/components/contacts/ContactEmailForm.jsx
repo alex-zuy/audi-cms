@@ -2,7 +2,7 @@ define(['react', 'allMixins', 'mui',
     'js/inputs/inputs'
 ], function(React, allMixins, mui, inputs) {
 
-    const {TextInput, HiddenInput} = inputs;
+    const {TextInput, HiddenInput, I18nTextInput} = inputs;
     const {Paper, FloatingActionButton, FontIcon} = mui;
 
 
@@ -37,9 +37,10 @@ define(['react', 'allMixins', 'mui',
                             <FontIcon className="material-icons">cancel</FontIcon>
                         </FloatingActionButton>
                         <HiddenInput ref="contactInfoId" value={this.props.contactInfoId}/>
-                        <TextInput
-                            ref="name"
-                            hintText={this.getMsg('inputs.name.placeholder')}/>
+                        <I18nTextInput
+                            languages={["en", "ru"]}
+                            requiredLanguages={["en"]}
+                            ref="name"/>
                         <TextInput
                             ref="email"
                             hintText={this.getMsg('inputs.email.placeholder')}/>

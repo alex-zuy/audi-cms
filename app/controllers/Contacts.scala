@@ -169,7 +169,7 @@ object Contacts {
     override def rules: Seq[(String, RuleSet[_])] = Seq(
       "contactInfoId" -> Required(contactEmail.contactInfoId)(),
       "name" -> Required(contactEmail.name)(
-        Length(50)
+        JsonObject(Seq(Application.defaultLang))
       ),
       "contactPerson" -> Required(contactEmail.contactPerson)(
         Length(50)
@@ -184,7 +184,7 @@ object Contacts {
     override def rules: Seq[(String, RuleSet[_])] = Seq(
       "contactInfoId" -> Required(contactAddress.contactInfoId)(),
       "name" -> Required(contactAddress.name)(
-        Length(50)
+        JsonObject(Seq(Application.defaultLang))
       ),
       "address" -> Required(contactAddress.address)(
         Length(50)

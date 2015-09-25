@@ -52,6 +52,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
                         <ArrayDataFillForm
                             data={this.state.contactInfo.emails}
                             fieldNames={['name', 'email', 'contactPerson']}
+                            fieldToStringMapper={this._nameFieldToStringMapper}
                             msgKeyPrefix="controlPanel.contacts.fillForm.emailDataFillForm"
                             itemForm={ContactEmailForm}
                             itemFormProps={{contactInfoId: this.state.contactInfo.id}}
@@ -61,6 +62,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
                         <ArrayDataFillForm
                             data={this.state.contactInfo.addresses}
                             fieldNames={['name', 'address']}
+                            fieldToStringMapper={this._nameFieldToStringMapper}
                             msgKeyPrefix="controlPanel.contacts.fillForm.addressDataFillForm"
                             itemForm={ContactAddressForm}
                             itemFormProps={{contactInfoId: this.state.contactInfo.id}}

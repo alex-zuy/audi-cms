@@ -27,13 +27,13 @@ object ContactsSeeder extends DatabaseSeeder with FutureAwaits with DefaultAwait
 
   def numberTwo(contactInfoId: Int) = ContactNumber(None, contactInfoId, Json.obj("en" -> "numberTwo"), "+987654321")
 
-  def emailOne(contactInfoId: Int) = ContactEmail(None, contactInfoId, "personOne", "emailOne@example.net", "emailOne")
+  def emailOne(contactInfoId: Int) = ContactEmail(None, contactInfoId, "personOne", "emailOne@example.net", Json.obj("en" -> "emailOne"))
 
-  def emailTwo(contactInfoId: Int) = ContactEmail(None, contactInfoId, "personTwo", "emailTwo@example.net", "emailTwo")
+  def emailTwo(contactInfoId: Int) = ContactEmail(None, contactInfoId, "personTwo", "emailTwo@example.net", Json.obj("en" -> "emailTwo"))
 
-  def addressOne(contactInfoId: Int) = ContactAddress(None, contactInfoId, "addressOne", "streetOne", None)
+  def addressOne(contactInfoId: Int) = ContactAddress(None, contactInfoId, Json.obj("en" -> "addressOne"), "streetOne", None)
 
-  def addressTwo(contactInfoId: Int) = ContactAddress(None, contactInfoId, "addressTwo", "streetTwo", Some(Json.toJson("{}")))
+  def addressTwo(contactInfoId: Int) = ContactAddress(None, contactInfoId, Json.obj("en" -> "addressTwo"), "streetTwo", Some(Json.toJson("{}")))
 
   override def seed(implicit dbConfig: DatabaseConfig[JdbcProfile]) = {
     val oneId = await(dbConfig.db.run(insertInfo(contactOne)))

@@ -8,9 +8,9 @@ case class ContactInfo(id: Option[Int], name: JsValue, internalName: Option[Stri
 
 case class ContactNumber(id: Option[Int], contactInfoId: Int, name: JsValue, number: String)
 
-case class ContactEmail(id: Option[Int], contactInfoId: Int, contactPerson: String, email: String, name: String)
+case class ContactEmail(id: Option[Int], contactInfoId: Int, contactPerson: String, email: String, name: JsValue)
 
-case class ContactAddress(id: Option[Int], contactInfoId: Int, name: String, address: String, geoCoordinates: Option[JsValue])
+case class ContactAddress(id: Option[Int], contactInfoId: Int, name: JsValue, address: String, geoCoordinates: Option[JsValue])
 
 object ContactInfoDAO {
 
@@ -39,7 +39,7 @@ object ContactInfoDAO {
 
     def email = column[String]("email")
 
-    def name = column[String]("name")
+    def name = column[JsValue]("name")
 
     def * = (id.?, contactInfoId, contactPerson, email, name) <> (ContactEmail.tupled, ContactEmail.unapply)
   }
@@ -47,7 +47,7 @@ object ContactInfoDAO {
   class ContactAddressesTable(tag: Tag) extends Table[ContactAddress](tag, "contact_addresses") with IntegerIdPk {
     def contactInfoId = column[Int]("contact_info_id")
 
-    def name = column[String]("name")
+    def name = column[JsValue]("name")
 
     def address = column[String]("address")
 

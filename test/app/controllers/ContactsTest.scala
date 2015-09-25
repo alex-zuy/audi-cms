@@ -53,9 +53,9 @@ class ContactsTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
 
   def newOrUpdatedValidContactNumber(id: Int) = ContactNumber(None, id, Json.obj("en" -> "new number name"), "+123456789")
 
-  def newOrUpdatedValidEmail(id: Int) = ContactEmail(None, id, "person contact", "some@example.net", "main contact")
+  def newOrUpdatedValidEmail(id: Int) = ContactEmail(None, id, "person contact", "some@example.net", Json.obj("en" -> "main contact"))
 
-  def newOrUpdatedValidAddress(id: Int) = ContactAddress(None, id, "some address", "street pushkina", None)
+  def newOrUpdatedValidAddress(id: Int) = ContactAddress(None, id, Json.obj("en" -> "some address"), "street pushkina", None)
 
   "Contacts controller" must {
     "list contacts info" in {
