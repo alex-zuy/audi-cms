@@ -1,6 +1,7 @@
-define(['react', 'allMixins', 'js/inputs/TextInput'], function(React, allMixins, TextInput) {
+define(['react', 'allMixins', 'js/inputs/TextInput', 'mui'], function(React, allMixins, TextInput, mui) {
 
     const RPT = React.PropTypes;
+    const {Paper} = mui;
 
     return React.createClass({
         mixins: [
@@ -10,6 +11,10 @@ define(['react', 'allMixins', 'js/inputs/TextInput'], function(React, allMixins,
             locale: React.PropTypes.string.isRequired,
             defaultLanguage: React.PropTypes.string.isRequired,
             supportedLanguages: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+        },
+        propTypes: {
+            floatingLabelText: React.PropTypes.string.isRequired,
+            hintText: React.PropTypes.string,
         },
         getDefaultProps() {
             return {
@@ -21,17 +26,22 @@ define(['react', 'allMixins', 'js/inputs/TextInput'], function(React, allMixins,
         },
         render() {
             return (
-                <div>{
-                    _.isEmpty(this.state.errorText)
+                <Paper zDepth={1} rounded={false} style={{padding: '20px'}}>
+                    {this.props.floatingLabelText}
+                    { _.isEmpty(this.state.errorText)
                         ? <div/>
                         : <div ref="errors" className="card-panel red lighten-1 white-text">{this.state.errorText}</div> }
                     { this._getLanguages().map((lang) =>
                         <div>
-                            <TextInput key={lang} ref={lang} floatingLabelText={this.getMsg(`languages.${lang}`)}/>
+                            <TextInput
+                                key={lang}
+                                ref={lang}
+                                hintText={ _.isEmpty(this.props.hintText) ? '' : this.props.hintText }
+                                floatingLabelText={this.getMsg(`languages.${lang}`)}/>
                             <br/>
                         </div>
                     )}
-                </div>
+                </Paper>
             );
         },
         setValue(value) {
