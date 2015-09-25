@@ -21,7 +21,7 @@ class ApplicationTest extends FakeAppPerSuite {
       contentAsString(result) must include("Audi")
     }
     "return translations file on translations request and set 'lang' cookie to 'en'" in {
-      val result = controller.translations(FakeRequest())
+      val result = controller.localeData(FakeRequest())
       status(result) mustBe OK
       contentType(result).get mustBe "text/json"
       val maybeLang = cookies(result).get("lang")

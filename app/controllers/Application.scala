@@ -9,6 +9,8 @@ import play.api.routing.JavaScriptReverseRouter
 
 import org.hjson.JsonValue
 
+import scala.collection.JavaConversions._
+
 class Application extends Controller with DefaultDbConfiguration {
 
   import Application._
@@ -30,7 +32,7 @@ class Application extends Controller with DefaultDbConfiguration {
       JavaScriptReverseRouter("jsRoutes")(
         routes.javascript.Application.login,
         routes.javascript.Application.logout,
-        routes.javascript.Application.translations,
+        routes.javascript.Application.localeData,
         routes.javascript.Application.setLanguage,
 
         routes.javascript.Managers.list,
@@ -66,9 +68,15 @@ class Application extends Controller with DefaultDbConfiguration {
     ).as("text/javascript")
   }
 
-  def translations = Action { implicit request =>
+  def localeData = Action { implicit request =>
     val content = scala.io.Source.fromInputStream(getClass.getResourceAsStream(s"/translations/${getLang}.hjson")).mkString
-    Ok(JsonValue.readHjson(content).toString).as("text/json").withCookies(Cookie("lang", getLang, httpOnly = false))
+    val translations = JsonValue.readHjson(content).toString
+    Ok(Json.obj(
+      "translations" -> Json.parse(translations),
+      "defaultLanguage" -> defaultLanguage,
+      "supportedLanguages" -> JsArray(supportedLanguages.map(JsString.apply))))
+      .as("text/json")
+      .withCookies(Cookie("lang", getLang, httpOnly = false))
   }
 
   def setLanguage(lang: String) = Action { implicit request =>
@@ -91,7 +99,7 @@ object Application {
   /**
    * Default language for client is English
    */
-  val defaultLang = Play.application.configuration.getString("app.i18n.defaultLanguage").get
+  val defaultLanguage = Play.application.configuration.getString("app.i18n.defaultLanguage").get
 
   val supportedLanguages = Play.application.configuration.getStringList("app.i18n.supportedLanguages").get
 

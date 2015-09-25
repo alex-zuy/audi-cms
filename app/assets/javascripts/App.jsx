@@ -16,12 +16,16 @@ define([
             childContextTypes: {
                 locale: React.PropTypes.string.isRequired,
                 messages: React.PropTypes.object.isRequired,
+                defaultLanguage: React.PropTypes.string.isRequired,
+                supportedLanguages: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
                 muiTheme: React.PropTypes.object
             },
             getChildContext: function() {
                 return {
                     locale: this.props.locale,
-                    messages: this.props.messages,
+                    messages: this.props.localeData.translations,
+                    defaultLanguage: this.props.localeData.translations.defaultLanguage,
+                    supportedLanguages: this.props.localeData.supportedLanguages,
                     muiTheme: ThemeManager.getCurrentTheme()
                 }
             },

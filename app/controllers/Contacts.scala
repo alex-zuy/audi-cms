@@ -140,7 +140,7 @@ object Contacts {
   class ContactInfoValidator(contactInfo: ContactInfo)(implicit dbConfig: DatabaseConfig[JdbcProfile]) extends Validator {
     override def rules: Seq[(String, RuleSet[_])] = Seq(
       "name" -> Required(contactInfo.name)(
-        JsonObject(Seq(Application.defaultLang))
+        JsonObject(Seq(Application.defaultLanguage))
       ),
       "internalName" -> Optional(contactInfo.internalName)(
         Length(50), LowCase, NoWhitespace, Unique(existsConflictRowQuery)
@@ -157,7 +157,7 @@ object Contacts {
     override def rules: Seq[(String, RuleSet[_])] = Seq(
       "contactInfoId" -> Required(contactNumber.contactInfoId)(),
       "name" -> Required(contactNumber.name)(
-        JsonObject(Seq(Application.defaultLang))
+        JsonObject(Seq(Application.defaultLanguage))
       ),
       "number" -> Required(contactNumber.number)(
         Length(20), PhoneNumber
@@ -169,7 +169,7 @@ object Contacts {
     override def rules: Seq[(String, RuleSet[_])] = Seq(
       "contactInfoId" -> Required(contactEmail.contactInfoId)(),
       "name" -> Required(contactEmail.name)(
-        JsonObject(Seq(Application.defaultLang))
+        JsonObject(Seq(Application.defaultLanguage))
       ),
       "contactPerson" -> Required(contactEmail.contactPerson)(
         Length(50)
@@ -184,7 +184,7 @@ object Contacts {
     override def rules: Seq[(String, RuleSet[_])] = Seq(
       "contactInfoId" -> Required(contactAddress.contactInfoId)(),
       "name" -> Required(contactAddress.name)(
-        JsonObject(Seq(Application.defaultLang))
+        JsonObject(Seq(Application.defaultLanguage))
       ),
       "address" -> Required(contactAddress.address)(
         Length(50)

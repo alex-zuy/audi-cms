@@ -2,10 +2,10 @@ define(['react', 'reactRouter', 'js/Routes', 'jquery', 'underscore', 'jsCookie',
 
     injectTapEventPlugin();
 
-    function launchApp(messages) {
+    function launchApp(localeData) {
 
         ReactRouter.run(routes, ReactRouter.HashLocation, function(App) {
-            React.render(<App locale={getLocale()} messages={messages}/>, document.body);
+            React.render(<App locale={getLocale()} localeData={localeData}/>, document.body);
         });
 
         console.log('App launched');
@@ -17,7 +17,7 @@ define(['react', 'reactRouter', 'js/Routes', 'jquery', 'underscore', 'jsCookie',
     }
 
     $(function() {
-        var route = jsRoutes.controllers.Application.translations();
+        var route = jsRoutes.controllers.Application.localeData();
         $.ajax({ url: route.url, success:launchApp });
     });
 });

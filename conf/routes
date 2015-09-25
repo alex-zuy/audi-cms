@@ -7,7 +7,7 @@ GET         /                                   controllers.Application.index
 POST        /login                              controllers.Application.login
 POST        /logout                             controllers.Application.logout
 GET         /jsRoutes.js                        controllers.Application.jsRoutes
-GET         /translations                       controllers.Application.translations
+GET         /localeData                         controllers.Application.localeData
 POST        /setLanguage/:lang                  controllers.Application.setLanguage(lang: String)
 
 # Managers management
