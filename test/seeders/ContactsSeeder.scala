@@ -23,9 +23,9 @@ object ContactsSeeder extends DatabaseSeeder with FutureAwaits with DefaultAwait
 
   val contactTwo = ContactInfo(None, Json.obj("en" -> "contactTwo"), Some("internalNameTwo"))
 
-  def numberOne(contactInfoId: Int) = ContactNumber(None, contactInfoId, "numberOne", "+123456789")
+  def numberOne(contactInfoId: Int) = ContactNumber(None, contactInfoId, Json.obj("en" -> "numberOne"), "+123456789")
 
-  def numberTwo(contactInfoId: Int) = ContactNumber(None, contactInfoId, "numberTwo", "+987654321")
+  def numberTwo(contactInfoId: Int) = ContactNumber(None, contactInfoId, Json.obj("en" -> "numberTwo"), "+987654321")
 
   def emailOne(contactInfoId: Int) = ContactEmail(None, contactInfoId, "personOne", "emailOne@example.net", "emailOne")
 

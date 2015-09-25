@@ -42,6 +42,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
                         <ArrayDataFillForm
                             data={this.state.contactInfo.numbers}
                             fieldNames={['name', 'number']}
+                            fieldToStringMapper={this._nameFieldToStringMapper}
                             msgKeyPrefix="controlPanel.contacts.fillForm.numberDataFillForm"
                             itemForm={ContactNumberForm}
                             itemFormProps={{contactInfoId: this.state.contactInfo.id}}
@@ -102,6 +103,9 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
             this.ajax(jsRoutes.controllers.Contacts.deleteAddress(address.id), {
                 success: () => this.loadContactInfo(),
             });
+        },
+        _nameFieldToStringMapper(field, value) {
+            return field === 'name' ? this.getPreferedText(value) : value;
         }
     });
 });

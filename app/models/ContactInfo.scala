@@ -6,7 +6,7 @@ import internal.PostgresDriverExtended.api._
 
 case class ContactInfo(id: Option[Int], name: JsValue, internalName: Option[String])
 
-case class ContactNumber(id: Option[Int], contactInfoId: Int, name: String, number: String)
+case class ContactNumber(id: Option[Int], contactInfoId: Int, name: JsValue, number: String)
 
 case class ContactEmail(id: Option[Int], contactInfoId: Int, contactPerson: String, email: String, name: String)
 
@@ -25,7 +25,7 @@ object ContactInfoDAO {
   class ContactNumbersTable(tag: Tag) extends Table[ContactNumber](tag, "contact_numbers") with IntegerIdPk {
     def contactInfoId = column[Int]("contact_info_id")
 
-    def name = column[String]("name")
+    def name = column[JsValue]("name")
 
     def number = column[String]("number")
 

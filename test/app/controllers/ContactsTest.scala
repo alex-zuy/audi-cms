@@ -51,7 +51,7 @@ class ContactsTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
   // violation: breaks unique value constraint for 'internal_name'
   val newOrUpdatedInvalidContactInfo = ContactInfo(None, Json.obj("en" -> "new info"), Some("internalNameTwo"))
 
-  def newOrUpdatedValidContactNumber(id: Int) = ContactNumber(None, id, "new number name", "+123456789")
+  def newOrUpdatedValidContactNumber(id: Int) = ContactNumber(None, id, Json.obj("en" -> "new number name"), "+123456789")
 
   def newOrUpdatedValidEmail(id: Int) = ContactEmail(None, id, "person contact", "some@example.net", "main contact")
 
