@@ -12,7 +12,7 @@ define(['react',
                     ref="form"
                     fields={[
                         {ref: 'id', editorComponent: HiddenInput, isRequired: false},
-                        {ref: 'name', editorComponent: I18nTextInput, isRequired: true, props: {languages: ["en", "ru"], requiredLanguages: ["en"]}},
+                        {ref: 'name', editorComponent: I18nTextInput, isRequired: true},
                         {ref: 'internalName', editorComponent: TextInput, isRequired: false},
                     ]}
                     validateRoute={() => jsRoutes.controllers.Contacts.validate()}

@@ -37,10 +37,7 @@ define(['react', 'allMixins', 'mui',
                             <FontIcon className="material-icons">cancel</FontIcon>
                         </FloatingActionButton>
                         <HiddenInput ref="contactInfoId" value={this.props.contactInfoId}/>
-                        <I18nTextInput
-                            languages={["en", "ru"]}
-                            requiredLanguages={["en"]}
-                            ref="name"/>
+                        <I18nTextInput ref="name"/>
                         <TextInput
                             ref="email"
                             hintText={this.getMsg('inputs.email.placeholder')}/>

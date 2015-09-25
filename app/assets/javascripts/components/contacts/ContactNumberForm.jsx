@@ -34,10 +34,7 @@ define(['react', 'allMixins', 'mui', 'js/inputs/inputs'], function(React, allMix
                             <FontIcon className="material-icons">cancel</FontIcon>
                         </FloatingActionButton>
                         <HiddenInput ref="contactInfoId" value={this.props.contactInfoId}/>
-                        <I18nTextInput
-                            languages={["en", "ru"]}
-                            requiredLanguages={["en"]}
-                            ref="name"/>
+                        <I18nTextInput ref="name"/>
                         <TextInput
                             ref="number"
                             hintText={this.getMsg('inputs.number.placeholder')}/>

@@ -6,9 +6,10 @@ define(['react', 'allMixins', 'js/inputs/TextInput'], function(React, allMixins,
         mixins: [
             allMixins.IntlMixin,
         ],
-        propTypes: {
-            languages: RPT.arrayOf(RPT.string).isRequired,
-            requiredLanguages: RPT.arrayOf(RPT.string).isRequired,
+        contextTypes: {
+            locale: React.PropTypes.string.isRequired,
+            defaultLanguage: React.PropTypes.string.isRequired,
+            supportedLanguages: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
         },
         getDefaultProps() {
             return {
@@ -24,7 +25,7 @@ define(['react', 'allMixins', 'js/inputs/TextInput'], function(React, allMixins,
                     _.isEmpty(this.state.errorText)
                         ? <div/>
                         : <div ref="errors" className="card-panel red lighten-1 white-text">{this.state.errorText}</div> }
-                    { this.props.languages.map((lang) =>
+                    { this._getLanguages().map((lang) =>
                         <div>
                             <TextInput key={lang} ref={lang} floatingLabelText={this.getMsg(`languages.${lang}`)}/>
                             <br/>
@@ -37,16 +38,18 @@ define(['react', 'allMixins', 'js/inputs/TextInput'], function(React, allMixins,
             _.keys(value).forEach((lang) => this.refs[lang].setValue(value[lang]));
         },
         getValue() {
-            return this.props.languages.reduce((texts, lang) => {
+            return this._getLanguages().reduce((texts, lang) => {
                 texts[lang] = this.refs[lang].getValue();
                 return texts;
             }, {});
         },
         isEmpty() {
-            return this.props.requiredLanguages.some((lang) => this.refs[lang].isEmpty());
+            return this._getRequiredLanguages().some((lang) => this.refs[lang].isEmpty());
         },
         setErrorText(errorText) {
             this.setState({errorText: errorText});
-        }
+        },
+        _getRequiredLanguages() { return [this.context.defaultLanguage]; },
+        _getLanguages() { return this.context.supportedLanguages; },
     });
 });

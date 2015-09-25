@@ -24,7 +24,7 @@ define([
                 return {
                     locale: this.props.locale,
                     messages: this.props.localeData.translations,
-                    defaultLanguage: this.props.localeData.translations.defaultLanguage,
+                    defaultLanguage: this.props.localeData.defaultLanguage,
                     supportedLanguages: this.props.localeData.supportedLanguages,
                     muiTheme: ThemeManager.getCurrentTheme()
                 }
