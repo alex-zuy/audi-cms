@@ -17,6 +17,12 @@ define(['react', 'allMixins', 'mui',
             itemFormProps: React.PropTypes.object,
             onItemSubmited: React.PropTypes.func,
             performDelete: React.PropTypes.func.isRequired,
+            fieldToStringMapper: React.PropTypes.func.isRequired,
+        },
+        getDefaultProps() {
+            return {
+                fieldToStringMapper: (key, value) => value,
+            };
         },
         getInitialState() {
             return {
@@ -38,7 +44,7 @@ define(['react', 'allMixins', 'mui',
                         <tbody>{
                             this.props.data.map((item, index) =>
                                 <tr key={`row-${index}`}>
-                                    { this.props.fieldNames.map((field) => <td>{item[field]}</td> ) }
+                                    { this.props.fieldNames.map((field) => <td>{this.props.fieldToStringMapper(field, item[field])}</td> ) }
                                     <td>
                                         <IconButton
                                             onClick={this.updateItem.bind(this, item)}
