@@ -21,6 +21,7 @@ System.config({
         jsRoutes: '/jsRoutes',
         jsCookie: 'lib/js-cookie/js.cookie',
         ymaps: 'https://api-maps.yandex.ru/2.1/?lang=en_US&ext=s',
+        tinymce: 'lib/tinymce-dist/tinymce.js',
     },
     meta: {
         jquery: {
@@ -44,7 +45,11 @@ System.config({
         'https://api-maps.yandex.ru/2.1/?lang=en_US&ext=s': {
             format: 'global',
             exports: 'ymaps',
-        }
+        },
+        tinymce: {
+            format: 'global',
+            exports: 'tinymce',
+        },
     },
 });
 

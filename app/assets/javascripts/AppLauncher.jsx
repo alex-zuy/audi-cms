@@ -5,7 +5,7 @@ define(['react', 'reactRouter', 'js/Routes', 'jquery', 'underscore', 'jsCookie',
     function launchApp(localeData) {
 
         ReactRouter.run(routes, ReactRouter.HashLocation, function(App) {
-            React.render(<App locale={getLocale()} localeData={localeData}/>, document.body);
+            React.render(<App locale={getLocale()} localeData={localeData}/>, document.getElementById('reactContent'));
         });
 
         console.log('App launched');
