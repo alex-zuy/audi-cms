@@ -42,5 +42,12 @@ POST        /contacts/updateEmail/:emailId      controllers.Contacts.updateEmail
 POST        /contacts/deleteEmail/:emailId      controllers.Contacts.deleteEmail(emailId: Int)
 POST        /contacts/validateEmail             controllers.Contacts.validateEmail
 
+# Articles
+GET         /articles/list                      controllers.Articles.list
+POST        /articles/storeHeaders              controllers.Articles.storeHeaders
+GET         /articles/:id/show                  controllers.Articles.show(id: Int)
+POST        /articles/:id/updateHeaders         controllers.Articles.updateHeaders(id: Int)
+POST        /articles/:id/delete                controllers.Articles.delete(id: Int)
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)

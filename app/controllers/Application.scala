@@ -63,7 +63,13 @@ class Application extends Controller with DefaultDbConfiguration {
         routes.javascript.Contacts.storeEmail,
         routes.javascript.Contacts.updateEmail,
         routes.javascript.Contacts.deleteEmail,
-        routes.javascript.Contacts.validateEmail
+        routes.javascript.Contacts.validateEmail,
+
+        routes.javascript.Articles.list,
+        routes.javascript.Articles.storeHeaders,
+        routes.javascript.Articles.show,
+        routes.javascript.Articles.updateHeaders,
+        routes.javascript.Articles.delete
       )
     ).as("text/javascript")
   }
