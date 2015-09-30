@@ -25,6 +25,7 @@ libraryDependencies ++= Seq(
   // Client-side asset packages
   "org.webjars.bower" % "system.js" % "0.18.4",
   "org.webjars.bower" % "tinymce-dist" % "4.2.5",
+  "org.webjars.bower" % "momentjs" % "2.10.6",
   "org.webjars.npm" % "react" % "0.13.3",
   "org.webjars.bower" % "react-router" % "0.13.3",
   "org.webjars.npm" % "jquery" % "2.1.4",
