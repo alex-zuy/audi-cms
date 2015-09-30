@@ -19,6 +19,8 @@ define(['react',
         'js/components/contacts/ContactsList',
         'js/components/contacts/ContactInfoStore',
         'js/components/contacts/ContactInfoFill',
+        'js/components/articles/ArticlesList',
+        'js/components/articles/ArticleForm',
         'javascripts/UserLayout',
         'javascripts/ManagerLayout',
     ],
@@ -43,6 +45,8 @@ define(['react',
              ContactsList,
              ContactInfoStore,
              ContactInfoFillForm,
+             ArticlesList,
+             ArticleForm,
              UserLayout,
              ManagerLayout)
     {
@@ -74,6 +78,11 @@ define(['react',
                             <Route path="list" name="contacts-list" handler={ContactsList}/>
                             <Route path="store" name="contacts-store" handler={ContactInfoStore}/>
                             <Route path=":id/update" name="contacts-update" handler={ContactInfoFillForm}/>
+                        </Route>
+                        <Route path="articles">
+                            <Route path="list" name="articles-list" handler={ArticlesList}/>
+                            <Route path="store" name="article-store" handler={ArticleForm}/>
+                            <Route path=":id/update" name="article-update" handler={ArticleForm}/>
                         </Route>
                     </Route>
                 </Route>

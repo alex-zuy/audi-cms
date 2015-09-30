@@ -286,10 +286,45 @@
                 }
             }
         }
+        articles: {
+            labels: {
+                articles: Articles
+                article: Article
+                title: Title
+                category: Category
+                delete: {
+                    dialogTitle: Deleting article
+                    dialog: Are you sure you want to delete this article ?
+                }
+            }
+            actions: {
+                addArticle: Add article
+            }
+            form: {
+                actions: {
+                    submit: Save
+                }
+                inputs: {
+                    title: {
+                        label: Title
+                        placeholder: Enter title
+                    }
+                    category: {
+                        label: Category
+                        placeholder: Enter category
+                    }
+                    createdAt: {
+                        label: ''
+                        placeholder: ''
+                    }
+                }
+            }
+        }
         navbar: {
             labels: {
                 managers: Managers
                 contacts: Contacts
+                articles: Articles
             }
         }
     }
