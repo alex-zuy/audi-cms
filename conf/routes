@@ -45,6 +45,7 @@ POST        /contacts/validateEmail             controllers.Contacts.validateEma
 # Articles
 GET         /articles/list                      controllers.Articles.list
 POST        /articles/storeHeaders              controllers.Articles.storeHeaders
+POST        /articles/validateHeaders           controllers.Articles.validateHeaders
 GET         /articles/:id/show                  controllers.Articles.show(id: Int)
 POST        /articles/:id/updateHeaders         controllers.Articles.updateHeaders(id: Int)
 POST        /articles/:id/delete                controllers.Articles.delete(id: Int)

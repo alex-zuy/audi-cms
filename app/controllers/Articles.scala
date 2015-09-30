@@ -2,7 +2,7 @@ package controllers
 
 import java.sql.Timestamp
 
-import internal.validation.{Required, Validator}
+import internal.validation.{ValidateAction, Required, Validator}
 import internal.validation.Validators._
 import internal.{FormatTimestamp, Authenticate, DefaultDbConfiguration}
 import internal.PostgresDriverExtended.api._
@@ -45,8 +45,10 @@ class Articles extends Controller with DefaultDbConfiguration {
       += ArticleHeaders.unapply(request.body).get).map(id => Ok(toJson(StoreResponse(id))))
   }
 
+  def validateHeaders = ValidateAction[ArticleHeaders](TypicalManager, new ArticleHeadersValidator(_))
+
   def show(id: Int) = Action.async { implicit request =>
-    runQuery(byId(id).result).map(article => Ok(Json.toJson(article)))
+    runQuery(byId(id).result.head).map(article => Ok(Json.toJson(article)))
   }
 
   def updateHeaders(id: Int) = Authenticate(TypicalManager).async(parse.json[ArticleHeaders].validate(
