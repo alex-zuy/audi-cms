@@ -21,6 +21,7 @@ define(['react',
         'js/components/contacts/ContactInfoFill',
         'js/components/articles/ArticlesList',
         'js/components/articles/ArticleForm',
+        'js/components/articles/ArticleTextUpdate',
         'javascripts/UserLayout',
         'javascripts/ManagerLayout',
     ],
@@ -47,6 +48,7 @@ define(['react',
              ContactInfoFillForm,
              ArticlesList,
              ArticleForm,
+             ArticleTextUpdate,
              UserLayout,
              ManagerLayout)
     {
@@ -83,6 +85,7 @@ define(['react',
                             <Route path="list" name="articles-list" handler={ArticlesList}/>
                             <Route path="store" name="article-store" handler={ArticleForm}/>
                             <Route path=":id/update" name="article-update" handler={ArticleForm}/>
+                            <Route path=":id/:lang/text-update" name="article-text-update" handler={ArticleTextUpdate}/>
                         </Route>
                     </Route>
                 </Route>

@@ -15,6 +15,7 @@ define(['react', 'tinymce'], function(React, tinymce) {
         getDefaultProps() {
             return { content: '' };
         },
+        _editor: null,
         render() {
             return (
                 <div>
@@ -26,7 +27,12 @@ define(['react', 'tinymce'], function(React, tinymce) {
             tinymce.init({
                 selector: `#${this.getEditorId()}`,
                 inline: false,
+                height: 500,
+                setup: (editor) => {
+                    this._editor = editor;
+                },
                 plugins: ['image', 'save'].join(' '),
+                toolbar: "undo redo | styleselect | bold italic | link image | alignleft aligncenter alignright | save cancel",
                 image_list: this.props.images,
                 save_onsavecallback: this.props.onSave,
                 save_oncancelcallback: this.props.onCancel,
@@ -38,8 +44,11 @@ define(['react', 'tinymce'], function(React, tinymce) {
         shouldComponentUpdate() {
             return false;
         },
+        setContent(content) {
+            this._editor.setContent(content, {format: 'html'});
+        },
         getContent() {
-            return tinyMCE.activeEditor.getContent({format : 'html'});
+            return this._editor.getContent({format : 'html'});
         },
         getEditorId() {
             if(_.isUndefined(this._editorId)) {

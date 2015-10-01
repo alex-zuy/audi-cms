@@ -1,4 +1,10 @@
 {
+    generic: {
+        languages: {
+            en: English
+            ru: Russian
+        }
+    }
     loginPage: {
         labels: {
             login: Login
@@ -296,9 +302,13 @@
                     dialogTitle: Deleting article
                     dialog: Are you sure you want to delete this article ?
                 }
+                articleContentEditing: Article content editing
+                titleIs: "Title: {title}"
+                categoryIs: "Category: {category}"
             }
             actions: {
                 addArticle: Add article
+                editText: Edit text
             }
             form: {
                 actions: {
