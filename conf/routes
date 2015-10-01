@@ -48,6 +48,7 @@ POST        /articles/storeHeaders              controllers.Articles.storeHeader
 POST        /articles/validateHeaders           controllers.Articles.validateHeaders
 GET         /articles/:id/show                  controllers.Articles.show(id: Int)
 POST        /articles/:id/updateHeaders         controllers.Articles.updateHeaders(id: Int)
+POST        /articles/:id/updateText            controllers.Articles.updateText(id: Int)
 POST        /articles/:id/delete                controllers.Articles.delete(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path

@@ -70,6 +70,7 @@ class Application extends Controller with DefaultDbConfiguration {
         routes.javascript.Articles.validateHeaders,
         routes.javascript.Articles.show,
         routes.javascript.Articles.updateHeaders,
+        routes.javascript.Articles.updateText,
         routes.javascript.Articles.delete
       )
     ).as("text/javascript")
