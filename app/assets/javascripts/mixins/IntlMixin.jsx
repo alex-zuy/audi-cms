@@ -33,6 +33,8 @@ define(['react', 'IntlMessageFormat'], function(React, IntlMessageFormat) {
         contextTypes: {
             locale: React.PropTypes.string.isRequired,
             messages: React.PropTypes.object.isRequired,
+            defaultLanguage: React.PropTypes.string.isRequired,
+            supportedLanguages: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
         },
         getIntlMessage: function(key, args) {
             var msgFmt = new IntlMessageFormat(getNestedProperty(this.context.messages, key), this.context.locale);
@@ -47,6 +49,12 @@ define(['react', 'IntlMessageFormat'], function(React, IntlMessageFormat) {
         getPreferedText(texts) {
             //TODO make this function more intelligent
             return texts.en;
+        },
+        getDefaultLanguage() {
+            return this.context.defaultLanguage;
+        },
+        getSupportedLanguages() {
+            return this.context.supportedLanguages;
         }
     };
 
