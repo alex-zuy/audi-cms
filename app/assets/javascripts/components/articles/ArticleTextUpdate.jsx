@@ -18,6 +18,8 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/ContentEditor'],
                 article: {
                     title: { en: ''},
                     category: '',
+                    photoSetId: null,
+                    text: {},
                 }
             }
         },
@@ -29,7 +31,6 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/ContentEditor'],
                     <h6>{this.getMsg('labels.categoryIs', {category: this.state.article.category})}</h6>
                     <ContentEditor
                         ref="editor"
-                        images={[]}
                         onSave={this.onSave}
                         onCancel={this.afterDone}/>
                 </Paper>
@@ -40,9 +41,10 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/ContentEditor'],
             this.ajax(jsRoutes.controllers.Articles.show(id), {
                 success: (article) => {
                     this.setState({article: article});
-                    this.refs.editor.setContent(_.isUndefined(article.text[lang]) ? '' : article.text[lang]);
+                    this.refs.editor.setPhotoSetAndContent(article.photoSetId,
+                        _.isUndefined(article.text[lang]) ? '' : article.text[lang]);
                 }
-            })
+            });
         },
         onSave() {
             const {id, lang} = this.props.params;

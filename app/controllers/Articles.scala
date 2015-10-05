@@ -6,6 +6,7 @@ import internal.validation.{ValidateAction, Required, Validator}
 import internal.validation.Validators._
 import internal.{FormatTimestamp, Authenticate, DefaultDbConfiguration}
 import internal.PostgresDriverExtended.api._
+import models.ArticlesDAO._
 import models.ManagerRoles.TypicalManager
 import models.{ArticlesDAO, Article}
 
@@ -17,7 +18,6 @@ import play.api.libs.concurrent.Execution.Implicits._
 class Articles extends Controller with DefaultDbConfiguration {
 
   import Articles._
-  import ArticlesDAO._
   import Json.toJson
 
   implicit val formatsTimestamp = FormatTimestamp
@@ -53,7 +53,7 @@ class Articles extends Controller with DefaultDbConfiguration {
 
   def updateHeaders(id: Int) = Authenticate(TypicalManager).async(parse.json[ArticleHeaders].validate(
     adapter(new ArticleHeadersValidator(_)))) { implicit request =>
-    runQuery(byId(id).map(a => (a.title, a.category, a.createdAt))
+    runQuery(byId(id).map(a => (a.photoSetId, a.title, a.category, a.createdAt))
       .update(ArticleHeaders.unapply(request.body).get)).map(_ => Ok)
   }
 
@@ -77,12 +77,9 @@ object Articles {
 
   case class StoreResponse(id: Int)
 
-  case class ArticleHeaders(title: JsValue, category: String, createdAt: Timestamp)
-
-  case class ArticleTextUpdate(lang: String, text: String)
-
   class ArticleHeadersValidator(news: ArticleHeaders) extends Validator {
     def rules = Seq(
+      "photoSetId" -> Required(news.photoSetId)(),
       "title" -> Required(news.title)(
         JsonObject(Seq(Application.defaultLanguage))
       ),

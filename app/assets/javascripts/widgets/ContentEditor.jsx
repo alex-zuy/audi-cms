@@ -1,29 +1,55 @@
-define(['react', 'tinymce'], function(React, tinymce) {
+define(['react', 'tinymce', 'allMixins'], function(React, tinymce, allMixins) {
 
     const RPT = React.PropTypes;
 
     return React.createClass({
+        mixins: [
+            allMixins.AjaxMixin,
+            allMixins.IntlMixin,
+        ],
         propTypes: {
-            images: RPT.arrayOf(RPT.shape({
-                title: RPT.string.isRequired,
-                value: RPT.string.isRequired,
-            })),
-            content: RPT.string,
             onSave: RPT.func.isRequired,
             onCancel: RPT.func.isRequired,
         },
-        getDefaultProps() {
-            return { content: '' };
+        getInitialState() {
+            return {
+                content: '',
+                photos: [],
+            }
         },
         _editor: null,
         render() {
             return (
                 <div>
-                    <textarea id={this.getEditorId()}>{this.props.content}</textarea>
+                    <div ref="textarea" id={this.getEditorId()}></div>
                 </div>
             );
         },
         componentDidMount() {
+            this.initTinyMce();
+        },
+        componentWillUnmount() {
+            this.removeTinyMce();
+        },
+        shouldComponentUpdate() {
+            return false;
+        },
+        setPhotoSetAndContent(photoSetId, content) {
+            this.ajax(jsRoutes.controllers.Photos.listPhoto(photoSetId), {
+                success: (photos) => {
+                    this.setState({photos: photos, content: content});
+                    this.removeTinyMce();
+                    $(React.findDOMNode(this.refs.textarea)).html(content);
+                    this.initTinyMce();
+                }
+            });
+        },
+        initTinyMce() {
+            const images = this.state.photos.map((photo) => ({
+                title: this.getPreferedText(photo.name),
+                value: jsRoutes.controllers.Photos.showImage(photo.id).url,
+            }));
+
             tinymce.init({
                 selector: `#${this.getEditorId()}`,
                 inline: false,
@@ -33,19 +59,13 @@ define(['react', 'tinymce'], function(React, tinymce) {
                 },
                 plugins: ['image', 'save'].join(' '),
                 toolbar: "undo redo | styleselect | bold italic | link image | alignleft aligncenter alignright | save cancel",
-                image_list: this.props.images,
+                image_list: images,
                 save_onsavecallback: this.props.onSave,
                 save_oncancelcallback: this.props.onCancel,
             });
         },
-        componentWillUnmount() {
+        removeTinyMce() {
             tinymce.remove(`#${this.getEditorId()}`);
-        },
-        shouldComponentUpdate() {
-            return false;
-        },
-        setContent(content) {
-            this._editor.setContent(content, {format: 'html'});
         },
         getContent() {
             return this._editor.getContent({format : 'html'});

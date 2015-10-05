@@ -19,33 +19,34 @@ import slick.driver.JdbcProfile
 object ArticlesSeeder extends DatabaseSeeder with FutureAwaits with DefaultAwaitTimeout {
 
   import ArticlesDAO._
+  import PhotosSeeder._
 
-  val articleOne = Article(None, None, Json.obj("en" -> "article one"), Json.obj("en" -> "article one text"), "news", now)
+  def articleOne = Article(None, photoSetOne, Json.obj("en" -> "article one"), Json.obj("en" -> "article one text"), "news", now)
 
-  val articleTwo = Article(None, None, Json.obj("en" -> "article two"), Json.obj("en" -> "article two text"), "news", now)
+  def articleTwo = Article(None, photoSetTwo, Json.obj("en" -> "article two"), Json.obj("en" -> "article two text"), "news", now)
 
-  val articleThree = Article(None, None, Json.obj("en" -> "article three"), Json.obj("en" -> "article three text"), "offers", now)
+  def articleThree = Article(None, photoSetThree, Json.obj("en" -> "article three"), Json.obj("en" -> "article three text"), "offers", now)
 
   def seed(implicit dbConfig: DatabaseConfig[JdbcProfile]) = {
-    insert(articleOne)
-    insert(articleTwo)
-    insert(articleThree)
-    Future.successful()
+    for {
+      idOne <- dbConfig.db.run(insert(articleOne))
+      idTwo <- dbConfig.db.run(insert(articleTwo))
+      idThree <- dbConfig.db.run(insert(articleThree))
+    } yield {
+      numToId ++= Seq(1 -> idOne, 2 -> idTwo, 3 -> idThree)
+    }
   }
 
   def clean(implicit dbConfig: DatabaseConfig[JdbcProfile]) = {
-    instanceToId.clear()
-    dbConfig.db.run(allArticles.delete)
+    dbConfig.db.run(allArticles.delete).map(_ => numToId.clear())
   }
 
-  def insert(a: Article)(implicit dbConfig: DatabaseConfig[JdbcProfile]) = {
-    val id = await(dbConfig.db.run((allArticles returning allArticles.map(_.id)) += a))
-    instanceToId += a ->  id
-  }
+  def insert(article: Article) =
+    (allArticles returning allArticles.map(_.id)) += article
 
-  def idOf(a: Article) = instanceToId.get(a).get
+  def idOf(articleNum: Int) = numToId.get(articleNum).get
 
-  private val instanceToId = HashMap[Article, Int]()
+  private val numToId = HashMap[Int, Int]()
 
   def now = Timestamp.from(Instant.now())
 }

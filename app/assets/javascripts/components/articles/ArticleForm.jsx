@@ -7,7 +7,7 @@ define([
     'js/widgets/IconedButton',
     'js/inputs/inputs'], function(React, reactRouter, allMixins, mui, GenericForm, IconedButton, inputs) {
 
-    const {I18nTextInput, TextInput, TimestampNowInput} = inputs;
+    const {I18nTextInput, TextInput, TimestampNowInput, HiddenInput} = inputs;
     const {Paper, Tabs, Tab} = mui;
 
     return React.createClass({
@@ -25,6 +25,7 @@ define([
             return {
                 text: {},
                 textTabLang: this.getDefaultLanguage(),
+                photoSetId: null,
             };
         },
         render() {
@@ -36,7 +37,8 @@ define([
                         fields={[
                             {ref: 'title', editorComponent: I18nTextInput, isRequired: true},
                             {ref: 'category', editorComponent: TextInput, isRequired: true},
-                            {ref: 'createdAt', editorComponent: TimestampNowInput, isRequired: true}
+                            {ref: 'createdAt', editorComponent: TimestampNowInput, isRequired: true},
+                            {ref: 'photoSetId', editorComponent: HiddenInput, isRequired: true, props: {value: this.state.photoSetId}}
                         ]}
                         msgKeyPrefix="controlPanel.articles.form"
                         validateRoute={() => jsRoutes.controllers.Articles.validateHeaders()}
@@ -46,6 +48,13 @@ define([
                         ? <div/>
                         : (
                         <div>
+                            <IconedButton
+                                onClick={this.gotoEditPhotoSet}
+                                label={this.getMsg('actions.editPhotos')}
+                                iconName='mode_edit'
+                                disables={_.isNull(this.state.photoSetId)}
+                                style={{margin: '20px 0px 10px 0px'}}/>
+                            <br/>
                             <IconedButton
                                 onClick={this.gotoEditText}
                                 label={this.getMsg('actions.editText')}
@@ -69,11 +78,16 @@ define([
             );
         },
         componentDidMount() {
-            if(!this.isStore()) {
+            if(this.isStore()) {
+                this.ajax(jsRoutes.controllers.Photos.storePhotoSet(), {
+                    success: (response) => this.setState({photoSetId: response.id})
+                });
+            }
+            else {
                 this.ajax(jsRoutes.controllers.Articles.show(this.props.params.id), {
                     success: (article) => {
                         this.refs.form.fillForm(article);
-                        this.setState({text: article.text})
+                        this.setState({text: article.text, photoSetId: article.photoSetId});
                     }
                 });
             }
@@ -94,6 +108,9 @@ define([
         },
         gotoEditText() {
             this.transitionTo('article-text-update', {id: this.props.params.id, lang: this.state.textTabLang});
+        },
+        gotoEditPhotoSet() {
+            this.transitionTo('photo-set-update', {id: this.state.photoSetId});
         }
     });
 });

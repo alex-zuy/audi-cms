@@ -1,12 +1,12 @@
 package app.controllers
 
 import controllers.Articles
-import controllers.Articles.{StoreResponse, ArticleTextUpdate, ArticleHeaders}
+import controllers.Articles.StoreResponse
 import internal.FormatTimestamp
 import models.{Article, ArticlesDAO}
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.MustMatchers._
-import seeders.ArticlesSeeder
+import seeders.{PhotosSeeder, ArticlesSeeder}
 import utility.{CrudTestHelper, FakeAuthenticatedRequests, FakeAppPerSuite}
 
 import play.api.libs.json._
@@ -19,9 +19,12 @@ class ArticlesTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
   import ArticlesSeeder.{articleOne, now, idOf}
   import CrudTestHelper._
   import ArticlesDAO._
+  import PhotosSeeder._
 
   before {
     await(ArticlesSeeder.clean)
+    await(PhotosSeeder.clean)
+    await(PhotosSeeder.seed)
     await(ArticlesSeeder.seed)
   }
 
@@ -49,7 +52,7 @@ class ArticlesTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
       }
     }
     "store article headers" in {
-      val na = ArticleHeaders(Json.obj("en" -> "new article"), "category", now)
+      val na = ArticleHeaders(photoSetOne, Json.obj("en" -> "new article"), "category", now)
       val recordsBefore = recordsCount(allArticles)
       val response = invokeWithRecordCheckingStatus(controller.storeHeaders, na, OK)
       val recordsAfter = recordsCount(allArticles)
@@ -61,8 +64,8 @@ class ArticlesTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
       article.createdAt mustBe na.createdAt
     }
     "update article headers" in {
-      val articleUpdate = ArticleHeaders(Json.obj("en" -> "updated title"), "updated category", now)
-      val updatableId = idOf(articleOne)
+      val articleUpdate = ArticleHeaders(photoSetOne, Json.obj("en" -> "updated title"), "updated category", now)
+      val updatableId = idOf(1)
       invokeWithRecordCheckingStatus(controller.updateHeaders(updatableId), articleUpdate, OK)
       val updatedArticle = testHelper.byId(updatableId)
       updatedArticle.title mustBe articleUpdate.title
@@ -71,7 +74,7 @@ class ArticlesTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
     }
     "update article text, replacing text for existing lang" in {
       val atu = ArticleTextUpdate("en", "new text")
-      val articleId = idOf(articleOne)
+      val articleId = idOf(1)
       invokeWithRecordCheckingStatus(controller.updateText(articleId), atu, OK)
       val article = testHelper.byId(articleId)
       article.text match {
@@ -81,7 +84,7 @@ class ArticlesTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
     }
     "update article text, adding text for previously absent lang" in {
       val atu = ArticleTextUpdate("ru", "heh, its not russian")
-      val articleId = idOf(articleOne)
+      val articleId = idOf(1)
       invokeWithRecordCheckingStatus(controller.updateText(articleId), atu, OK)
       val article = testHelper.byId(articleId)
       article.text match {
@@ -94,7 +97,7 @@ class ArticlesTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
       }
     }
     "delete article" in {
-      val articleId = idOf(articleOne)
+      val articleId = idOf(1)
       testHelper.testValidDelete(controller.delete(articleId), articleId)
     }
   }
