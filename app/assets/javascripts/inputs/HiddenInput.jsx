@@ -7,6 +7,9 @@ define(['react'], function(React) {
         getInitialState() {
             return { value: this.props.value };
         },
+        componentWillReceiveProps(props) {
+            this.setState({value: props.value});
+        },
         render() { return <div/> },
         setValue(value) { this.setState({value: value}) },
         getValue() { return this.state.value },
