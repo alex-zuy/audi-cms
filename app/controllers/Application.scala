@@ -71,7 +71,17 @@ class Application extends Controller with DefaultDbConfiguration {
         routes.javascript.Articles.show,
         routes.javascript.Articles.updateHeaders,
         routes.javascript.Articles.updateText,
-        routes.javascript.Articles.delete
+        routes.javascript.Articles.delete,
+
+        routes.javascript.Photos.storePhotoSet,
+        routes.javascript.Photos.listPhoto,
+        routes.javascript.Photos.validatePhotoHeaders,
+        routes.javascript.Photos.storePhotoHeaders,
+        routes.javascript.Photos.showHeaders,
+        routes.javascript.Photos.updateHeaders,
+        routes.javascript.Photos.uploadImage,
+        routes.javascript.Photos.showImage,
+        routes.javascript.Photos.delete
       )
     ).as("text/javascript")
   }

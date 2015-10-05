@@ -51,5 +51,16 @@ POST        /articles/:id/updateHeaders         controllers.Articles.updateHeade
 POST        /articles/:id/updateText            controllers.Articles.updateText(id: Int)
 POST        /articles/:id/delete                controllers.Articles.delete(id: Int)
 
+# Photos
+POST        /photos/storePhotoSet               controllers.Photos.storePhotoSet
+GET         /photos/:photoSetId/listPhoto       controllers.Photos.listPhoto(photoSetId: Int)
+POST        /photos/validatePhotoHeaders        controllers.Photos.validatePhotoHeaders
+POST        /photos/storePhotoHeaders           controllers.Photos.storePhotoHeaders
+GET         /photos/:photoId/showHeaders        controllers.Photos.showHeaders(photoId: Int)
+POST        /photos/:photoId/updateHeaders      controllers.Photos.updateHeaders(photoId: Int)
+POST        /photos/:photoId/uploadImage        controllers.Photos.uploadImage(photoId: Int)
+GET         /photos/:photoId/showImage          controllers.Photos.showImage(photoId: Int)
+POST        /photos/:photoId/delete             controllers.Photos.delete(photoId: Int)
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)
