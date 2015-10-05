@@ -22,6 +22,7 @@ define(['react',
         'js/components/articles/ArticlesList',
         'js/components/articles/ArticleForm',
         'js/components/articles/ArticleTextUpdate',
+        'js/components/photos/PhotoSet',
         'javascripts/UserLayout',
         'javascripts/ManagerLayout',
     ],
@@ -49,6 +50,7 @@ define(['react',
              ArticlesList,
              ArticleForm,
              ArticleTextUpdate,
+             PhotoSet,
              UserLayout,
              ManagerLayout)
     {
@@ -87,6 +89,7 @@ define(['react',
                             <Route path=":id/update" name="article-update" handler={ArticleForm}/>
                             <Route path=":id/:lang/text-update" name="article-text-update" handler={ArticleTextUpdate}/>
                         </Route>
+                        <Route path="photoset/:id/update" name="photo-set-update" handler={PhotoSet}/>
                     </Route>
                 </Route>
             </Route>

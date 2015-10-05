@@ -292,6 +292,29 @@
                 }
             }
         }
+        photos: {
+            labels: {
+                photoSet: Photo set
+                confirmDelete: Are you sure you want to delete this photo ?
+            }
+            actions: {
+                add: Add photo
+            }
+            form: {
+                labels: {
+                    photo: Photo
+                }
+                actions: {
+                    submit: Save
+                }
+                inputs: {
+                    name: {
+                        label: Photo name
+                        placeholder: Enter name
+                    }
+                }
+            }
+        }
         articles: {
             labels: {
                 articles: Articles

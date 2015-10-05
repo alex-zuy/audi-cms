@@ -51,3 +51,81 @@ main {
 html {
   overflow-y: scroll;
 }
+
+@mixin centered {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+div.photoForm {
+  overflow: hidden;
+  div.form, div.imageSelect {
+    float: left;
+    width: 50%;
+  }
+
+  div.imageSelect {
+    padding: 2%;
+    >div.imagePlaceholder {
+      height: 200px;
+      width: 200px;
+      cursor: pointer;
+      margin-left: auto;
+      margin-right: auto;
+      >div {
+        width: 90%;
+        height: 90%;
+        @include centered;
+        background-color: white;
+      }
+      i.material-icons {
+        font-size: 100px;
+        @include centered;
+      }
+    }
+    >img {
+      width: 95%;
+      cursor: pointer;
+    }
+  }
+}
+
+.photoSet {
+  overflow: hidden;
+  .photoSetImage {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    float: left;
+    margin: 1%;
+    position: relative;
+    img {
+      @include centered;
+      opacity: 1.0;
+      transition: opacity 400ms;
+    }
+    span{
+      position: relative;
+      z-index: 10;
+      margin: 10px;
+    }
+    >.controls {
+      position: absolute !important;
+      @include centered;
+      opacity: 0;
+      transition: opacity 400ms;
+    }
+  }
+}
+
+.photoSetImage:hover {
+  img {
+    opacity: 0.2;
+  }
+
+ .controls {
+   opacity: 1.0;
+ }
+}
