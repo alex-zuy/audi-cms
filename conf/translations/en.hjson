@@ -221,14 +221,21 @@
                 emailForm: {
                     inputs: {
                         name: {
+                            label: Name
                             placeholder: Name
                         }
                         email: {
+                            label: Email
                             placeholder: Email
                         }
                         contactPerson: {
+                            label: Contact person
                             placeholder: Contact person
                         }
+                    }
+                    actions: {
+                        submit: Save
+                        cancel: Cancel
                     }
                 }
                 addressForm: {

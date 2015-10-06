@@ -1,16 +1,15 @@
 define(['react', 'allMixins', 'mui',
-    'js/inputs/inputs'
-], function(React, allMixins, mui, inputs) {
+    'js/inputs/inputs',
+    'js/components/GenericForm',
+], function(React, allMixins, mui, inputs, GenericForm) {
 
     const {TextInput, HiddenInput, I18nTextInput} = inputs;
-    const {Paper, FloatingActionButton, FontIcon} = mui;
+    const {Paper, RaisedButton} = mui;
 
 
     return React.createClass({
         mixins: [
-            allMixins.AjaxMixin,
             allMixins.IntlMixin,
-            allMixins.FormMixin,
         ],
         propTypes: {
             onItemSubmited: React.PropTypes.func.isRequired,
@@ -20,51 +19,38 @@ define(['react', 'allMixins', 'mui',
         getDefaultProps() {
             return {
                 msgKeyPrefix: 'controlPanel.contacts.fillForm.emailForm',
-                formMixin: {
-                    fieldRefs: ['name', 'email', 'contactPerson', 'contactInfoId'],
-                    validateRoute: () => jsRoutes.controllers.Contacts.validateEmail(),
-                    validateDelay: 800,
-                },
             };
         },
         render() {
             return (
                 <Paper zDepth={2} rounded={false} style={{padding: "10px"}}>
-                    <form onChange={this.onFormChangeValidate} className="form-horizontal" style={{width: "100%"}}>
-                        <FloatingActionButton
-                            onClick={this.props.onCancel}
-                            mini={true}>
-                            <FontIcon className="material-icons">cancel</FontIcon>
-                        </FloatingActionButton>
-                        <HiddenInput ref="contactInfoId" value={this.props.contactInfoId}/>
-                        <I18nTextInput ref="name"/>
-                        <TextInput
-                            ref="email"
-                            hintText={this.getMsg('inputs.email.placeholder')}/>
-                        <TextInput
-                            ref="contactPerson"
-                            hintText={this.getMsg('inputs.contactPerson.placeholder')}/>
-                        <FloatingActionButton
-                            onClick={this.onClick}
-                            mini={true}
-                            style={{float: "right", marginLeft: "auto", marginRight: "2%"}}
-                            disabled={!this.state.formMixin.fieldsValid}>
-                            <FontIcon className="material-icons">save</FontIcon>
-                        </FloatingActionButton>
-                    </form>
+                    <RaisedButton
+                        onClick={this.props.onCancel}
+                        label={this.getMsg('actions.cancel')}/>
+                    <GenericForm
+                        ref="form"
+                        fields={[
+                            {ref: 'contactInfoId', editorComponent: HiddenInput, isRequired: true, props: {value: this.props.contactInfoId}},
+                            {ref: 'name', editorComponent: I18nTextInput, isRequired: true},
+                            {ref: 'email', editorComponent: TextInput, isRequired: true},
+                            {ref: 'contactPerson', editorComponent: TextInput, isRequired: true}
+                        ]}
+                        validateRoute={() => jsRoutes.controllers.Contacts.validateEmail()}
+                        onSubmitAttempt={this.onClick}
+                        msgKeyPrefix="controlPanel.contacts.fillForm.emailForm"/>
                 </Paper>
             );
         },
         componentDidMount() {
             if(typeof this.props.item === 'object') {
-                this.fillForm(this.props.item);
+                this.refs.form.fillForm(this.props.item);
             }
         },
         onClick() {
             const route = _.isUndefined(this.props.item)
                 ? jsRoutes.controllers.Contacts.storeEmail()
                 : jsRoutes.controllers.Contacts.updateEmail(this.props.item.id);
-            this.submitForm(route, {
+            this.refs.form.submitForm(route, {
                 success: () => this.props.onItemSubmited()
             });
         }
