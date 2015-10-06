@@ -211,11 +211,17 @@
                 numberForm: {
                     inputs: {
                         name: {
+                            label: Name
                             placeholder: Name
                         }
                         number: {
+                            label: Number
                             placeholder: Number
                         }
+                    }
+                    actions: {
+                        submit: Save
+                        cancel: Cancel
                     }
                 }
                 emailForm: {
@@ -241,11 +247,17 @@
                 addressForm: {
                     inputs: {
                         name: {
+                            label: Name
                             placeholder: Name
                         }
                         address: {
+                            label: Address
                             placeholder: Address
                         }
+                    }
+                    actions: {
+                        submit: Save
+                        cancel: Cancel
                     }
                 }
                 numberDataFillForm: {
