@@ -1,7 +1,6 @@
 define(['react', 'reactRouter', 'mui', 'allMixins', 'javascripts/mixins/AjaxMixin', 'javascripts/widgets/IconedButton', 'lib/js-cookie/js.cookie'],
     function(React, ReactRouter, mui, allMixins, AjaxMixin, IconedButton, Cookies) {
 
-    var Paper = mui.Paper;
     var Toggle = mui.Toggle;
     var FlatButton = mui.FlatButton;
     var Dialog = mui.Dialog;
@@ -75,7 +74,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins', 'javascripts/mixins/AjaxMixi
                     onClick={this.confirmDelete}/>
             ];
             return (
-                <Paper zDepth={2} rounded={false} style={{padding: "20px"}}>
+                <div>
                     <h3>Managers control</h3>
                     <blockquote>
                         {this.getMsg('labels.yourAccountNotListedHere')}
@@ -110,7 +109,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins', 'javascripts/mixins/AjaxMixi
                         actions={dialogButtons}>
                         {this.getMsg('labels.deleting.confirm')}
                     </Dialog>
-                </Paper>
+                </div>
             );
         },
         componentWillMount: function() {

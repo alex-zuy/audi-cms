@@ -2,8 +2,6 @@ define(['react', 'reactRouter', 'allMixins', 'mui',
     'js/components/contacts/ContactInfoForm'
 ], function(React, ReactRouter, allMixins, mui, ContactInfoForm) {
 
-    const {Paper} = mui;
-
     return React.createClass({
         mixins: [
             allMixins.IntlMixin,
@@ -16,9 +14,9 @@ define(['react', 'reactRouter', 'allMixins', 'mui',
         },
         render() {
             return (
-                <Paper zDepth={2} rounded={false} style={{padding:"50px"}}>
+                <div>
                     <ContactInfoForm ref="form" onSubmitItem={this.onSubmitClick}/>
-                </Paper>
+                </div>
             );
         },
         onSubmitClick() {

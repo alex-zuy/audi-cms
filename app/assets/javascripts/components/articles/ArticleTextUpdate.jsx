@@ -1,7 +1,5 @@
 define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/ContentEditor'], function(React, reactRouter, allMixins, mui, ContentEditor) {
 
-    const {Paper} = mui;
-
     return React.createClass({
         mixins: [
             allMixins.AjaxMixin,
@@ -25,7 +23,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/ContentEditor'],
         },
         render() {
             return (
-                <Paper zDepth={4} rounded={false} style={{padding: '10px'}}>
+                <div>
                     <h4>{this.getMsg('labels.articleContentEditing')}</h4>
                     <h5>{this.getMsg('labels.titleIs', {title: this.getPreferedText(this.state.article.title)})}</h5>
                     <h6>{this.getMsg('labels.categoryIs', {category: this.state.article.category})}</h6>
@@ -33,7 +31,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/ContentEditor'],
                         ref="editor"
                         onSave={this.onSave}
                         onCancel={this.afterDone}/>
-                </Paper>
+                </div>
             );
         },
         componentDidMount() {

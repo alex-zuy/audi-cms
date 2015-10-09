@@ -1,6 +1,5 @@
 define(['react', 'reactRouter', 'allMixins', 'mui', 'javascripts/components/ErrorPanel'], function(React, ReactRouter, allMixins, mui, ErrorPanel) {
 
-    var Paper = mui.Paper;
     var TextField = mui.TextField;
     var RaisedButton = mui.RaisedButton;
 
@@ -28,7 +27,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'javascripts/components/Erro
         },
         render: function() {
             return (
-                <Paper zDepth={2} rounded={false} style={{padding:"50px"}}>
+                <div>
                     <h5>{this.getMsg('labels.title')}</h5>
                     <p>{this.state.manager.fullName}</p>
                     <form onChange={this.enableDisableButton}>
@@ -58,7 +57,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'javascripts/components/Erro
                                 />
                         </p>
                     </form>
-                </Paper>
+                </div>
             );
         },
         componentWillMount: function() {

@@ -6,8 +6,6 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
     'js/components/ArrayDataFillForm'
 ], function(React, ReactRouter, mui, allMixins, ContactNumberForm, ContactEmailForm, ContactAddressForm, ContactInfoForm, ArrayDataFillForm) {
 
-    const {Paper} = mui;
-
     return React.createClass({
         mixins: [
             allMixins.AjaxMixin,
@@ -35,7 +33,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
                 contactInfoId: this.state.contactInfo.id,
             };
             return (
-                <Paper zDepth={2} rounded={false} style={{padding: "20px"}}>
+                <div>
                     <ContactInfoForm ref="form" onSubmitItem={this.onSubmitItem}/>
                     <div>
                         <h5 className="center-align">{this.getMsg('labels.numbers')}</h5>
@@ -69,7 +67,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
                             onItemSubmited={this.dataSubmited}
                             performDelete={this.performAddressDelete}/>
                     </div>
-                </Paper>
+                </div>
             );
         },
         onSubmitItem() {

@@ -7,7 +7,7 @@ define([
     'js/widgets/IconedButton'],
     function(React, reactRouter, allMixins, mui, ConfirmDialog, IconedButton) {
 
-    const {Paper, IconButton} = mui;
+    const {IconButton} = mui;
 
     return React.createClass({
         mixins: [
@@ -28,7 +28,7 @@ define([
         },
         render() {
             return (
-                <Paper zDepth={4} rounded={false} style={{padding: '30px'}}>
+                <div>
                     <h4>{this.getMsg('labels.articles')}</h4>
                     <IconedButton
                         linkButton={true}
@@ -73,7 +73,7 @@ define([
                         title={this.getMsg('labels.delete.dialogTitle')}>
                         {this.getMsg('labels.delete.dialog')}
                     </ConfirmDialog>
-                </Paper>
+                </div>
             );
         },
         componentWillMount() {

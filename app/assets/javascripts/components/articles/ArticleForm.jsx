@@ -8,7 +8,7 @@ define([
     'js/inputs/inputs'], function(React, reactRouter, allMixins, mui, GenericForm, IconedButton, inputs) {
 
     const {I18nTextInput, TextInput, TimestampNowInput, HiddenInput} = inputs;
-    const {Paper, Tabs, Tab} = mui;
+    const {Tabs, Tab} = mui;
 
     return React.createClass({
         mixins: [
@@ -30,7 +30,7 @@ define([
         },
         render() {
             return (
-                <Paper zDepth={4} rounded={false} style={{padding: '30px'}}>
+                <div>
                     <h4>{this.getMsg('labels.article')}</h4>
                     <GenericForm
                         ref="form"
@@ -74,7 +74,7 @@ define([
                             </Tabs>
                         </div>
                     )}
-                </Paper>
+                </div>
             );
         },
         componentDidMount() {

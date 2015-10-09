@@ -21,7 +21,7 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui', 'js/input
         },
         render: function() {
             return (
-                <Paper zDepth={2} rounded={false} style={{padding: "50px"}}>
+                <div>
                     <h5>{this.getMsg('labels.title')}</h5>
                     <GenericForm
                         ref="form"
@@ -29,7 +29,7 @@ define(['react', 'reactRouter', 'javascripts/mixins/allMixins', 'mui', 'js/input
                         msgKeyPrefix={this.props.msgKeyPrefix}
                         validateRoute={() => jsRoutes.controllers.Managers.validateUpdate(this.props.params.id)}
                         onSubmitAttempt={this.onSubmitForm}/>
-                </Paper>
+                </div>
             );
         },
         onSubmitForm() {

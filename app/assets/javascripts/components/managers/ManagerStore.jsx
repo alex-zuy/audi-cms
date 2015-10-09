@@ -3,7 +3,6 @@ define(['react', 'reactRouter', 'javascripts/components/ErrorPanel', 'mui', 'all
 
     const {TextInput} = inputs;
     var RaisedButton = mui.RaisedButton;
-    var Paper = mui.Paper;
 
     return React.createClass({
         mixins: [
@@ -30,7 +29,7 @@ define(['react', 'reactRouter', 'javascripts/components/ErrorPanel', 'mui', 'all
         },
         render() {
             return (
-                <Paper zDepth={2} rounded={false} style={{padding: "50px"}}>
+                <div>
                     <h5>{this.getMsg('labels.title')}</h5>
                     <form onChange={this.onChange}>
                         <ErrorPanel errorKey={this.state.error}/>
@@ -65,7 +64,7 @@ define(['react', 'reactRouter', 'javascripts/components/ErrorPanel', 'mui', 'all
                             primary={true}
                             />
                     </form>
-                </Paper>
+                </div>
             );
         },
         clearConfirmPassword() {

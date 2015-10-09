@@ -1,7 +1,7 @@
 define(["react", "reactRouter", "javascripts/components/TodoDummy", "mui", "allMixins", 'js/Auth'],
     function(React, ReactRouter, TodoDummy, mui, allMixins, Auth) {
 
-        const {Menu, MenuItem, FontIcon} = mui;
+        const {Menu, MenuItem, FontIcon, Paper} = mui;
 
         const menuItemsData = [
             { msgKey: "managers", route: "managers-list", icon: "supervisor_account"},
@@ -45,7 +45,9 @@ define(["react", "reactRouter", "javascripts/components/TodoDummy", "mui", "allM
                             </Menu>
                         </div>
                         <div className="left" style={{width: "79%", marginLeft: "1%"}}>
-                            <ReactRouter.RouteHandler />
+                            <Paper zDepth={4} rounded={false} style={{padding:'30px'}}>
+                                <ReactRouter.RouteHandler />
+                            </Paper>
                         </div>
                     </div>
                 );

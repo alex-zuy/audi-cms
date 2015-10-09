@@ -44,7 +44,7 @@ define(['react',
              ManagerChangePassword,
              ContactsList,
              ContactInfoStore,
-             ContactInfoFillForm,
+             ContactInfoFill,
              ArticlesList,
              ArticleForm,
              ArticleTextUpdate,
@@ -78,7 +78,7 @@ define(['react',
                         <Route path="contacts">
                             <Route path="list" name="contacts-list" handler={ContactsList}/>
                             <Route path="store" name="contacts-store" handler={ContactInfoStore}/>
-                            <Route path=":id/update" name="contacts-update" handler={ContactInfoFillForm}/>
+                            <Route path=":id/update" name="contacts-update" handler={ContactInfoFill}/>
                         </Route>
                         <Route path="articles">
                             <Route path="list" name="articles-list" handler={ArticlesList}/>

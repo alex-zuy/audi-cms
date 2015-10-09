@@ -1,6 +1,6 @@
 define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/IconedButton', 'js/components/ConfirmDialog'], function(React, ReactRouter, allMixins, mui, IconedButton, ConfirmDialog) {
 
-    const {Paper, IconButton} = mui;
+    const {IconButton} = mui;
 
     return React.createClass({
         mixins: [
@@ -21,7 +21,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/IconedButton', '
         },
         render() {
             return (
-                <Paper zDepth={2} rounded={false} style={{padding: "50px"}}>
+                <div>
                     <IconedButton
                         linkButton={true}
                         href={this.makeHref('contacts-store', {}, {action:'store'})}
@@ -64,7 +64,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/IconedButton', '
                         title={this.getMsg('labels.delete.dialogTitle')}>
                         {this.getMsg('labels.delete.dialog')}
                     </ConfirmDialog>
-                </Paper>
+                </div>
             );
         },
         componentWillMount() {
