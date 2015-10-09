@@ -78,11 +78,7 @@ object Photos {
 
   case class StoreResponse(id: Int)
 
-  case class PhotoHeaders(id: Option[Int], photoSetId: Int, name: JsValue, mimeType: String) {
-    def mainHeaders = (photoSetId, name, mimeType)
-  }
-
-  class PhotoHeadersValidator(ph: PhotoHeaders) extends Validator {
+  class PhotoHeadersValidator(ph: PhotoDAO.PhotoHeaders) extends Validator {
     def rules = Seq(
       "name" -> Required(ph.name)(Validators.JsonObject(Seq(Application.defaultLanguage)))
     )

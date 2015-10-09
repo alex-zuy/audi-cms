@@ -46,4 +46,8 @@ object PhotoDAO {
   def photoSetPhotos(photoSetId: Int) =
     allPhotos.filter(_.photoSetId === photoSetId).map(p => (p.id, p.photoSetId, p.name, p.mimeType))
 
+  case class PhotoHeaders(id: Option[Int], photoSetId: Int, name: JsValue, mimeType: String) {
+    def mainHeaders = (photoSetId, name, mimeType)
+  }
+
 }
