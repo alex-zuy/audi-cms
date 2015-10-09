@@ -4,7 +4,7 @@ import java.sql.Timestamp
 
 import internal.validation.{ValidateAction, Required, Validator}
 import internal.validation.Validators._
-import internal.{FormatTimestamp, Authenticate, DefaultDbConfiguration}
+import internal.{RequestBodyValidation, FormatTimestamp, Authenticate, DefaultDbConfiguration}
 import internal.PostgresDriverExtended.api._
 import models.ArticlesDAO._
 import models.ManagerRoles.TypicalManager
@@ -15,7 +15,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import play.api.libs.concurrent.Execution.Implicits._
 
-class Articles extends Controller with DefaultDbConfiguration {
+class Articles extends Controller with DefaultDbConfiguration with RequestBodyValidation {
 
   import Articles._
   import Json.toJson
@@ -30,17 +30,12 @@ class Articles extends Controller with DefaultDbConfiguration {
 
   implicit val readsArticleTextUpdate = Json.reads[ArticleTextUpdate]
 
-  def adapter[A](f: (A)=>Validator) = { v: A =>
-    if(f(v).violations.isEmpty) Right(v)
-    else Left(Conflict)
-  }
-
   def list = Action.async { implicit request =>
     runQuery(allArticles.result).map(articles => Ok(Json.toJson(articles)))
   }
 
-  def storeHeaders = Authenticate(TypicalManager).async(parse.json[ArticleHeaders].validate(
-    adapter(new ArticleHeadersValidator(_)))) { implicit request =>
+  def storeHeaders = Authenticate(TypicalManager).async(parse.json[ArticleHeaders].validateWith(
+    new ArticleHeadersValidator(_))) { implicit request =>
     runQuery(headersProjection(allArticles) returning allArticles.map(_.id)
       += ArticleHeaders.unapply(request.body).get).map(id => Ok(toJson(StoreResponse(id))))
   }
@@ -51,8 +46,8 @@ class Articles extends Controller with DefaultDbConfiguration {
     runQuery(byId(id).result.head).map(article => Ok(Json.toJson(article)))
   }
 
-  def updateHeaders(id: Int) = Authenticate(TypicalManager).async(parse.json[ArticleHeaders].validate(
-    adapter(new ArticleHeadersValidator(_)))) { implicit request =>
+  def updateHeaders(id: Int) = Authenticate(TypicalManager).async(parse.json[ArticleHeaders].validateWith(
+    new ArticleHeadersValidator(_))) { implicit request =>
     runQuery(byId(id).map(a => (a.photoSetId, a.title, a.category, a.createdAt))
       .update(ArticleHeaders.unapply(request.body).get)).map(_ => Ok)
   }

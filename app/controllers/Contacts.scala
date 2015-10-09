@@ -2,7 +2,7 @@ package controllers
 
 import internal.validation._
 import internal.validation.Validators._
-import internal.{CheckExists, Authenticate, DefaultDbConfiguration}
+import internal.{RequestBodyValidation, CheckExists, Authenticate, DefaultDbConfiguration}
 import internal.PostgresDriverExtended.api._
 import models.ContactInfoDAO._
 import models._
@@ -18,7 +18,7 @@ import play.api.mvc._
 import slick.backend.DatabaseConfig
 import slick.driver.JdbcProfile
 
-class Contacts extends Controller with DefaultDbConfiguration {
+class Contacts extends Controller with DefaultDbConfiguration with RequestBodyValidation {
 
   import Contacts._
 
@@ -32,19 +32,14 @@ class Contacts extends Controller with DefaultDbConfiguration {
 
   implicit val formatContactAddress = Json.format[ContactAddress]
 
-  def adapter[A](f: (A)=>Validator) = { v: A =>
-    if(f(v).violations.isEmpty) Right(v)
-    else Left(Conflict)
-  }
-
   def list = Authenticate(TypicalManager).async { implicit request =>
     runQuery(allInfos.result).map { infos =>
       Ok(toJson(infos))
     }
   }
 
-  def store = Authenticate(TypicalManager).async(parse.json[ContactInfo].validate(
-    adapter(new ContactInfoValidator(_)))) { implicit request =>
+  def store = Authenticate(TypicalManager).async(parse.json[ContactInfo].validateWith(
+    new ContactInfoValidator(_))) { implicit request =>
     runQuery(ContactInfoDAO.insertInfo(request.body)).map { id =>
       Ok(toJson(StoreResponse(id)))
     }
@@ -67,7 +62,7 @@ class Contacts extends Controller with DefaultDbConfiguration {
   }
 
   def update(id: Int) = (Authenticate(TypicalManager) andThen CheckExists(id, allInfos)).async(
-    parse.json[ContactInfo].validate(adapter(new ContactInfoValidator(_)))) { implicit request =>
+    parse.json[ContactInfo].validateWith(new ContactInfoValidator(_))) { implicit request =>
     runQuery(ContactInfoDAO.updateInfo(id, request.body)).map( _ => Ok)
   }
 
@@ -77,15 +72,15 @@ class Contacts extends Controller with DefaultDbConfiguration {
 
   def validate = ValidateAction[ContactInfo](TypicalManager, new ContactInfoValidator(_))
 
-  def storeAddress = Authenticate(TypicalManager).async(parse.json[ContactAddress].validate(
-    adapter(new ContactAddressValidator(_)))) { implicit request =>
+  def storeAddress = Authenticate(TypicalManager).async(parse.json[ContactAddress].validateWith(
+    new ContactAddressValidator(_))) { implicit request =>
     runQuery(ContactInfoDAO.insertAddress(request.body)).map { id =>
       Ok(toJson(StoreResponse(id)))
     }
   }
 
   def updateAddress(addressId: Int) = (Authenticate(TypicalManager) andThen CheckExists(addressId, allAddresses)).async(
-    parse.json[ContactAddress].validate(adapter(new ContactAddressValidator(_)))) { implicit request =>
+    parse.json[ContactAddress].validateWith(new ContactAddressValidator(_))) { implicit request =>
     runQuery(ContactInfoDAO.updateAddress(addressId, request.body)).map(_ => Ok)
   }
 
@@ -95,15 +90,15 @@ class Contacts extends Controller with DefaultDbConfiguration {
 
   def validateAddress = ValidateAction[ContactAddress](TypicalManager, new ContactAddressValidator(_))
 
-  def storeNumber = Authenticate(TypicalManager).async(parse.json[ContactNumber].validate(
-    adapter(new ContactNumberValidator(_)))) { implicit request =>
+  def storeNumber = Authenticate(TypicalManager).async(parse.json[ContactNumber].validateWith(
+    new ContactNumberValidator(_))) { implicit request =>
     runQuery(ContactInfoDAO.insertNumber(request.body)).map { id =>
       Ok(toJson(StoreResponse(id)))
     }
   }
 
   def updateNumber(numberId: Int) = (Authenticate(TypicalManager) andThen CheckExists(numberId, allNumbers)).async(
-    parse.json[ContactNumber].validate(adapter(new ContactNumberValidator(_)))) { implicit request =>
+    parse.json[ContactNumber].validateWith(new ContactNumberValidator(_))) { implicit request =>
     runQuery(ContactInfoDAO.updateNumber(numberId, request.body)).map(_ => Ok)
   }
 
@@ -113,15 +108,15 @@ class Contacts extends Controller with DefaultDbConfiguration {
 
   def validateNumber = ValidateAction[ContactNumber](TypicalManager, new ContactNumberValidator(_))
 
-  def storeEmail = Authenticate(TypicalManager).async(parse.json[ContactEmail].validate(
-    adapter(new ContactEmailValidator(_)))) { implicit request =>
+  def storeEmail = Authenticate(TypicalManager).async(parse.json[ContactEmail].validateWith(
+    new ContactEmailValidator(_))) { implicit request =>
     runQuery(ContactInfoDAO.insertEmail(request.body)).map{ id =>
       Ok(toJson(StoreResponse(id)))
     }
   }
 
   def updateEmail(emailId: Int) = (Authenticate(TypicalManager) andThen CheckExists(emailId, allEmails)).async(
-    parse.json[ContactEmail].validate(adapter(new ContactEmailValidator(_)))) { implicit request =>
+    parse.json[ContactEmail].validateWith(new ContactEmailValidator(_))) { implicit request =>
     runQuery(ContactInfoDAO.updateEmail(emailId, request.body)).map( _ => Ok)
   }
 

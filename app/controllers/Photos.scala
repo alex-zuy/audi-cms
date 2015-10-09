@@ -5,7 +5,7 @@ import java.nio.file.{Path, Files}
 import java.sql.Blob
 import javax.sql.rowset.serial.SerialBlob
 
-import internal.{CheckExists, Authenticate, DefaultDbConfiguration}
+import internal.{RequestBodyValidation, CheckExists, Authenticate, DefaultDbConfiguration}
 import internal.validation.{ValidateAction, Required, Validator, Validators}
 import internal.PostgresDriverExtended.api._
 import models.ManagerRoles.TypicalManager
@@ -16,7 +16,7 @@ import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.mvc._
 
-class Photos extends Controller with DefaultDbConfiguration {
+class Photos extends Controller with DefaultDbConfiguration with RequestBodyValidation {
 
   import Json.toJson
   import Photos._
@@ -36,8 +36,8 @@ class Photos extends Controller with DefaultDbConfiguration {
 
   def validatePhotoHeaders = ValidateAction[PhotoHeaders](TypicalManager, new PhotoHeadersValidator(_))
 
-  def storePhotoHeaders = Authenticate(TypicalManager).async(parse.json[PhotoHeaders].validate(
-    adapter(new PhotoHeadersValidator(_)))) { implicit request =>
+  def storePhotoHeaders = Authenticate(TypicalManager).async(parse.json[PhotoHeaders].validateWith(
+    new PhotoHeadersValidator(_))) { implicit request =>
     val ph = request.body
     runQuery((PhotoDAO.photoMetaProjection returning allPhotos.map(_.id)) += ph.mainHeaders).map(
       id => Ok(toJson(StoreResponse(id))))
@@ -49,7 +49,7 @@ class Photos extends Controller with DefaultDbConfiguration {
   }
 
   def updateHeaders(photoId: Int) = (Authenticate(TypicalManager) andThen CheckExists(photoId, allPhotos)).async(
-    parse.json[PhotoHeaders].validate(adapter(new PhotoHeadersValidator(_)))) { implicit request =>
+    parse.json[PhotoHeaders].validateWith(new PhotoHeadersValidator(_))) { implicit request =>
     runQuery(PhotoDAO.photoMeta(photoId).update(request.body.mainHeaders)).map(_ => Ok)
   }
 
@@ -72,11 +72,6 @@ class Photos extends Controller with DefaultDbConfiguration {
   }
 
   def toPhotoHeaders(t: (Int, Int, JsValue, String)) = PhotoHeaders(Some(t._1), t._2, t._3, t._4)
-
-  def adapter[A](f: (A)=>Validator) = { v: A =>
-    if(f(v).violations.isEmpty) Right(v)
-    else Left(Conflict)
-  }
 }
 
 object Photos {
