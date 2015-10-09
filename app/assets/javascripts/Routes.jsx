@@ -11,7 +11,6 @@ define(['react',
         'javascripts/views/TestDrivePage',
         'javascripts/views/LoginPage',
         'javascripts/views/ControlPanelPage',
-        'javascripts/views/ManagersControl',
         'javascripts/components/managers/ManagersList',
         'javascripts/components/managers/ManagerStore',
         'javascripts/components/managers/ManagerUpdate',
@@ -39,7 +38,6 @@ define(['react',
              TestDrivePage,
              LoginPage,
              ControlPanelPage,
-             ManagersControl,
              ManagersList,
              ManagerStore,
              ManagerUpdate,
@@ -71,8 +69,7 @@ define(['react',
                 </Route>
                 <Route path="/control-panel" name="control-panel" handler={ManagerLayout}>
                     <Route handler={ControlPanelPage}>
-                        <DefaultRoute handler={ManagersControl}/>
-                        <Route path="managers" handler={ManagersControl}>
+                        <Route path="managers">
                             <Route path="list" name="managers-list" handler={ManagersList}/>
                             <Route path="store" name="manager-store" handler={ManagerStore}/>
                             <Route path=":id/update" name="manager-update" handler={ManagerUpdate}/>
