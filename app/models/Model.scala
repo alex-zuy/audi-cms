@@ -1,7 +1,6 @@
-package models.Model
+package models
 
 import internal.PostgresDriverExtended.api._
-import models.IntegerIdPk
 
 case class ModelRange(id: Option[Int], name: String, description: Option[String])
 
@@ -90,7 +89,7 @@ object ModelDAO {
     def luggageSpace = column[Int]("luggage_space")
 
     def * = (id.?, modelRangeId, photoSetId, name, passengerCapacity, width, height, length, groundClearance, luggageSpace) <>
-      (Model.tupled, Model.unapply)
+      (models.Model.tupled, models.Model.unapply)
   }
 
   class ModelEditionsTable(tag: Tag) extends Table[ModelEdition](tag, "model_editions") with IntegerIdPk {

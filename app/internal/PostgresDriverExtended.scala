@@ -1,7 +1,7 @@
 package internal
 
 import com.github.tminglei.slickpg._
-import models.Model.{TransmissionTypes, GearboxTypes, EngineTypes}
+import models.{TransmissionTypes, GearboxTypes, EngineTypes}
 
 import play.api.libs.json.{Json, JsValue}
 

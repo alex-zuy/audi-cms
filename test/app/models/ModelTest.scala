@@ -2,7 +2,8 @@ package app.models
 
 import internal.PostgresDriverExtended.api._
 
-import models.Model.{Model, ModelDAO, ModelRange}
+import models.Model.ModelDAO
+import models.{ModelDAO, ModelRange}
 import utility.FakeAppPerSuite
 import utility.CrudTestHelper._
 
