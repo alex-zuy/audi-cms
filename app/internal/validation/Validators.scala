@@ -1,6 +1,7 @@
 package internal.validation
 
 import ValidatorBuilder.build
+import controllers.Application
 
 import java.util.regex.Pattern
 
@@ -13,6 +14,7 @@ import slick.driver.JdbcProfile
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.concurrent.Await.result
+import scala.collection.JavaConversions._
 
 object Validators {
 
@@ -43,10 +45,11 @@ object Validators {
   def InRange[T](min: T, max: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.range", "minValue" -> min, "maxValue" -> max) {
     (v, mt) => n.gteq(v, min) && n.lteq(v, max) }
 
-  def JsonObject(keys: Seq[String] = Seq.empty) = build[JsValue]("validators.errors.jsonObject.keys") { (json, mt) =>
+  def I18nTexts = build[JsValue]("validators.errors.jsonObject.keys") { (json, mt) =>
     json match {
       case jsObj:JsObject => {
-        val absentKeys = keys.filter(!jsObj.keys.contains(_))
+        val requiredLanguages = Seq(Application.defaultLanguage)
+        val absentKeys = requiredLanguages.filter(!jsObj.keys.contains(_))
         mt.putParameter("absentKeys" -> JsArray(absentKeys.map(JsString.apply)).toString())
         absentKeys.isEmpty
       }

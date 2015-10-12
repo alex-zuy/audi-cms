@@ -76,7 +76,7 @@ object Articles {
     def rules = Seq(
       "photoSetId" -> Required(news.photoSetId)(),
       "title" -> Required(news.title)(
-        JsonObject(Seq(Application.defaultLanguage))
+        I18nTexts
       ),
       "category" -> Required(news.category)(
         Length(50)

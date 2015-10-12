@@ -80,7 +80,7 @@ object Photos {
 
   class PhotoHeadersValidator(ph: PhotoDAO.PhotoHeaders) extends Validator {
     def rules = Seq(
-      "name" -> Required(ph.name)(Validators.JsonObject(Seq(Application.defaultLanguage)))
+      "name" -> Required(ph.name)(Validators.I18nTexts)
     )
   }
 }
