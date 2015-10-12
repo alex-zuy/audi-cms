@@ -1,14 +1,15 @@
 package models
 
 import internal.PostgresDriverExtended.api._
+import play.api.libs.json._
 
-case class ModelRange(id: Option[Int], name: String, description: Option[String])
+case class ModelRange(id: Option[Int], name: JsValue, description: Option[JsValue])
 
 case class Model(
                   id: Option[Int],
                   modelRangeId: Int,
                   photoSetId: Int,
-                  name: String,
+                  name: JsValue,
                   passengerCapacity: Int,
                   width: Float,
                   height: Float,
@@ -19,7 +20,7 @@ case class Model(
 case class ModelEdition(
                          id: Option[Int],
                          modelId: Int,
-                         name: String,
+                         name: JsValue,
                          engineType: EngineTypes.EngineType,
                          engineVolume: Float,
                          engineCylinderCount: Int,
@@ -62,9 +63,9 @@ object ModelDAO {
   def insertModelEdition(me: ModelEdition) = (allModelEditions returning allModelEditions.map(_.id)) += me
 
   class ModelRangesTable(tag: Tag) extends Table[ModelRange](tag, "model_ranges") with IntegerIdPk {
-    def name = column[String]("name")
+    def name = column[JsValue]("name")
 
-    def description = column[Option[String]]("description")
+    def description = column[Option[JsValue]]("description")
 
     def * = (id.?, name, description) <>(ModelRange.tupled, ModelRange.unapply)
   }
@@ -74,7 +75,7 @@ object ModelDAO {
 
     def photoSetId = column[Int]("photo_set_id")
 
-    def name = column[String]("name")
+    def name = column[JsValue]("name")
 
     def passengerCapacity = column[Int]("passenger_capacity")
 
@@ -95,7 +96,7 @@ object ModelDAO {
   class ModelEditionsTable(tag: Tag) extends Table[ModelEdition](tag, "model_editions") with IntegerIdPk {
     def modelId = column[Int]("model_id")
 
-    def name = column[String]("name")
+    def name = column[JsValue]("name")
 
     def engineType = column[EngineTypes.EngineType]("engine_type")
 
