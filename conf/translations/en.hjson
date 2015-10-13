@@ -311,6 +311,32 @@
                 }
             }
         }
+        models: {
+            ranges: {
+                labels: {
+                    ranges: Ranges
+                    name: Name
+                    delete: {
+                        dialogTitle: Deleting model range
+                        dialog: Are you sure you want to delete this model range ?
+                    }
+                }
+                actions: {
+                    submit: Save
+                    cancel: Cancel
+                }
+                inputs: {
+                    name: {
+                        label: Name
+                        placeholder: Name
+                    }
+                    description: {
+                        label: Description
+                        placeholder: Description
+                    }
+                }
+            }
+        }
         photos: {
             labels: {
                 photoSet: Photo set

@@ -62,5 +62,13 @@ POST        /photos/:photoId/uploadImage        controllers.Photos.uploadImage(p
 GET         /photos/:photoId/showImage          controllers.Photos.showImage(photoId: Int)
 POST        /photos/:photoId/delete             controllers.Photos.delete(photoId: Int)
 
+# Models
+POST        /models/storeRange                  controllers.Models.storeRange
+GET         /models/listRanges                  controllers.Models.listRanges
+POST        /models/validateRange               controllers.Models.validateRange
+GET         /models/:id/showRange               controllers.Models.showRange(id: Int)
+POST        /models/:id/updateRange             controllers.Models.updateRange(id: Int)
+POST        /models/:id/deleteRange             controllers.Models.deleteRange(id: Int)
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)

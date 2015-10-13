@@ -62,6 +62,12 @@ object ModelDAO {
 
   def insertModelEdition(me: ModelEdition) = (allModelEditions returning allModelEditions.map(_.id)) += me
 
+  def rangeById(id: Int) = allModelRanges.filter(_.id === id).result.head
+
+  def updateRange(id: Int, range: ModelRange) = allModelRanges.filter(_.id === id).map(r => (r.name, r.description)).update((range.name, range.description));
+
+  def deleteRange(id: Int) = allModelRanges.filter(_.id === id).delete
+
   class ModelRangesTable(tag: Tag) extends Table[ModelRange](tag, "model_ranges") with IntegerIdPk {
     def name = column[JsValue]("name")
 
