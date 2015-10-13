@@ -312,6 +312,15 @@
             }
         }
         models: {
+            main: {
+                labels: {
+                    models: Models
+                    manageRanges: Manage model ranges
+                }
+                actions: {
+                    manageRanges: Manage ranges
+                }
+            }
             ranges: {
                 labels: {
                     ranges: Ranges
@@ -403,6 +412,7 @@
                 managers: Managers
                 contacts: Contacts
                 articles: Articles
+                models: Models
             }
         }
     }

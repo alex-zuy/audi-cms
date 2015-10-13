@@ -21,6 +21,7 @@ define(['react',
         'js/components/articles/ArticlesList',
         'js/components/articles/ArticleForm',
         'js/components/articles/ArticleTextUpdate',
+        'js/components/models/ModelsMain',
         'js/components/models/RangesList',
         'js/components/photos/PhotoSet',
         'javascripts/UserLayout',
@@ -49,6 +50,7 @@ define(['react',
              ArticlesList,
              ArticleForm,
              ArticleTextUpdate,
+             ModelsMain,
              ModelRangesList,
              PhotoSet,
              UserLayout,
@@ -90,7 +92,8 @@ define(['react',
                         </Route>
                         <Route path="photoset/:id/update" name="photo-set-update" handler={PhotoSet}/>
                         <Route path="models">
-                            <Route path="ranges" name="ranges-list" handler={ModelRangesList}/>
+                            <Route path="main" name="models-main" handler={ModelsMain}/>
+                            <Route path="ranges" name="model-ranges-list" handler={ModelRangesList}/>
                         </Route>
                     </Route>
                 </Route>
