@@ -27,9 +27,8 @@ define(['react', 'allMixins', 'reactRouter', 'mui'], function(React, allMixins, 
                     <h6>{this.getMsg('labels.manageModels')}</h6>
                     <RaisedButton
                         linkButton={true}
-                        href={this.makeHref('model-ranges-list')}
-                        label={this.getMsg('actions.manageModels')}
-                        disabled={true}/>
+                        href={this.makeHref('models-list')}
+                        label={this.getMsg('actions.manageModels')}/>
                 </div>
             );
         }

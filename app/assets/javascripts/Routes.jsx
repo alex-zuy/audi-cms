@@ -23,6 +23,9 @@ define(['react',
         'js/components/articles/ArticleTextUpdate',
         'js/components/models/ModelsMain',
         'js/components/models/RangesList',
+        'js/components/models/ModelStore',
+        'js/components/models/ModelUpdate',
+        'js/components/models/ModelsList',
         'js/components/photos/PhotoSet',
         'javascripts/UserLayout',
         'javascripts/ManagerLayout',
@@ -52,6 +55,9 @@ define(['react',
              ArticleTextUpdate,
              ModelsMain,
              ModelRangesList,
+             ModelStore,
+             ModelUpdate,
+             ModelsList,
              PhotoSet,
              UserLayout,
              ManagerLayout)
@@ -94,6 +100,9 @@ define(['react',
                         <Route path="models">
                             <Route path="main" name="models-main" handler={ModelsMain}/>
                             <Route path="ranges" name="model-ranges-list" handler={ModelRangesList}/>
+                            <Route path="models" name="models-list" handler={ModelsList}/>
+                            <Route path="model/store" name="model-store" handler={ModelStore}/>
+                            <Route path=":modelId/update" name="model-update" handler={ModelUpdate}/>
                         </Route>
                     </Route>
                 </Route>

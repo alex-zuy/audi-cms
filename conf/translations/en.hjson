@@ -162,6 +162,12 @@
                 }
             }
         }
+        NumberInput: {
+            errors: {
+                integerOnly: Integer value is required
+                numberOnly: Numeric value is required
+            }
+        }
     }
     controlPanel: {
         contacts: {
@@ -316,9 +322,11 @@
                 labels: {
                     models: Models
                     manageRanges: Manage model ranges
+                    manageModels: Manage models
                 }
                 actions: {
                     manageRanges: Manage ranges
+                    manageModels: Manage models
                 }
             }
             ranges: {
@@ -343,6 +351,62 @@
                         label: Description
                         placeholder: Description
                     }
+                }
+            }
+            list: {
+                labels: {
+                    models: Models
+                }
+                actions: {
+                    add: Add model
+                }
+            }
+            store: {
+                labels: {
+                    creatingModel: Creating model
+                }
+            }
+            update: {
+                labels: {
+                    updatingModel: Editing model
+                }
+            }
+            models: {
+                inputs: {
+                    modelRangeId: {
+                        label: Model range
+                    }
+                    name: {
+                        label: Model name
+                        placeholder: Models name
+                    }
+                    passengerCapacity: {
+                        label: Passenger capacity
+                        placeholder: Human count
+                    }
+                    width: {
+                        label: Width
+                        placeholder: Width in meters
+                    }
+                    height: {
+                        label: Height
+                        placeholder: Height in meters
+                    }
+                    length: {
+                        label: Length
+                        placeholder: Length in meters
+                    }
+                    groundClearance: {
+                        label: Ground clearance
+                        placeholder: Clearance in meters
+                    }
+                    luggageSpace: {
+                        label: Luggage space
+                        placeholder: Space in liters
+                    }
+                }
+                actions: {
+                    submit: Save
                 }
             }
         }
