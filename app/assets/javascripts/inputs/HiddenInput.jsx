@@ -8,11 +8,19 @@ define(['react'], function(React) {
             return { value: this.props.value };
         },
         componentWillReceiveProps(props) {
-            this.setState({value: props.value});
+            if(!_.isUndefined(props.value)) {
+                this.setState({value: props.value});
+            }
         },
         render() { return <div/> },
-        setValue(value) { this.setState({value: value}) },
-        getValue() { return this.state.value },
-        isEmpty() { return this.getValue() == null }
+        setValue(value) {
+            this.setState({value: value})
+        },
+        getValue() {
+            return this.state.value
+        },
+        isEmpty() {
+            return this.getValue() == null
+        }
     });
 });
