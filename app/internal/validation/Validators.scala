@@ -42,7 +42,7 @@ object Validators {
   def Max[T](max: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.max", "maxValue" -> max) { (v, mt) =>
     n.lteq(v, max) }
 
-  def InRange[T](min: T, max: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.range", "minValue" -> min, "maxValue" -> max) {
+  def InRange[T](min: T, max: T)(implicit n: Numeric[T]) = build[T]("validators.errors.numeric.inRange", "minValue" -> min, "maxValue" -> max) {
     (v, mt) => n.gteq(v, min) && n.lteq(v, max) }
 
   def I18nTexts = build[JsValue]("validators.errors.jsonObject.keys") { (json, mt) =>
