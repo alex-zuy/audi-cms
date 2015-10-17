@@ -88,7 +88,20 @@ class Application extends Controller with DefaultDbConfiguration {
         routes.javascript.Models.validateRange,
         routes.javascript.Models.showRange,
         routes.javascript.Models.updateRange,
-        routes.javascript.Models.deleteRange
+        routes.javascript.Models.deleteRange,
+        routes.javascript.Models.storeModel,
+        routes.javascript.Models.listModels,
+        routes.javascript.Models.validateModel,
+        routes.javascript.Models.showModel,
+        routes.javascript.Models.listModelEditions,
+        routes.javascript.Models.updateModel,
+        routes.javascript.Models.deleteModel,
+        routes.javascript.Models.storeEdition,
+        routes.javascript.Models.listEditions,
+        routes.javascript.Models.validateEdition,
+        routes.javascript.Models.showEdition,
+        routes.javascript.Models.updateEdition,
+        routes.javascript.Models.deleteEdition
       )
     ).as("text/javascript")
   }

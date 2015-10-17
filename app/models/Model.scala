@@ -64,9 +64,71 @@ object ModelDAO {
 
   def rangeById(id: Int) = allModelRanges.filter(_.id === id).result.head
 
+  def modelById(id: Int) = allModels.filter(_.id === id)
+
+  def editionById(id: Int) = allModels.filter(_.id === id)
+
   def updateRange(id: Int, range: ModelRange) = allModelRanges.filter(_.id === id).map(r => (r.name, r.description)).update((range.name, range.description));
 
+  def updateModel(id: Int, m: Model) =
+    allModels.filter(_.id === id).map(m => (
+      m.modelRangeId,
+      m.photoSetId,
+      m.name,
+      m.passengerCapacity,
+      m.width,
+      m.height,
+      m.length,
+      m.groundClearance,
+      m.luggageSpace)
+    ).update(
+        m.modelRangeId,
+        m.photoSetId,
+        m.name,
+        m.passengerCapacity,
+        m.width,
+        m.height,
+        m.length,
+        m.groundClearance,
+        m.luggageSpace)
+
+  def updateEdition(id: Int, e: ModelEdition) =
+    allModelEditions.filter(_.id === id).map(e =>(
+      e.modelId,
+      e.name,
+      e.engineType,
+      e.engineVolume,
+      e.engineCylinderCount,
+      e.enginePower,
+      e.fuelTank,
+      e.fuelConsumption,
+      e.acceleration,
+      e.maxSpeed,
+      e.gearboxType,
+      e.gearboxLevels,
+      e.transmissionType)
+    ).update(
+      e.modelId,
+      e.name,
+      e.engineType,
+      e.engineVolume,
+      e.engineCylinderCount,
+      e.enginePower,
+      e.fuelTank,
+      e.fuelConsumption,
+      e.acceleration,
+      e.maxSpeed,
+      e.gearboxType,
+      e.gearboxLevels,
+      e.transmissionType)
+
   def deleteRange(id: Int) = allModelRanges.filter(_.id === id).delete
+
+  def deleteModel(id: Int) = allModels.filter(_.id === id).delete
+
+  def deleteEdition(id: Int) = allModelEditions.filter(_.id === id).delete
+
+  def modelEditions(modelId: Int) = allModelEditions.filter(_.modelId === modelId)
 
   class ModelRangesTable(tag: Tag) extends Table[ModelRange](tag, "model_ranges") with IntegerIdPk {
     def name = column[JsValue]("name")

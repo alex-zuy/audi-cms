@@ -69,6 +69,19 @@ POST        /models/validateRange               controllers.Models.validateRange
 GET         /models/:id/showRange               controllers.Models.showRange(id: Int)
 POST        /models/:id/updateRange             controllers.Models.updateRange(id: Int)
 POST        /models/:id/deleteRange             controllers.Models.deleteRange(id: Int)
+POST        /models/storeModel                  controllers.Models.storeModel
+GET         /models/listModels                  controllers.Models.listModels
+POST        /models/validateModel               controllers.Models.validateModel
+GET         /models/:id/showModel               controllers.Models.showModel(id: Int)
+GET         /models/:id/listEditions            controllers.Models.listModelEditions(id: Int)
+POST        /models/:id/updateModel             controllers.Models.updateModel(id: Int)
+POST        /models/:id/deleteModel             controllers.Models.deleteModel(id: Int)
+POST        /models/storeEdition                controllers.Models.storeEdition
+GET         /models/listEditions                controllers.Models.listEditions
+POST        /models/validateEdition             controllers.Models.validateEdition
+GET         /models/:id/showEdition             controllers.Models.showEdition(id: Int)
+POST        /models/:id/updateEdition           controllers.Models.updateEdition(id: Int)
+POST        /models/:id/deleteEdition           controllers.Models.deleteEdition(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)
