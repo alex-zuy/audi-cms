@@ -11,8 +11,8 @@ define(['react', 'IntlMessageFormat'], function(React, IntlMessageFormat) {
             }
         }
         catch(err) {
-            console.warn('IntlMixin: failed to find message by key \"' + prop + '\"');
-            console.warn('IntlMixin: Exception: ' + err.toString());
+            console.log('IntlMixin: failed to find message by key \"' + prop + '\"');
+            console.log('IntlMixin: Exception: ' + err.toString());
             return prop;
         }
     }
