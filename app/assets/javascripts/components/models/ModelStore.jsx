@@ -36,7 +36,7 @@ define(['react', 'reactRouter', 'allMixins',
         },
         onSubmit() {
             this.refs.form.submitForm(jsRoutes.controllers.Models.storeModel(), {
-                success: (response) => this.transitionTo('model-update', {modelId: response.id})
+                success: (response) => this.transitionTo('model-edit-menu', {modelId: response.id})
             });
         }
     });

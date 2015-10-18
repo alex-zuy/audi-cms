@@ -26,7 +26,7 @@ define(['react', 'allMixins', 'reactRouter',
                     <h4>{this.getMsg('labels.models')}</h4>
                     <div className="collection">{
                         this.state.models.map((model) =>
-                            <Link className="collection-item" to="model-update" params={{modelId: model.id}}>
+                            <Link className="collection-item" to="model-edit-menu" params={{modelId: model.id}}>
                                 {this.getPreferedText(model.name)}
                             </Link>
                         )

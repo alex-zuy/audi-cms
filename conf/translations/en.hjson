@@ -387,6 +387,19 @@
                     updatingModel: Editing model
                 }
             }
+            editMenu: {
+                labels: {
+                    editingModel: Editing model
+                    editModel: Edit model
+                    editEditions: Edit editions
+                    editPhotos: Edit photos
+                }
+                actions: {
+                    editModel: Edit model
+                    editEditions: Edit editions
+                    editPhotos: Edit photos
+                }
+            }
             models: {
                 inputs: {
                     modelRangeId: {
@@ -425,8 +438,15 @@
                     submit: Save
                 }
             }
-            editions: {
+            updatePhotos: {
                 labels: {
+                    photos: Model photos
+                    backToEditMenu: Back to edit menu
+                }
+            }
+            updateEditions: {
+                labels: {
+                    backToEditMenu: Back to edit menu
                     modelEditions: Model editions
                     feature: Feature
                     engineType: Engine type
@@ -528,6 +548,8 @@
             labels: {
                 articles: Articles
                 article: Article
+                articlePhotos: Article photos
+                backToArticleForm: Back to article form
                 title: Title
                 category: Category
                 delete: {
@@ -541,6 +563,7 @@
             actions: {
                 addArticle: Add article
                 editText: Edit text
+                editPhotos: Edit photos
             }
             form: {
                 actions: {

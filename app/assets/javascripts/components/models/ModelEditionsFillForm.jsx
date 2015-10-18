@@ -1,9 +1,9 @@
-define(['react', 'allMixins', 'mui',
+define(['react', 'allMixins', 'mui', 'reactRouter',
     'js/components/GenericForm',
     'js/inputs/inputs',
     'js/widgets/IconedButton',
     'js/components/ConfirmDialog',
-], function(React, allMixins, mui, GenericForm, inputs, IconedButton, ConfirmDialog) {
+], function(React, allMixins, mui, ReactRouter, GenericForm, inputs, IconedButton, ConfirmDialog) {
 
     const {HiddenInput, SelectInput, NumberInput, I18nTextInput} = inputs;
     const {IconButton, RaisedButton, Paper} = mui;
@@ -117,13 +117,11 @@ define(['react', 'allMixins', 'mui',
         mixins: [
             allMixins.IntlMixin,
             allMixins.AjaxMixin,
+            ReactRouter.Navigation,
         ],
-        propTypes: {
-            modelId: React.PropTypes.number.isRequired,
-        },
         getDefaultProps() {
             return {
-                msgKeyPrefix: 'controlPanel.models.editions'
+                msgKeyPrefix: 'controlPanel.models.updateEditions'
             }
         },
         getInitialState() {
@@ -140,6 +138,11 @@ define(['react', 'allMixins', 'mui',
             return (
                 <div>
                     <h5>{this.getMsg('labels.modelEditions')}</h5>
+                    <IconedButton
+                        iconName="arrow_back"
+                        label={this.getMsg('labels.backToEditMenu')}
+                        linkButton={true}
+                        href={this.makeHref('model-edit-menu', {modelId: this.props.params.modelId})}/>
                     <table>
                         <thead>
                             <tr>
@@ -259,14 +262,13 @@ define(['react', 'allMixins', 'mui',
                                 <IconedButton
                                     iconName="playlist_add"
                                     label={this.getMsg('actions.add')}
-                                    onClick={this.onAddClicked}
-                                    />
+                                    onClick={this.onAddClicked}/>
                             );
                         else
                             return (
                                 <EditionForm
                                     editionId={this.state.editionInForm.id}
-                                    modelId={this.props.modelId}
+                                    modelId={this.props.params.modelId}
                                     onAfterSubmit={this.onItemSubmited}
                                     onCancel={this.onFormCancel}/>
                             );
@@ -286,7 +288,7 @@ define(['react', 'allMixins', 'mui',
             this.loadEditions();
         },
         loadEditions() {
-            this.ajax(jsRoutes.controllers.Models.listModelEditions(this.props.modelId), {
+            this.ajax(jsRoutes.controllers.Models.listModelEditions(this.props.params.modelId), {
                 success: (editions) => this.setState({editions: editions})
             });
         },

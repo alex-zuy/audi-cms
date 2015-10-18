@@ -157,6 +157,9 @@ define(['react', 'allMixins', 'mui',
             allMixins.IntlMixin,
             allMixins.AjaxMixin,
         ],
+        propTypes: {
+            photoSetId: React.PropTypes.number.isRequired,
+        },
         getDefaultProps() {
             return {
                 msgKeyPrefix: 'controlPanel.photos'
@@ -172,13 +175,12 @@ define(['react', 'allMixins', 'mui',
         },
         render() {
             return (
-                <Paper zDepth={4} rounded={false} style={{padding: '20px'}}>
-                    <h4>{this.getMsg('labels.photoSet')}</h4>
+                <div>
                     {(this.state.isFormOpen)
                         ? (
                         <PhotoForm
                             onImageSubmited={this.imageSubmited}
-                            photoSetId={this.props.params.id}
+                            photoSetId={this.props.photoSetId}
                             photoId={this.state.photoInFormId}/>
                         ) : (
                         <RaisedButton
@@ -187,7 +189,7 @@ define(['react', 'allMixins', 'mui',
                             disabled={this.state.isFormOpen}/>
                     )}
                     <hr/>
-                    <div zDepth={3} rounded={false} style={{padding: '15px'}}>
+                    <div>
                         <div className="photoSet">
                             {this.state.photos.map((photo) =>
                                 <div key={`photo-${photo.id}`} className="photoSetImage grey lighten-2 z-depth-3">
@@ -212,14 +214,14 @@ define(['react', 'allMixins', 'mui',
                         onCancel={this.cancelDeletePhoto}>
                         {this.getMsg('labels.confirmDelete')}
                     </ConfirmDialog>
-                </Paper>
+                </div>
             );
         },
         componentWillMount() {
             this.loadPhotos();
         },
         loadPhotos() {
-            this.ajax(jsRoutes.controllers.Photos.listPhoto(this.props.params.id), {
+            this.ajax(jsRoutes.controllers.Photos.listPhoto(this.props.photoSetId), {
                 success: (photos) => this.setState({photos: photos}),
             });
         },

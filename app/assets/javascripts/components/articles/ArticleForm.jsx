@@ -110,7 +110,7 @@ define([
             this.transitionTo('article-text-update', {id: this.props.params.id, lang: this.state.textTabLang});
         },
         gotoEditPhotoSet() {
-            this.transitionTo('photo-set-update', {id: this.state.photoSetId});
+            this.transitionTo('article-update-photos', {id: this.props.params.id});
         }
     });
 });

@@ -22,15 +22,12 @@ define(['react', 'allMixins', 'reactRouter',
                         ref="form"
                         modelId={this.props.params.modelId}
                         onSubmit={this.onSubmit}/>
-                    <hr style={{marginTop: '10px', marginBottom: '10px'}}/>
-                    <ModelEditionsFillForm
-                        modelId={this.props.params.modelId}/>
                 </div>
             );
         },
         onSubmit() {
             this.refs.form.submitForm(jsRoutes.controllers.Models.updateModel(this.props.params.modelId), {
-                complete: () => this.transitionTo('models-list')
+                complete: () => this.transitionTo('model-edit-menu', {modelId: this.props.params.modelId})
             });
         }
     });
