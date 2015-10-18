@@ -1,6 +1,7 @@
 define(['react', 'allMixins', 'reactRouter',
-    'js/components/models/ModelForm'
-], function(React, allMixins, ReactRouter, ModelForm) {
+    'js/components/models/ModelForm',
+    'js/components/models/ModelEditionsFillForm'
+], function(React, allMixins, ReactRouter, ModelForm, ModelEditionsFillForm) {
 
     return React.createClass({
         mixins: [
@@ -10,7 +11,7 @@ define(['react', 'allMixins', 'reactRouter',
         ],
         getDefaultProps() {
             return {
-                msgKeyPrefix: 'controlPanel.model.update',
+                msgKeyPrefix: 'controlPanel.models.update',
             }
         },
         render() {
@@ -21,8 +22,9 @@ define(['react', 'allMixins', 'reactRouter',
                         ref="form"
                         modelId={this.props.params.modelId}
                         onSubmit={this.onSubmit}/>
-                    <hr/>
-
+                    <hr style={{marginTop: '10px', marginBottom: '10px'}}/>
+                    <ModelEditionsFillForm
+                        modelId={this.props.params.modelId}/>
                 </div>
             );
         },
