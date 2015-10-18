@@ -47,12 +47,15 @@ define(['react', 'mui'], function(React, mui) {
             this.setState({selectedIndex: selectedIndex});
         },
         isEmpty() {
-            return (this.state.selectedIndex === 0)
-                && (this.props.alternatives.length > 0)
-                && _.isNull(this.props.alternatives[0].value);
+            if(this.props.initiallyUnselected) {
+                return this.state.selectedIndex == 0;
+            }
+            else {
+                return this.props.alternatives.length == 0;
+            }
         },
         setValue(value) {
-            const index = _.findIndex(this.props.alternatives, ({value: v}) => v == value);
+            const index = _.findIndex(this._getAlternatives(), ({value: v}) => v == value);
             this.setState({selectedIndex: index});
         },
         getValue() {
