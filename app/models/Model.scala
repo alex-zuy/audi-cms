@@ -66,7 +66,7 @@ object ModelDAO {
 
   def modelById(id: Int) = allModels.filter(_.id === id)
 
-  def editionById(id: Int) = allModels.filter(_.id === id)
+  def editionById(id: Int) = allModelEditions.filter(_.id === id)
 
   def updateRange(id: Int, range: ModelRange) = allModelRanges.filter(_.id === id).map(r => (r.name, r.description)).update((range.name, range.description));
 
