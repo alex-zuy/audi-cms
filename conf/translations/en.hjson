@@ -4,6 +4,22 @@
             en: English
             ru: Russian
         }
+        enumerations: {
+            engineTypes: {
+                diesel: Diesel
+                benzine: Benzine
+            }
+            gearboxTypes: {
+                automatic: Automatic
+                manual: Manual
+            }
+            transmissionTypes: {
+                front: Front
+                rear: Rear
+                all: All
+                adjustable: Adjustable
+            }
+        }
     }
     loginPage: {
         labels: {
@@ -407,6 +423,81 @@
                 }
                 actions: {
                     submit: Save
+                }
+            }
+            editions: {
+                labels: {
+                    modelEditions: Model editions
+                    feature: Feature
+                    engineType: Engine type
+                    engineVolume: Engine volume
+                }
+                deleteDialog: {
+                    actions: {
+                        cancel: Cancel
+                        confirm: Confirm
+                    }
+                    labels: {
+                        dialogText: Are you sure you want to delete this edition ?
+                    }
+                }
+                actions: {
+                    add: Add edition
+                }
+                form: {
+                    actions: {
+                        submit: Save
+                        cancel: Cancel
+                    }
+                    inputs: {
+                        name: {
+                            label: Edition name
+                            placeholder: Name
+                        }
+                        engineType: {
+                            label: Engine type
+                        }
+                        engineVolume: {
+                            label: Engine volume
+                            placeholder: Volume in liters
+                        }
+                        engineCylinderCount: {
+                            label: Engine cylinder count
+                            placeholder: ""
+                        }
+                        enginePower: {
+                            label: Engine power
+                            placeholder: Power in HP
+                        }
+                        fuelTank: {
+                            label: Fuel tank
+                            placeholder: Liters
+                        }
+                        fuelConsumption: {
+                            label: Fuel consumption
+                            placeholder: Liters per 100 km
+                        }
+                        acceleration: {
+                            label: Acceleration
+                            placeholder: Seconds to reach 100 kph
+                        }
+                        maxSpeed: {
+                            label: Max speed
+                            placeholder: In km per hour
+                        }
+                        gearboxType: {
+                            label: Gearbox type
+                            placeholder: ""
+                        }
+                        gearboxLevels: {
+                            label: Gearbox levels
+                            placeholder: ""
+                        }
+                        transmissionType: {
+                            label: Transmission type
+                            placeholder: ""
+                        }
+                    }
                 }
             }
         }
