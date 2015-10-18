@@ -20,11 +20,15 @@ define(['react',
         'js/components/contacts/ContactInfoFill',
         'js/components/articles/ArticlesList',
         'js/components/articles/ArticleForm',
+        'js/components/articles/ArticleUpdatePhotos',
         'js/components/articles/ArticleTextUpdate',
         'js/components/models/ModelsMain',
         'js/components/models/RangesList',
         'js/components/models/ModelStore',
+        'js/components/models/ModelEditMenu',
+        'js/components/models/ModelEditionsFillForm',
         'js/components/models/ModelUpdate',
+        'js/components/models/ModelUpdatePhotos',
         'js/components/models/ModelsList',
         'js/components/photos/PhotoSet',
         'javascripts/UserLayout',
@@ -52,11 +56,15 @@ define(['react',
              ContactInfoFill,
              ArticlesList,
              ArticleForm,
+             ArticleUpdatePhotos,
              ArticleTextUpdate,
              ModelsMain,
              ModelRangesList,
              ModelStore,
+             ModelEditMenu,
+             ModelEditionsFillForm,
              ModelUpdate,
+             ModelUpdatePhotos,
              ModelsList,
              PhotoSet,
              UserLayout,
@@ -94,15 +102,20 @@ define(['react',
                             <Route path="list" name="articles-list" handler={ArticlesList}/>
                             <Route path="store" name="article-store" handler={ArticleForm}/>
                             <Route path=":id/update" name="article-update" handler={ArticleForm}/>
+                            <Route path=":id/update-photos" name="article-update-photos" handler={ArticleUpdatePhotos}/>
                             <Route path=":id/:lang/text-update" name="article-text-update" handler={ArticleTextUpdate}/>
                         </Route>
-                        <Route path="photoset/:id/update" name="photo-set-update" handler={PhotoSet}/>
                         <Route path="models">
                             <Route path="main" name="models-main" handler={ModelsMain}/>
                             <Route path="ranges" name="model-ranges-list" handler={ModelRangesList}/>
                             <Route path="models" name="models-list" handler={ModelsList}/>
                             <Route path="model/store" name="model-store" handler={ModelStore}/>
-                            <Route path=":modelId/update" name="model-update" handler={ModelUpdate}/>
+                            <Route path=":modelId">
+                                <Route path="edit-menu" name="model-edit-menu" handler={ModelEditMenu}/>
+                                <Route path="update" name="model-update" handler={ModelUpdate}/>
+                                <Route path="update-editions" name="model-update-editions" handler={ModelEditionsFillForm}/>
+                                <Route path="update-photos" name="model-update-photos" handler={ModelUpdatePhotos}/>
+                            </Route>
                         </Route>
                     </Route>
                 </Route>
