@@ -49,3 +49,5 @@ parallelExecution in Test := false
 JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 
 BabelJSKeys.options :=  Object(("sourceMaps", JS("both")))
+
+herokuAppName in Compile := "audicms"
