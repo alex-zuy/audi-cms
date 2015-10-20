@@ -1,7 +1,8 @@
 define(['react', 'allMixins',
     'javascripts/components/TodoDummy',
+    'js/widgets/ModelsCarousel',
     'js/widgets/Article'
-], function(React, allMixins, TodoDummy, Article) {
+], function(React, allMixins, TodoDummy, ModelsCarousel, Article) {
 
     var MainPage = React.createClass({
         mixins: [
@@ -15,6 +16,9 @@ define(['react', 'allMixins',
         render: function() {
             return (
                 <div>
+                    <div className="row">
+                        <ModelsCarousel/>
+                    </div>
                     <div className="row">
                         <div className="col l2 red">
                         </div>
