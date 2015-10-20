@@ -1,8 +1,10 @@
 define(['react', 'allMixins',
     'javascripts/components/TodoDummy',
     'js/widgets/ModelsCarousel',
+    'js/widgets/ModelRanges',
+    'js/widgets/ModelThumbnail',
     'js/widgets/Article'
-], function(React, allMixins, TodoDummy, ModelsCarousel, Article) {
+], function(React, allMixins, TodoDummy, ModelsCarousel, ModelRanges, ModelThumbnail, Article) {
 
     var MainPage = React.createClass({
         mixins: [
@@ -16,19 +18,24 @@ define(['react', 'allMixins',
         render: function() {
             return (
                 <div>
+                    <div className="row" style={{marginBottom: '0px'}}>
+                        <ModelRanges/>
+                    </div>
                     <div className="row">
                         <ModelsCarousel/>
                     </div>
                     <div className="row">
-                        <div className="col l2 red">
+                        <div className="col l3 m3 hide-on-small-only">
+                            <div style={{marginTop: '20px'}}>
+                                <ModelThumbnail/>
+                                <ModelThumbnail/>
+                            </div>
                         </div>
-                        <div className="col l8 offset-l2">{
+                        <div className="col l9 m9">{
                                 this.state.articles.map((a) =>
                                     <Article article={a}/>
                                 )
                             }
-                        </div>
-                        <div className="col l2 offset-l10 yellow">
                         </div>
                     </div>
                 </div>
