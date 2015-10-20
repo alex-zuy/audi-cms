@@ -184,6 +184,11 @@
                 numberOnly: Numeric value is required
             }
         }
+        ModelThumbnail: {
+            actions: {
+                more: See more
+            }
+        }
     }
     controlPanel: {
         contacts: {
