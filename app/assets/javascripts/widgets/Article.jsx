@@ -31,9 +31,7 @@ define(['react', 'allMixins', 'reactRouter', 'mui', 'moment'
                               </CardMedia>
                     )()}
                     <CardText>
-                        <div
-                            className="truncate"
-                            dangerouslySetInnerHTML={{__html: this.getPreferedText(this.props.article.text)}}/>
+                        <div dangerouslySetInnerHTML={{__html: this.getPreferedText(this.props.article.text)}}/>
                     </CardText>
                 </Card>
             );
