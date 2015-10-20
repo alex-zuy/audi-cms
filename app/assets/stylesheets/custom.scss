@@ -136,3 +136,29 @@ div.photoForm {
     max-height: 1000px;
   }
 }
+
+//styles for models carousel
+.carousel-container {
+  overflow-x: hidden;
+  position: relative;
+}
+
+.model-carousel-enter {
+  transform: translateX(100%);
+  position: absolute;
+}
+
+.model-carousel-enter.model-carousel-enter-active {
+  transform: translateX(0%);
+  transition: transform 900ms ease-in;
+}
+
+.model-carousel-leave {
+  transform: translateX(0%);
+  position: relative;
+}
+
+.model-carousel-leave.model-carousel-leave-active {
+  transform: translateX(-100%);
+  transition: transform 900ms ease-in;
+}
