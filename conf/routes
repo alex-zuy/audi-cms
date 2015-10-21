@@ -73,6 +73,7 @@ POST        /models/storeModel                  controllers.Models.storeModel
 GET         /models/listModels                  controllers.Models.listModels
 POST        /models/validateModel               controllers.Models.validateModel
 GET         /models/:id/showModel               controllers.Models.showModel(id: Int)
+GET         /models/:id/showModelDetailed       controllers.Models.showModelDetailed(id: Int)
 GET         /models/:id/listEditions            controllers.Models.listModelEditions(id: Int)
 POST        /models/:id/updateModel             controllers.Models.updateModel(id: Int)
 POST        /models/:id/deleteModel             controllers.Models.deleteModel(id: Int)

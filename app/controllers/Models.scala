@@ -10,6 +10,8 @@ import models._
 import play.api._
 import play.api.mvc._
 import play.api.libs.json._
+import play.api.libs.json.Reads._
+import play.api.libs.functional.syntax._
 import play.api.libs.concurrent.Execution.Implicits._
 
 class Models extends Controller with DefaultDbConfiguration with RequestBodyValidation {
@@ -31,6 +33,8 @@ class Models extends Controller with DefaultDbConfiguration with RequestBodyVali
   implicit val formatsModels = Json.format[Model]
 
   implicit val formatsModelEditions = Json.format[ModelEdition]
+
+  implicit val formatsPhotoHeaders = Json.format[PhotoDAO.PhotoHeaders]
 
   def storeRange = Authenticate(TypicalManager).async(parse.json[ModelRange].validateWith(
     new ModelRangeValidator(_))) { implicit request =>
@@ -70,6 +74,22 @@ class Models extends Controller with DefaultDbConfiguration with RequestBodyVali
 
   def showModel(id: Int) = (Action andThen CheckExists(id, allModels)).async { implicit request =>
     runQuery(modelById(id).result.head).map(model => Ok(toJson(model)))
+  }
+
+  def showModelDetailed(id: Int) = (Action andThen CheckExists(id, allModels)).async { implicit request =>
+    for {
+      model <- runQuery(modelById(id).result.head)
+      editions <- runQuery(modelEditions(id).result)
+      range <- runQuery(rangeById(model.modelRangeId))
+      photos <- runQuery(PhotoDAO.photoSetPhotos(model.photoSetId).result)
+    } yield {
+      val transformer = __.json.update((
+        (__ \ 'editions).json.put(toJson(editions)) and
+        (__ \ 'range).json.put(toJson(range)) and
+        (__ \ 'photos).json.put(toJson(photos.map(t => PhotoDAO.PhotoHeaders(Some(t._1), t._2, t._3, t._4))))
+        ).reduce)
+      Ok(toJson(model).transform(transformer).get)
+    }
   }
 
   def listModelEditions(modelId: Int) = (Action andThen CheckExists(modelId, allModels)).async { implicit request =>

@@ -93,6 +93,7 @@ class Application extends Controller with DefaultDbConfiguration {
         routes.javascript.Models.listModels,
         routes.javascript.Models.validateModel,
         routes.javascript.Models.showModel,
+        routes.javascript.Models.showModelDetailed,
         routes.javascript.Models.listModelEditions,
         routes.javascript.Models.updateModel,
         routes.javascript.Models.deleteModel,
