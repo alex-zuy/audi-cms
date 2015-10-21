@@ -4,6 +4,11 @@
             en: English
             ru: Russian
         }
+        articleCategories: {
+            news: News
+            offers: Offers
+            service: Service
+        }
         enumerations: {
             engineTypes: {
                 diesel: Diesel

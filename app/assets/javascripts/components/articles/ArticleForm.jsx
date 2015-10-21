@@ -7,7 +7,7 @@ define([
     'js/widgets/IconedButton',
     'js/inputs/inputs'], function(React, reactRouter, allMixins, mui, GenericForm, IconedButton, inputs) {
 
-    const {I18nTextInput, TextInput, TimestampNowInput, HiddenInput} = inputs;
+    const {I18nTextInput, SelectInput, TimestampNowInput, HiddenInput} = inputs;
     const {Tabs, Tab} = mui;
 
     return React.createClass({
@@ -35,8 +35,14 @@ define([
                     <GenericForm
                         ref="form"
                         fields={[
+                            {ref: 'category', editorComponent: SelectInput, isRequired: true, props: {
+                                alternatives: ['news', 'offers', 'service'].map((category) =>({
+                                    value: category,
+                                    label: this.getIntlMessage(`generic.articleCategories.${category}`),
+                                })),
+                                initiallyUnselected: true,
+                            }},
                             {ref: 'title', editorComponent: I18nTextInput, isRequired: true},
-                            {ref: 'category', editorComponent: TextInput, isRequired: true},
                             {ref: 'createdAt', editorComponent: TimestampNowInput, isRequired: true},
                             {ref: 'photoSetId', editorComponent: HiddenInput, isRequired: true, props: {value: this.state.photoSetId}}
                         ]}
