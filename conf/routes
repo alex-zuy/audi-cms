@@ -71,6 +71,7 @@ POST        /models/:id/updateRange             controllers.Models.updateRange(i
 POST        /models/:id/deleteRange             controllers.Models.deleteRange(id: Int)
 POST        /models/storeModel                  controllers.Models.storeModel
 GET         /models/listModels                  controllers.Models.listModels
+GET         /models/listModelsDetailed          controllers.Models.listModelsDetailed
 POST        /models/validateModel               controllers.Models.validateModel
 GET         /models/:id/showModel               controllers.Models.showModel(id: Int)
 GET         /models/:id/showModelDetailed       controllers.Models.showModelDetailed(id: Int)

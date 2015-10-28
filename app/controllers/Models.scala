@@ -13,6 +13,7 @@ import play.api.libs.json._
 import play.api.libs.json.Reads._
 import play.api.libs.functional.syntax._
 import play.api.libs.concurrent.Execution.Implicits._
+import scala.concurrent.Future
 
 class Models extends Controller with DefaultDbConfiguration with RequestBodyValidation {
 
@@ -68,6 +69,25 @@ class Models extends Controller with DefaultDbConfiguration with RequestBodyVali
 
   def listModels = Action.async { implicit request =>
     runQuery(allModels.result).map(models => Ok(toJson(models)))
+  }
+
+  def listModelsDetailed = Action.async { implicit request =>
+    runQuery(allModels.result).map { models =>
+      for(model <- models) yield {
+        for {
+          photos <- runQuery(PhotoDAO.photoSetPhotos(model.photoSetId).result)
+          range <- runQuery(ModelDAO.rangeById(model.modelRangeId))
+          editions <- runQuery(ModelDAO.modelEditions(model.id.get).result)
+        } yield {
+          val transformer = __.json.update((
+            (__ \ 'editions).json.put(toJson(editions)) and
+            (__ \ 'range).json.put(toJson(range)) and
+            (__ \ 'photos).json.put(toJson(photos.map(t => PhotoDAO.PhotoHeaders(Some(t._1), t._2, t._3, t._4))))
+            ).reduce)
+          toJson(model).transform(transformer).get
+        }
+      }
+    }.flatMap(all => Future.sequence(all)).map(models => Ok(JsArray(models)))
   }
 
   def validateModel = ValidateAction[Model](TypicalManager, new ModelValidator(_))
