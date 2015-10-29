@@ -24,7 +24,7 @@ define(['react', 'allMixins', 'mui', 'reactRouter',
             return {
                 editionId: null,
                 modelId: null,
-                msgKeyPrefix: "controlPanel.models.editions.form",
+                msgKeyPrefix: "controlPanel.models.updateEditions.form",
             }
         },
         getInitialState() {
@@ -44,7 +44,8 @@ define(['react', 'allMixins', 'mui', 'reactRouter',
                         fields={this._getFormFieldProps()}
                         validateRoute={() => jsRoutes.controllers.Models.validateEdition()}
                         msgKeyPrefix={this.props.msgKeyPrefix}
-                        onSubmitAttempt={this.onSubmit}/>
+                        onSubmitAttempt={this.onSubmit}
+                        msgKeyPrefix="controlPanel.models.updateEditions.form"/>
                 </Paper>
             );
         },
