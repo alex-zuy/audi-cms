@@ -8,7 +8,7 @@ define(['react'], function(React) {
             return { value: this.props.value };
         },
         componentWillReceiveProps(props) {
-            if(!_.isUndefined(props.value)) {
+            if(!_.isUndefined(props.value) && !_.isNull(props.value)) {
                 this.setState({value: props.value});
             }
         },
