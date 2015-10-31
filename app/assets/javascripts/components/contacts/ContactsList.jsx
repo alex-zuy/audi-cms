@@ -31,7 +31,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/IconedButton', '
                         <thead>
                             <tr>
                                 <td>{this.getMsg('labels.name')}</td>
-                                <td>{this.getMsg('labels.internalName')}</td>
+                                <td>{this.getMsg('labels.category')}</td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -40,7 +40,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui', 'js/widgets/IconedButton', '
                             this.state.contacts.map((c, index) =>
                                 <tr key={`row-${index}`}>
                                     <td>{this.getPreferedText(c.name)}</td>
-                                    <td>{c.internalName}</td>
+                                    <td>{c.category}</td>
                                     <td>
                                         <IconButton
                                             onClick={this.goToUpdate.bind(this, c)}

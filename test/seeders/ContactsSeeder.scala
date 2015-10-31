@@ -19,17 +19,17 @@ object ContactsSeeder extends DatabaseSeeder with FutureAwaits with DefaultAwait
 
   import ContactInfoDAO._
 
-  val contactOne = ContactInfo(None, Json.obj("en" -> "contactOne"), None)
+  val contactOne = ContactInfo(None, Json.obj("en" -> "contactOne"), "service")
 
-  val contactTwo = ContactInfo(None, Json.obj("en" -> "contactTwo"), Some("internalNameTwo"))
+  val contactTwo = ContactInfo(None, Json.obj("en" -> "contactTwo"), "categoryTwo")
 
   def numberOne(contactInfoId: Int) = ContactNumber(None, contactInfoId, Json.obj("en" -> "numberOne"), "+123456789")
 
   def numberTwo(contactInfoId: Int) = ContactNumber(None, contactInfoId, Json.obj("en" -> "numberTwo"), "+987654321")
 
-  def emailOne(contactInfoId: Int) = ContactEmail(None, contactInfoId, "personOne", "emailOne@example.net", Json.obj("en" -> "emailOne"))
+  def emailOne(contactInfoId: Int) = ContactEmail(None, contactInfoId, "emailOne@example.net", Json.obj("en" -> "emailOne"))
 
-  def emailTwo(contactInfoId: Int) = ContactEmail(None, contactInfoId, "personTwo", "emailTwo@example.net", Json.obj("en" -> "emailTwo"))
+  def emailTwo(contactInfoId: Int) = ContactEmail(None, contactInfoId, "emailTwo@example.net", Json.obj("en" -> "emailTwo"))
 
   def addressOne(contactInfoId: Int) = ContactAddress(None, contactInfoId, Json.obj("en" -> "addressOne"), "streetOne", None)
 

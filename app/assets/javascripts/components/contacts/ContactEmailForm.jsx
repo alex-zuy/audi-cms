@@ -33,7 +33,6 @@ define(['react', 'allMixins', 'mui',
                             {ref: 'contactInfoId', editorComponent: HiddenInput, isRequired: true, props: {value: this.props.contactInfoId}},
                             {ref: 'name', editorComponent: I18nTextInput, isRequired: true},
                             {ref: 'email', editorComponent: TextInput, isRequired: true},
-                            {ref: 'contactPerson', editorComponent: TextInput, isRequired: true}
                         ]}
                         validateRoute={() => jsRoutes.controllers.Contacts.validateEmail()}
                         onSubmitAttempt={this.onClick}

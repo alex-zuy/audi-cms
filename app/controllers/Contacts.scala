@@ -137,15 +137,10 @@ object Contacts {
       "name" -> Required(contactInfo.name)(
         I18nTexts
       ),
-      "internalName" -> Optional(contactInfo.internalName)(
-        Length(50), LowCase, NoWhitespace, Unique(existsConflictRowQuery)
+      "category" -> Required(contactInfo.category)(
+        Length(50), NoWhitespace
       )
     )
-
-    def existsConflictRowQuery = {
-      val id = contactInfo.id.getOrElse(0)
-      allInfos.filter(c => c.id =!= id && c.internalName === contactInfo.internalName).exists.result
-    }
   }
 
   class ContactNumberValidator(contactNumber: ContactNumber) extends Validator {
@@ -165,9 +160,6 @@ object Contacts {
       "contactInfoId" -> Required(contactEmail.contactInfoId)(),
       "name" -> Required(contactEmail.name)(
         I18nTexts
-      ),
-      "contactPerson" -> Required(contactEmail.contactPerson)(
-        Length(50)
       ),
       "email" -> Required(contactEmail.email)(
         Length(50), Email

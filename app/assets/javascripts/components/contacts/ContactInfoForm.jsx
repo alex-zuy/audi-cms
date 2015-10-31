@@ -1,11 +1,14 @@
-define(['react',
+define(['react', 'allMixins',
     'js/inputs/inputs',
     'js/components/GenericForm'
-], function(React, inputs, GenericForm) {
+], function(React, allMixins, inputs, GenericForm) {
 
-    const {TextInput, HiddenInput, I18nTextInput} = inputs;
+    const {SelectInput, HiddenInput, I18nTextInput} = inputs;
 
     return React.createClass({
+        mixins: [
+            allMixins.IntlMixin,
+        ],
         render() {
             return (
                 <GenericForm
@@ -13,7 +16,13 @@ define(['react',
                     fields={[
                         {ref: 'id', editorComponent: HiddenInput, isRequired: false},
                         {ref: 'name', editorComponent: I18nTextInput, isRequired: true},
-                        {ref: 'internalName', editorComponent: TextInput, isRequired: false},
+                        {ref: 'category', editorComponent: SelectInput, isRequired: true, props: {
+                            alternatives: ['autoShow', 'service'].map(category =>({
+                                label: this.getIntlMessage(`generic.contactCategories.${category}`),
+                                value: category,
+                            })),
+                            initiallyUnselected: false,
+                        }},
                     ]}
                     validateRoute={() => jsRoutes.controllers.Contacts.validate()}
                     onSubmitAttempt={this.props.onSubmitItem}

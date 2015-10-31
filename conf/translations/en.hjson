@@ -9,6 +9,10 @@
             offers: Offers
             service: Service
         }
+        contactCategories: {
+            autoShow: Auto show
+            service: Service
+        }
         enumerations: {
             engineTypes: {
                 diesel: Diesel
@@ -200,7 +204,7 @@
             list: {
                 labels: {
                     name: Name
-                    internalName: Internal name
+                    category: Category
                     delete: {
                         dialogTitle: Deleting contact info
                         dialog: Are you sure you want to delete it ?
@@ -226,16 +230,16 @@
                         label: Name
                         placeholder: Name
                     }
-                    internalName: {
-                        label: Internal name
-                        placeholder: Internal name
+                    category: {
+                        label: Category
+                        placeholder: Category
                     }
                 }
             }
             fillForm: {
                 labels: {
                     name: Name
-                    internalName: Internal name
+                    category: Category
                     numbers: Phone numbers
                     emails: Email addresses
                     addresses: Addresses
@@ -265,10 +269,6 @@
                         email: {
                             label: Email
                             placeholder: Email
-                        }
-                        contactPerson: {
-                            label: Contact person
-                            placeholder: Contact person
                         }
                     }
                     actions: {
@@ -318,7 +318,6 @@
                     labels: {
                         name: Name
                         email: Email
-                        contactPerson: ContactPerson
                         delete: {
                             dialog: Are you sure you want to delete this email ?
                             dialogTitle: Deleting email

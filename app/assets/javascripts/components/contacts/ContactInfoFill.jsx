@@ -49,7 +49,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins',
                         <h5 className="center-align">{this.getMsg('labels.emails')}</h5>
                         <ArrayDataFillForm
                             data={this.state.contactInfo.emails}
-                            fieldNames={['name', 'email', 'contactPerson']}
+                            fieldNames={['name', 'email']}
                             fieldToStringMapper={this._nameFieldToStringMapper}
                             msgKeyPrefix="controlPanel.contacts.fillForm.emailDataFillForm"
                             itemForm={ContactEmailForm}

@@ -4,11 +4,11 @@ import play.api.libs.json.JsValue
 
 import internal.PostgresDriverExtended.api._
 
-case class ContactInfo(id: Option[Int], name: JsValue, internalName: Option[String])
+case class ContactInfo(id: Option[Int], name: JsValue, category: String)
 
 case class ContactNumber(id: Option[Int], contactInfoId: Int, name: JsValue, number: String)
 
-case class ContactEmail(id: Option[Int], contactInfoId: Int, contactPerson: String, email: String, name: JsValue)
+case class ContactEmail(id: Option[Int], contactInfoId: Int, email: String, name: JsValue)
 
 case class ContactAddress(id: Option[Int], contactInfoId: Int, name: JsValue, address: String, geoCoordinates: Option[JsValue])
 
@@ -17,9 +17,9 @@ object ContactInfoDAO {
   class ContactInfosTable(tag: Tag) extends Table[ContactInfo](tag, "contact_infos") with IntegerIdPk {
     def name = column[JsValue]("name")
 
-    def internalName = column[Option[String]]("internal_name")
+    def category = column[String]("category")
 
-    def * = (id.?, name, internalName) <> (ContactInfo.tupled, ContactInfo.unapply)
+    def * = (id.?, name, category) <> (ContactInfo.tupled, ContactInfo.unapply)
   }
 
   class ContactNumbersTable(tag: Tag) extends Table[ContactNumber](tag, "contact_numbers") with IntegerIdPk {
@@ -35,13 +35,11 @@ object ContactInfoDAO {
   class ContactEmailsTable(tag: Tag) extends Table[ContactEmail](tag, "contact_emails") with IntegerIdPk {
     def contactInfoId = column[Int]("contact_info_id")
 
-    def contactPerson = column[String]("contact_person")
-
     def email = column[String]("email")
 
     def name = column[JsValue]("name")
 
-    def * = (id.?, contactInfoId, contactPerson, email, name) <> (ContactEmail.tupled, ContactEmail.unapply)
+    def * = (id.?, contactInfoId, email, name) <> (ContactEmail.tupled, ContactEmail.unapply)
   }
 
   class ContactAddressesTable(tag: Tag) extends Table[ContactAddress](tag, "contact_addresses") with IntegerIdPk {
@@ -81,13 +79,13 @@ object ContactInfoDAO {
   def insertAddress(contactAddress: ContactAddress) = (allAddresses returning allAddresses.map(_.id)) += contactAddress
 
   def updateInfo(id: Int, contactInfo: ContactInfo) =
-    infoById(id).map(c => (c.name, c.internalName)).update(contactInfo.name, contactInfo.internalName)
+    infoById(id).map(c => (c.name, c.category)).update(contactInfo.name, contactInfo.category)
 
   def updateNumber(id: Int, cn: ContactNumber) =
     numberById(id).map(c => (c.name, c.number)).update(cn.name, cn.number)
 
   def updateEmail(id: Int, ce: ContactEmail) =
-    emailById(id).map(c => (c.name, c.contactPerson, c.email)).update(ce.name, ce.contactPerson, ce.email)
+    emailById(id).map(c => (c.name, c.email)).update(ce.name, ce.email)
 
   def updateAddress(id: Int, ca: ContactAddress) =
     addressById(id).map(c => (c.name, c.address, c.geoCoordinates)).update(ca.name, ca.address, ca.geoCoordinates)

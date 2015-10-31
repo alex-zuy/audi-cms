@@ -46,14 +46,14 @@ class ContactsTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
 
   lazy val addressesTestHelper = new CrudTestHelper[ContactAddress, ContactAddressesTable](allAddresses)
 
-  val newOrUpdatedValidContactInfo = ContactInfo(None, Json.obj("en" -> "new info"), Some("new.internal.name"))
+  val newOrUpdatedValidContactInfo = ContactInfo(None, Json.obj("en" -> "new info"), "new.internal.name")
 
   // violation: breaks unique value constraint for 'internal_name'
-  val newOrUpdatedInvalidContactInfo = ContactInfo(None, Json.obj("en" -> "new info"), Some("internalNameTwo"))
+  val newOrUpdatedInvalidContactInfo = ContactInfo(None, Json.obj("en" -> "new info"), "categoryTwo")
 
   def newOrUpdatedValidContactNumber(id: Int) = ContactNumber(None, id, Json.obj("en" -> "new number name"), "+123456789")
 
-  def newOrUpdatedValidEmail(id: Int) = ContactEmail(None, id, "person contact", "some@example.net", Json.obj("en" -> "main contact"))
+  def newOrUpdatedValidEmail(id: Int) = ContactEmail(None, id, "some@example.net", Json.obj("en" -> "main contact"))
 
   def newOrUpdatedValidAddress(id: Int) = ContactAddress(None, id, Json.obj("en" -> "some address"), "street pushkina", None)
 
@@ -77,7 +77,7 @@ class ContactsTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
       maybeInfo mustBe defined
       val info = maybeInfo.get
       info.name mustBe contactTwo.name
-      info.internalName mustBe contactTwo.internalName
+      info.category mustBe contactTwo.category
       val numbers = json.transform((__ \ "numbers").json.pick).get.validate[Seq[ContactNumber]].asOpt
       numbers mustBe defined
       numbers.get must have size 2
@@ -99,22 +99,15 @@ class ContactsTest extends FakeAppPerSuite with FakeAuthenticatedRequests with B
       val id = ContactsSeeder.idOf(contactOne)
       infoTestHelper.testValidDelete(controller.delete(id), id)
     }
-    "reject storing invalid info" in {
-      infoTestHelper.testInvalidStore(controller.store, newOrUpdatedInvalidContactInfo)
-    }
-    "reject updating invalid info" in {
-      val id = idOf(contactOne)
-      infoTestHelper.testInvalidUpdate(controller.update(id), id, newOrUpdatedInvalidContactInfo)
-    }
     "validate contact info" in {
-      val ci = new ContactInfo(None, Json.obj("en" -> "asdadasd"), Some("asdsad s"))
+      val ci = new ContactInfo(None, Json.obj("en" -> "asdadasd"), "asdsad s")
       val response = invokeWithRecordCheckingStatus(controller.validate, ci, OK)
       val expectedJson = Json.parse(
         """{
-          | "internalName": {
+          | "category": {
           |  "key":"validators.errors.string.whitespace",
           |  "args":{
-          |   "field":"internalName"
+          |   "field":"category"
           |  }
           | }
           |}
