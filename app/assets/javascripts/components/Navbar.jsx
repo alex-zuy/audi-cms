@@ -31,6 +31,7 @@ define(['react', 'reactRouter', 'allMixins'], function(React, Router, allMixins)
     var Navbar = React.createClass({
         mixins: [
             allMixins.IntlMixin,
+            Router.Navigation,
         ],
         getDefaultProps: function() {
             return {
@@ -61,7 +62,7 @@ define(['react', 'reactRouter', 'allMixins'], function(React, Router, allMixins)
                                     <Item href='/news-and-offers' labelKey='newsAndOffers'/>
                                     <Item href='/models' labelKey='models'/>
                                     <li>
-                                        <a href='#'
+                                        <a href={this.makeHref('/service')}
                                            ref='topDropdown'
                                            className='dropdown-button red-text text-darken-4'
                                            data-hover={true}
@@ -84,7 +85,7 @@ define(['react', 'reactRouter', 'allMixins'], function(React, Router, allMixins)
                                     <Item href='/news-and-offers' labelKey='newsAndOffers'/>
                                     <Item href='/models' labelKey='models'/>
                                     <li>
-                                        <a href='#'
+                                        <a href={this.makeHref('/service')}
                                            ref='leftDropdown'
                                            className='dropdown-button red-text text-darken-4'
                                            data-beloworigin={true}

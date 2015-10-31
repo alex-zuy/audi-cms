@@ -56,6 +56,24 @@
             }
         }
     }
+    servicePage: {
+        labels: {
+            title: Service
+            serviceCenters: Service centers
+            termsOfService: Terms of service
+        }
+        texts: {
+            serviceCenters:
+                '''
+                Visit our authorized service centers to get the highest
+                quality of service, provided by professional engineers.
+                '''
+            termsOfService:
+                '''
+
+                '''
+        }
+    }
     managersCtl: {
         list: {
             labels: {

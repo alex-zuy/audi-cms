@@ -7,6 +7,8 @@ define(['react',
         'javascripts/views/ModelsPage',
         'javascripts/views/NewsAndOffersPage',
         'javascripts/views/ServicePage',
+        'js/views/ServiceCenters',
+        'js/views/ServiceTerms',
         'javascripts/views/SiteMapPage',
         'javascripts/views/TestDrivePage',
         'javascripts/views/LoginPage',
@@ -43,6 +45,8 @@ define(['react',
              ModelsPage,
              NewsAndOffersPage,
              ServicePage,
+             ServiceCenters,
+             ServiceTerms,
              SiteMapPage,
              TestDrivePage,
              LoginPage,
@@ -78,7 +82,11 @@ define(['react',
                     <Route path="/main" handler={MainPage}/>
                     <Route path="/news-and-offers" handler={NewsAndOffersPage}/>
                     <Route path="/models" handler={ModelsPage}/>
-                    <Route path="/service" handler={ServicePage}/>
+                    <Route path="/service">
+                        <DefaultRoute name="service" handler={ServicePage}/>
+                        <Route path="centers" name="service-centers" handler={ServiceCenters}/>
+                        <Route path="terms" name="service-terms" handler={ServiceTerms}/>
+                    </Route>
                     <Route path="/history" handler={HistoryPage}/>
                     <Route path="/contacts" handler={ContactsPage}/>
                     <Route path="/test-drive" handler={TestDrivePage}/>
