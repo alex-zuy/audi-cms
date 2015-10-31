@@ -24,7 +24,7 @@ define(['react', 'mui', 'allMixins',
                             <div className="row">
                                 <h4>{this.getPreferedText(range.range.name)}</h4>{
                                 range.models.map(model =>
-                                    <div className="col m3 l3">
+                                    <div className="col m4 l3">
                                         <Card>
                                             <CardMedia>
                                                 <img src={jsRoutes.controllers.Photos.showImage(model.photos[0].id).url}/>
