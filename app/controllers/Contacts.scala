@@ -18,6 +18,8 @@ import play.api.mvc._
 import slick.backend.DatabaseConfig
 import slick.driver.JdbcProfile
 
+import scala.concurrent.Future
+
 class Contacts extends Controller with DefaultDbConfiguration with RequestBodyValidation {
 
   import Contacts._
@@ -32,10 +34,26 @@ class Contacts extends Controller with DefaultDbConfiguration with RequestBodyVa
 
   implicit val formatContactAddress = Json.format[ContactAddress]
 
-  def list = Authenticate(TypicalManager).async { implicit request =>
+  def list = Action.async { implicit request =>
     runQuery(allInfos.result).map { infos =>
       Ok(toJson(infos))
     }
+  }
+
+  def listDetailed = Action.async { implicit request =>
+    runQuery(ContactInfoDAO.allInfos.result).map { infos =>
+      for(info <- infos) yield
+        for {
+          numbers <- runQuery(ContactInfoDAO.infoNumbers(info.id.get).result)
+          emails <- runQuery(ContactInfoDAO.infoEmails(info.id.get).result)
+          addresses <- runQuery(ContactInfoDAO.infoAddresses(info.id.get).result)
+        } yield
+          toJson(info).transform(__.json.update((
+            (__ \ 'numbers).json.put(toJson(numbers)) and
+            (__ \ 'emails).json.put(toJson(emails)) and
+            (__ \ 'addresses).json.put(toJson(addresses))
+            ).reduce)).get
+    }.flatMap(Future.sequence(_)).map(infos => Ok(JsArray(infos)))
   }
 
   def store = Authenticate(TypicalManager).async(parse.json[ContactInfo].validateWith(

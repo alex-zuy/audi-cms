@@ -98,4 +98,10 @@ object ContactInfoDAO {
 
   def deleteAddress(id: Int) = addressById(id).delete
 
+  def infoAddresses(ciId: Int) = allAddresses.filter(_.contactInfoId === ciId)
+
+  def infoEmails(ciId: Int) = allEmails.filter(_.contactInfoId === ciId)
+
+  def infoNumbers(ciId: Int) = allNumbers.filter(_.contactInfoId === ciId)
+
 }

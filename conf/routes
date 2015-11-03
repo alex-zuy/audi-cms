@@ -24,6 +24,7 @@ POST        /managers/changePassword/:id        controllers.Managers.changePassw
 
 # Contacts
 GET         /contacts/list                      controllers.Contacts.list
+GET         /contacts/listDetailed              controllers.Contacts.listDetailed
 POST        /contacts/store                     controllers.Contacts.store
 GET         /contacts/:id/show                  controllers.Contacts.show(id: Int)
 POST        /contacts/:id/update                controllers.Contacts.update(id: Int)

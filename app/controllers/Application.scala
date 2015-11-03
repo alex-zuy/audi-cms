@@ -47,6 +47,7 @@ class Application extends Controller with DefaultDbConfiguration {
         routes.javascript.Managers.changePassword,
 
         routes.javascript.Contacts.list,
+        routes.javascript.Contacts.listDetailed,
         routes.javascript.Contacts.store,
         routes.javascript.Contacts.show,
         routes.javascript.Contacts.update,
