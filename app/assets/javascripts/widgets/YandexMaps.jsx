@@ -9,7 +9,14 @@ define(['react', 'ymaps'], function(React, ymaps) {
         },
         render() {
             return (
-                <div id={this.props.id} style={{width: this.props.width+"px", height: this.props.height+"px"}}></div>
+                <div
+                    id={this.props.id}
+                    style={{
+                        width: this.props.width+"px",
+                        height: this.props.height+"px",
+                        marginLeft: 'auto',
+                        marginRight: 'auto'
+                        }}/>
             );
         },
         ymap: null,
