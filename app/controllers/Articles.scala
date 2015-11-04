@@ -8,12 +8,15 @@ import internal.{RequestBodyValidation, FormatTimestamp, Authenticate, DefaultDb
 import internal.PostgresDriverExtended.api._
 import models.ArticlesDAO._
 import models.ManagerRoles.TypicalManager
-import models.{ArticlesDAO, Article}
+import models.PhotoDAO.PhotoHeaders
+import models.{Photo, PhotoDAO, ArticlesDAO, Article}
 
 import play.api._
 import play.api.libs.json._
 import play.api.mvc._
 import play.api.libs.concurrent.Execution.Implicits._
+
+import scala.concurrent.Future
 
 class Articles extends Controller with DefaultDbConfiguration with RequestBodyValidation {
 
@@ -24,6 +27,8 @@ class Articles extends Controller with DefaultDbConfiguration with RequestBodyVa
 
   implicit val writesStoreResponse = Json.writes[StoreResponse]
 
+  implicit val writesPhoto = Json.writes[PhotoHeaders]
+
   implicit val formatsArticles = Json.format[Article]
 
   implicit val readsArticleHeaders = Json.reads[ArticleHeaders]
@@ -31,7 +36,15 @@ class Articles extends Controller with DefaultDbConfiguration with RequestBodyVa
   implicit val readsArticleTextUpdate = Json.reads[ArticleTextUpdate]
 
   def list = Action.async { implicit request =>
-    runQuery(allArticles.result).map(articles => Ok(Json.toJson(articles)))
+    runQuery(allArticles.result).map { articles =>
+      for(article <- articles) yield for {
+        photos <- runQuery(PhotoDAO.photoSetPhotos(article.photoSetId).result)
+      } yield {
+        toJson(article).transform(__.json.update(
+          (__ \ 'photos).json.put(toJson(photos.map(t => PhotoDAO.PhotoHeaders(Some(t._1), t._2, t._3, t._4))))
+        )).get
+      }
+    }.flatMap(all => Future.sequence(all)).map(articles => Ok(JsArray(articles)))
   }
 
   def storeHeaders = Authenticate(TypicalManager).async(parse.json[ArticleHeaders].validateWith(
