@@ -29,6 +29,12 @@
                 adjustable: Adjustable
             }
         }
+        contactInfo: {
+            contactInfo: Contact info
+            contactAddress: Contact address
+            contactNumber: Contact number
+            contactEmail: Contact email
+        }
     }
     loginPage: {
         labels: {
