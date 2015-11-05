@@ -56,7 +56,14 @@ class Articles extends Controller with DefaultDbConfiguration with RequestBodyVa
   def validateHeaders = ValidateAction[ArticleHeaders](TypicalManager, new ArticleHeadersValidator(_))
 
   def show(id: Int) = Action.async { implicit request =>
-    runQuery(byId(id).result.head).map(article => Ok(Json.toJson(article)))
+    for {
+      article <- runQuery(byId(id).result.head)
+      photos <- runQuery(PhotoDAO.photoSetPhotos(article.photoSetId).result)
+    } yield  {
+      Ok(toJson(article).transform(__.json.update(
+        (__ \ 'photos).json.put(toJson(photos.map(t => PhotoDAO.PhotoHeaders(Some(t._1), t._2, t._3, t._4))))
+      )).get)
+    }
   }
 
   def updateHeaders(id: Int) = Authenticate(TypicalManager).async(parse.json[ArticleHeaders].validateWith(
