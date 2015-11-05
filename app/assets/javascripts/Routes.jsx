@@ -24,6 +24,7 @@ define(['react',
         'js/components/articles/ArticleForm',
         'js/components/articles/ArticleUpdatePhotos',
         'js/components/articles/ArticleTextUpdate',
+        'js/widgets/ArticleDetailed',
         'js/components/models/ModelsMain',
         'js/components/models/RangesList',
         'js/components/models/ModelStore',
@@ -62,6 +63,7 @@ define(['react',
              ArticleForm,
              ArticleUpdatePhotos,
              ArticleTextUpdate,
+             ArticleDetailed,
              ModelsMain,
              ModelRangesList,
              ModelStore,
@@ -85,7 +87,9 @@ define(['react',
                     <Route path="/service">
                         <DefaultRoute name="service" handler={ServicePage}/>
                         <Route path="centers" name="service-centers" handler={ServiceCenters}/>
-                        <Route path="terms" name="service-terms" handler={ServiceTerms}/>
+                        <Route path="terms" name="service-terms" handler={ServiceTerms}>
+                            <Route path=":articleId" name="service-terms-article" handler={ArticleDetailed}/>
+                        </Route>
                     </Route>
                     <Route path="/history" handler={HistoryPage}/>
                     <Route path="/contacts" handler={ContactsPage}/>

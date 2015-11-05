@@ -1,11 +1,13 @@
-define(['react', 'allMixins', 'mui'], function (React, allMixins, mui) {
+define(['react', 'allMixins', 'mui', 'reactRouter'], function (React, allMixins, mui, ReactRouter) {
 
     const {CircularProgress, Card, CardMedia, CardTitle} = mui;
+    const {RouteHandler, Navigation} = ReactRouter;
 
     return React.createClass({
         mixins: [
             allMixins.IntlMixin,
             allMixins.AjaxMixin,
+            Navigation,
         ],
         getDefaultProps() {
             return {
@@ -21,6 +23,8 @@ define(['react', 'allMixins', 'mui'], function (React, allMixins, mui) {
             return (
                 <div>
                     <h1>{this.getMsg('labels.termsOfService')}</h1>
+                    <RouteHandler/>
+                    <hr/>
                     <div>{(() => {
                         if(_.isNull(this.state.articles)) {
                             return <CircularProgress/>;
@@ -29,7 +33,7 @@ define(['react', 'allMixins', 'mui'], function (React, allMixins, mui) {
                             return (
                                 <div className="row">{_.shuffle(this.getServiceArticles()).map(article =>
                                     <div className="col l4 m6">
-                                        <a href="">
+                                        <a href={this.makeHref('service-terms-article', {articleId: article.id})}>
                                             <Card>
                                                 <CardMedia
                                                     overlay={<CardTitle title={this.getPreferedText(article.title)}/>}>
