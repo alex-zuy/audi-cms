@@ -13,14 +13,13 @@ define(['react', 'mui', 'allMixins',
             return {models:[]};
         },
         render: function() {
-            const ranged = this.sortByRangeModel();
             return (
                 <div>
                     <div className="row">
                         <ModelRanges/>
                     </div>
                     <div className="row">{
-                        ranged.map(range =>
+                        this.sortByRangeAndFilter().map(range =>
                             <div className="row">
                                 <h4>{this.getPreferedText(range.range.name)}</h4>{
                                 range.models.map(model =>
@@ -46,15 +45,21 @@ define(['react', 'mui', 'allMixins',
                 success: (all) => this.setState({models: all})
             });
         },
-        sortByRangeModel() {
-            return _.chain(this.state.models)
+        sortByRangeAndFilter() {
+            const sortedByRange = _.chain(this.state.models)
                 .groupBy(m => m.modelRangeId)
                 .map(modelsInRange => ({
-                    range: modelsInRange[0].range,
+                    range: _.first(modelsInRange).range,
                     models: _.sortBy(modelsInRange, (model) => this.getPreferedText(model.name))
                 }))
                 .sortBy(group => this.getPreferedText(group.range.name))
                 .value();
+            if(_.isUndefined(this.props.query.modelRangeId)) {
+                return sortedByRange;
+            }
+            else {
+                return _.filter(sortedByRange, group => group.range.id == this.props.query.modelRangeId);
+            }
         }
     });
 });

@@ -83,7 +83,7 @@ define(['react',
                 <Route handler={UserLayout}>
                     <Route path="/main" handler={MainPage}/>
                     <Route path="/news-and-offers" handler={NewsAndOffersPage}/>
-                    <Route path="/models" handler={ModelsPage}/>
+                    <Route path="/models" name="models" handler={ModelsPage}/>
                     <Route path="/service">
                         <DefaultRoute name="service" handler={ServicePage}/>
                         <Route path="centers" name="service-centers" handler={ServiceCenters}/>
