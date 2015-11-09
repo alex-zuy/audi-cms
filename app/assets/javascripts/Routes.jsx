@@ -33,6 +33,7 @@ define(['react',
         'js/components/models/ModelUpdate',
         'js/components/models/ModelUpdatePhotos',
         'js/components/models/ModelsList',
+        'js/views/ModelDetailed',
         'js/components/photos/PhotoSet',
         'javascripts/UserLayout',
         'javascripts/ManagerLayout',
@@ -72,6 +73,7 @@ define(['react',
              ModelUpdate,
              ModelUpdatePhotos,
              ModelsList,
+             ModelDetailed,
              PhotoSet,
              UserLayout,
              ManagerLayout)
@@ -83,7 +85,10 @@ define(['react',
                 <Route handler={UserLayout}>
                     <Route path="/main" handler={MainPage}/>
                     <Route path="/news-and-offers" handler={NewsAndOffersPage}/>
-                    <Route path="/models" name="models" handler={ModelsPage}/>
+                    <Route path="/models">
+                        <DefaultRoute name="models" handler={ModelsPage}/>
+                        <Route path=":modelId" name="model-detailed" handler={ModelDetailed}/>
+                    </Route>
                     <Route path="/service">
                         <DefaultRoute name="service" handler={ServicePage}/>
                         <Route path="centers" name="service-centers" handler={ServiceCenters}/>

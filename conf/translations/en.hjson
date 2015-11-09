@@ -62,6 +62,35 @@
             }
         }
     }
+    modelDetailedPage: {
+        labels: {
+            characteristics: Characteristics
+            editions: Editions
+            feature: Feature
+            characteristicsFields: {
+                passengerCapacity: Number of passengers
+                width: Width, meters
+                height: Height, meters
+                length: Length, meters
+                groundClearance: Ground clearance, meters
+                luggageSpace: Luggage space, litters
+            }
+            editionsFields:{
+                name: Edition name
+                engineType: Engine type
+                engineVolume: Engine volume
+                engineCylinderCount: Engine cylinder count
+                enginePower: Engine power
+                fuelTank: Fuel tank
+                fuelConsumption: Fuel consumption
+                acceleration: Acceleration
+                maxSpeed: Max speed
+                gearboxType: Gearbox type
+                gearboxLevels: Gearbox levels
+                transmissionType: Transmission type
+            }
+        }
+    }
     servicePage: {
         labels: {
             title: Service
