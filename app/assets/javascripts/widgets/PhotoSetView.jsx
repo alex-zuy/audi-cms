@@ -56,7 +56,13 @@ define(['react', 'mui', 'allMixins'], function(React, mui, allMixins) {
             );
         },
         componentDidMount() {
-            this.ajax(jsRoutes.controllers.Photos.listPhoto(this.props.photoSetId), {
+            this.loadPhotos(this.props.photoSetId);
+        },
+        componentWillReceiveProps(props) {
+            this.loadPhotos(props.photoSetId);
+        },
+        loadPhotos(id) {
+            this.ajax(jsRoutes.controllers.Photos.listPhoto(id), {
                 success: (all) => this.setState({
                     photos: all,
                     currentPhoto: _.first(all),
