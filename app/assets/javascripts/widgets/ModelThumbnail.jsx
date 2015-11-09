@@ -6,6 +6,7 @@ define(['react', 'reactRouter', 'mui', 'allMixins'], function(React, ReactRouter
         mixins: [
             allMixins.AjaxMixin,
             allMixins.IntlMixin,
+            ReactRouter.Navigation,
         ],
         getDefaultProps() {
             return {
@@ -25,19 +26,16 @@ define(['react', 'reactRouter', 'mui', 'allMixins'], function(React, ReactRouter
             }
             else {
                 return (
-                    <Card style={{marginBottom: '20px'}}>
-                        <CardMedia>
-                            <img src={jsRoutes.controllers.Photos.showImage(this.state.photo.id).url}/>
-                        </CardMedia>
-                        <CardTitle
-                            title={this.getPreferedText(this.state.modelRange.name)}
-                            subtitle={this.getPreferedText(this.state.model.name)}/>
-                        <CardActions>
-                            <FlatButton
-                                label={this.getMsg('actions.more')}
-                                onClick={() => console.warn('Unimplemented')}/>
-                        </CardActions>
-                    </Card>
+                    <a href={this.makeHref('model-detailed', {modelId: this.state.model.id})}>
+                        <Card style={{marginBottom: '20px'}}>
+                            <CardMedia>
+                                <img src={jsRoutes.controllers.Photos.showImage(this.state.photo.id).url}/>
+                            </CardMedia>
+                            <CardTitle
+                                title={this.getPreferedText(this.state.modelRange.name)}
+                                subtitle={this.getPreferedText(this.state.model.name)}/>
+                        </Card>
+                    </a>
                 );
             }
         },

@@ -1,13 +1,14 @@
-define(['react', 'mui', 'allMixins',
+define(['react', 'mui', 'allMixins', 'reactRouter',
     'js/widgets/ModelRanges',
-], function(React, mui, allMixins, ModelRanges) {
+], function(React, mui, allMixins, ReactRouter, ModelRanges) {
 
     const {Card, CardMedia, CardTitle} = mui;
 
     return React.createClass({
         mixins: [
             allMixins.IntlMixin,
-            allMixins.AjaxMixin
+            allMixins.AjaxMixin,
+            ReactRouter.Navigation,
         ],
         getInitialState() {
             return {models:[]};
@@ -24,12 +25,16 @@ define(['react', 'mui', 'allMixins',
                                 <h4>{this.getPreferedText(range.range.name)}</h4>{
                                 range.models.map(model =>
                                     <div className="col m4 l3">
-                                        <Card>
-                                            <CardMedia>
-                                                <img src={jsRoutes.controllers.Photos.showImage(model.photos[0].id).url}/>
-                                            </CardMedia>
-                                            <CardTitle title={this.getPreferedText(model.name)} style={{padding: '6px'}}/>
-                                        </Card>
+                                        <a href={this.makeHref('model-detailed', {modelId: model.id})}>
+                                            <Card style={{marginBottom: '20px'}}>
+                                                <CardMedia>
+                                                    <img src={jsRoutes.controllers.Photos.showImage(_.first(model.photos).id).url}/>
+                                                </CardMedia>
+                                                <CardTitle
+                                                    title={this.getPreferedText(model.range.name)}
+                                                    subtitle={this.getPreferedText(model.name)}/>
+                                            </Card>
+                                        </a>
                                     </div>
                                 )
                             }
