@@ -160,8 +160,9 @@ define(['react', 'reactRouter', 'allMixins', 'mui',
                                         </table>
                                     </div>
                                 </div>
-                                <hr/>
-                                <div className="row hide-on-large-only">{[1,2,3].map(index =>
+
+                                <div className="row hide-on-large-only">
+                                    <hr/>{[1,2,3].map(index =>
                                     <div key={`index-${index}`} className="col m4 s6">
                                         <ModelThumbnail/>
                                     </div>
