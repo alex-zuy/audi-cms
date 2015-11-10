@@ -3,7 +3,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui',
     'js/widgets/ModelThumbnail'
 ], function(React, ReactRouter, allMixins, mui, PhotoSetView, ModelThumbnail) {
 
-    const {CircularProgress} = mui;
+    const {CircularProgress, RaisedButton} = mui;
 
     const characteristicsFields = [
         'passengerCapacity',
@@ -18,6 +18,7 @@ define(['react', 'reactRouter', 'allMixins', 'mui',
         mixins: [
             allMixins.IntlMixin,
             allMixins.AjaxMixin,
+            ReactRouter.Navigation,
         ],
         getDefaultProps() {
             return {
@@ -69,6 +70,11 @@ define(['react', 'reactRouter', 'allMixins', 'mui',
                                             )}
                                             </tbody>
                                         </table>
+                                        <RaisedButton
+                                            linkButton={true}
+                                            href={this.makeHref('test-drive')}
+                                            label={this.getMsg('actions.arrangeTestDrive')}
+                                            primary={true}/>
                                         <h5>{this.getMsg('labels.editions')}</h5>
                                         <table>
                                             <thead>

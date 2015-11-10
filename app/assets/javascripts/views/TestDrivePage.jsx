@@ -16,8 +16,8 @@ define(['react', 'reactRouter', 'allMixins',
         },
         getInitialState() {
             return {
-                wasFormSubmited: true,
-                statusMsg: 'labels.submitStatus.success'
+                wasFormSubmited: false,
+                statusMsg: null,
             }
         },
         render: function() {

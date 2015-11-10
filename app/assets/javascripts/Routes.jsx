@@ -100,7 +100,7 @@ define(['react',
                     </Route>
                     <Route path="/history" handler={HistoryPage}/>
                     <Route path="/contacts" handler={ContactsPage}/>
-                    <Route path="/test-drive" handler={TestDrivePage}/>
+                    <Route path="/test-drive" name="test-drive" handler={TestDrivePage}/>
                     <Route path="/site-map" handler={SiteMapPage}/>
                     <Route path="/login" name="login" handler={LoginPage}/>
                 </Route>

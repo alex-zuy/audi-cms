@@ -90,6 +90,9 @@
                 transmissionType: Transmission type
             }
         }
+        actions: {
+            arrangeTestDrive: I want test drive!
+        }
     }
     servicePage: {
         labels: {
