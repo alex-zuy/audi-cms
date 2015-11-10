@@ -17,8 +17,8 @@ define(['react', 'reactRouter', 'allMixins', 'mui'], function(React, ReactRouter
         render() {
             return (
                 <div className="ranges-list-container center-align">
-                    <ul>{ this.state.ranges.map((range, index) =>
-                        <li key={`range-${index}`} className="range">
+                    <ul>{ this.state.ranges.map((range, index, all) =>
+                        <li key={`range-${index}`} className="range" style={{width: `${100.0 / all.length}%`}}>
                             <a href={this.makeHref('models', {}, {modelRangeId: range.id})} className="black-text">
                                 {this.getPreferedText(range.name)}
                             </a>
