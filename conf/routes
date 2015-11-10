@@ -86,5 +86,11 @@ GET         /models/:id/showEdition             controllers.Models.showEdition(i
 POST        /models/:id/updateEdition           controllers.Models.updateEdition(id: Int)
 POST        /models/:id/deleteEdition           controllers.Models.deleteEdition(id: Int)
 
+# Test drive
+GET         /testDrives/list                    controllers.TestDrives.list
+POST        /testDrives/validate                controllers.TestDrives.validate
+POST        /testDrives/store                   controllers.TestDrives.store
+POST        /testDrives/delete                  controllers.TestDrives.delete(id: Int)
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)

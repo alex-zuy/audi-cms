@@ -104,7 +104,12 @@ class Application extends Controller with DefaultDbConfiguration {
         routes.javascript.Models.validateEdition,
         routes.javascript.Models.showEdition,
         routes.javascript.Models.updateEdition,
-        routes.javascript.Models.deleteEdition
+        routes.javascript.Models.deleteEdition,
+
+        routes.javascript.TestDrives.list,
+        routes.javascript.TestDrives.validate,
+        routes.javascript.TestDrives.store,
+        routes.javascript.TestDrives.delete
       )
     ).as("text/javascript")
   }
