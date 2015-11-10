@@ -36,6 +36,11 @@
             contactEmail: Contact email
         }
     }
+    languageSelect: {
+        labels: {
+            selectTitle: Select your prefered language
+        }
+    }
     loginPage: {
         labels: {
             login: Login

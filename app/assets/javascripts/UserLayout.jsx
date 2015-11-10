@@ -1,4 +1,8 @@
-define(['react', 'reactRouter', 'js/components/Navbar', 'js/components/Footer'], function(React, ReactRouter, Navbar, Footer) {
+define(['react', 'reactRouter',
+    'js/components/Navbar',
+    'js/components/Footer',
+    'js/widgets/LanguageSelect',
+], function(React, ReactRouter, Navbar, Footer, LanguageSelect) {
 
     var RouteHandler = ReactRouter.RouteHandler;
 
@@ -10,6 +14,7 @@ define(['react', 'reactRouter', 'js/components/Navbar', 'js/components/Footer'],
                         <Navbar/>
                     </header>
                     <main>
+                        <LanguageSelect/>
                         <div className="container">
                             <RouteHandler/>
                         </div>

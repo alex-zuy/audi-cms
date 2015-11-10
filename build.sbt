@@ -33,6 +33,7 @@ libraryDependencies ++= Seq(
   "org.webjars" % "js-cookie" % "2.0.2",
   "org.webjars.npm" % "underscore" % "1.8.3",
   "org.webjars.npm" % "react-draggable2" % "0.5.1",
+  "org.webjars.bower" % "flag-icon-css" % "0.7.0",
   "org.webjars.npm" % "classnames" % "2.1.3"
 )
 

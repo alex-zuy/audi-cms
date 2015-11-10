@@ -1,4 +1,6 @@
-define(['react', 'IntlMessageFormat'], function(React, IntlMessageFormat) {
+define(['react', 'IntlMessageFormat', 'jsCookie'], function(React, IntlMessageFormat, jsCookie) {
+
+    const currentLanguageCookieKey = 'lang';
 
     function getNestedProperty(obj, prop) {
         try {
@@ -47,11 +49,26 @@ define(['react', 'IntlMessageFormat'], function(React, IntlMessageFormat) {
             return this.getIntlMessage(key, args);
         },
         getPreferedText(texts) {
-            //TODO make this function more intelligent
-            return texts.en;
+            if(_.isEmpty(texts[this.getCurrentLanguage()])) {
+                return texts[this.context.defaultLanguage];
+            }
+            else {
+                return texts[this.getCurrentLanguage()];
+            }
         },
         getDefaultLanguage() {
             return this.context.defaultLanguage;
+        },
+        setCurrentLanguage(lang) {
+            if(_.contains(this.context.supportedLanguages, lang)) {
+                jsCookie.set(currentLanguageCookieKey, lang);
+            }
+            else {
+                throw new Error(`Trying to set unsuported app language \"${lang}\"`);
+            }
+        },
+        getCurrentLanguage() {
+            return jsCookie.get(currentLanguageCookieKey);
         },
         getSupportedLanguages() {
             return this.context.supportedLanguages;
