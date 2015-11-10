@@ -30,6 +30,7 @@ define(['react', 'mui'], function(React, mui) {
                     <label>{this.props.floatingLabelText}</label>
                     <br/>
                     <DropDownMenu
+                        {...this.props}
                         selectedIndex={this.state.selectedIndex}
                         displayMember="label"
                         valueMember="value"
@@ -45,6 +46,9 @@ define(['react', 'mui'], function(React, mui) {
         },
         onChange(e, selectedIndex) {
             this.setState({selectedIndex: selectedIndex});
+            if(_.isFunction(this.props.onChange)) {
+                this.props.onChange(this._getAlternatives()[selectedIndex].value);
+            }
         },
         isEmpty() {
             if(this.props.initiallyUnselected) {
