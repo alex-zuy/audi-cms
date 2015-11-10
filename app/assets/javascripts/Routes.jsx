@@ -34,6 +34,7 @@ define(['react',
         'js/components/models/ModelUpdatePhotos',
         'js/components/models/ModelsList',
         'js/views/ModelDetailed',
+        'js/components/testDrives/TestDrives',
         'js/components/photos/PhotoSet',
         'javascripts/UserLayout',
         'javascripts/ManagerLayout',
@@ -74,6 +75,7 @@ define(['react',
              ModelUpdatePhotos,
              ModelsList,
              ModelDetailed,
+             TestDrives,
              PhotoSet,
              UserLayout,
              ManagerLayout)
@@ -134,6 +136,7 @@ define(['react',
                                 <Route path="update-photos" name="model-update-photos" handler={ModelUpdatePhotos}/>
                             </Route>
                         </Route>
+                        <Route path="test-drives" name="test-drives-ctl" handler={TestDrives}/>
                     </Route>
                 </Route>
             </Route>

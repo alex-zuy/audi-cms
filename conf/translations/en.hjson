@@ -583,6 +583,50 @@
                 }
             }
         }
+        testDrives: {
+            labels: {
+                testDrive: Test Drive
+                modelEdition: Model edition
+                fullName: Full name
+                email: Email
+                number: Number
+                submitStatus: {
+                    success: You test drive request was successfully sent!
+                    error: Ooops! Something went wrong.
+                }
+            }
+            actions: {
+                goToModels: Review other models
+            }
+            form: {
+                actions: {
+                    submit: Submit
+                }
+                inputs: {
+                    models: {
+                        label: Models
+                    }
+                    modelEditionId: {
+                        label: Model edition
+                    }
+                    preferedContactAddressId: {
+                        label: You may chose prefered auto show address
+                    }
+                    clientFullName: {
+                        label: Your full name
+                        placeholder: Enter name to contact you
+                    }
+                    clientEmail: {
+                        label: Your email address
+                        placeholder: Enter your contact email
+                    }
+                    clientNumber: {
+                        label: Your phone number
+                        placeholder: Enter your phone number
+                    }
+                }
+            }
+        }
         photos: {
             labels: {
                 photoSet: Photo set
@@ -653,6 +697,7 @@
                 contacts: Contacts
                 articles: Articles
                 models: Models
+                testDrive: Test drive
             }
         }
     }

@@ -8,6 +8,7 @@ define(["react", "reactRouter", "javascripts/components/TodoDummy", "mui", "allM
             { msgKey: "contacts", route: "contacts-list", icon: "perm_phone_msg"},
             { msgKey: "articles", route: "articles-list", icon: "text_format"},
             { msgKey: "models", route: "models-main", icon: "directions_car"},
+            { msgKey: "testDrive", route: "test-drives-ctl", icon: "perm_contact_calendar"},
         ];
 
         return React.createClass({
