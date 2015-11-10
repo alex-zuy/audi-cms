@@ -1,1 +1,729 @@
-{}
+{
+    generic: {
+        languages: {
+            en: Английский
+            ru: Русский
+        }
+        articleCategories: {
+            news: Новости
+            offers: Предложения
+            service: Сервис
+        }
+        contactCategories: {
+            autoShow: Автосалон
+            service: Сервисный центр
+        }
+        enumerations: {
+            engineTypes: {
+                diesel: Дизель
+                benzine: Бензин
+            }
+            gearboxTypes: {
+                automatic: Автоматическая
+                manual: Механическая
+            }
+            transmissionTypes: {
+                front: Передний привод
+                rear: Задний привод
+                all: Полный привод
+                adjustable: Конфигурируемая
+            }
+        }
+        contactInfo: {
+            contactInfo: Контактная информация
+            contactAddress: Контактный адрес
+            contactNumber: Контактный номер
+            contactEmail: Контактный email
+        }
+    }
+    languageSelect: {
+        labels: {
+            selectTitle: Выберите предпочитаемый язык
+        }
+    }
+    loginPage: {
+        labels: {
+            login: Вход
+            alreadyLoggedIn: {
+                title: Вы уже авторизованы
+                text: "Вы уже вошли в систему как {fullName}"
+            }
+        }
+        actions: {
+            login: Войти
+            logout: Выйти
+        }
+        errors: {
+            noSuchUser: Нет такого пользователя. Проверьте свой ввод
+        }
+        inputs: {
+            email: {
+                label: Email
+                placeholder: Введите email
+            }
+            password: {
+                label: Password
+                placeholder: Введите password
+            }
+        }
+    }
+    modelDetailedPage: {
+        labels: {
+            characteristics: Характеристики
+            editions: Версии
+            feature: Черта
+            characteristicsFields: {
+                passengerCapacity: Количество пассажиров
+                width: Ширина, метров
+                height: Высота, метров
+                length: Длинна, метров
+                groundClearance: Клирренс, метров
+                luggageSpace: Объем багажника, литров
+            }
+            editionsFields:{
+                name: Название версии
+                engineType: Тип двигателя
+                engineVolume: Объем двигателя
+                engineCylinderCount: Количество цилиндров
+                enginePower: Мощность
+                fuelTank: Топливный бак, литров
+                fuelConsumption: Потребление топлива
+                acceleration: Разгон
+                maxSpeed: Максимальная скорость
+                gearboxType: Тип коробки передач
+                gearboxLevels: Ступеней коробки передач
+                transmissionType: Тип трансмиссии
+            }
+        }
+        actions: {
+            arrangeTestDrive: Хочу на тест-драйв!
+        }
+    }
+    servicePage: {
+        labels: {
+            title: Сервис
+            serviceCenters: Сервисные центры
+            termsOfService: Условия обслуживания
+        }
+        texts: {
+            serviceCenters:
+                '''
+                Посетите авторизованые нами сервисные центры что бы получить
+                наивысшее качество обслуживания, предоставляемого инженерами-профессионалами
+                '''
+            termsOfService:
+                '''
+                Получите свежайшую информацию об условиях гарантийного технического обслуживания
+                и особых предложениях по получению расширеной гарантии
+                '''
+        }
+    }
+    managersCtl: {
+        list: {
+            labels: {
+                yourAccountNotListedHere: Ваш аккаунт здесь не указан
+                deleting: {
+                 manager: Удаление менеджера
+                 admin: Удаление администратора
+                 confirm: Вы уверены что хотите удалить этого менеджера ?
+                 unacceptable: Администратор не может быть удален! Сначала отзовите привелегии
+                }
+                table: {
+                    fullName: Полное имя
+                    email: Email
+                    password: Пароль
+                    isAdmin: Администратор
+                }
+            }
+            actions: {
+                changePassword: Изменить
+                add: Добавить менеджера
+                delete: {
+                    cancel: Отменить
+                    confirm: Удалить
+                }
+            }
+        }
+        store: {
+            labels: {
+                title: Создание нового менеджера
+            }
+            actions: {
+                store: Сохранить
+            }
+            inputs: {
+                fullName: {
+                    label: Полное имя
+                    placeholder: Полное имя менеджера
+                }
+                email: {
+                    label: Email
+                    placeholder: Email для авторизации
+                }
+                password: {
+                    label: Пароль
+                    placeholder: Введите пароль
+                }
+                confirmPassword: {
+                    label: Подтвердите пароль
+                    placeholder: Повторите пароль
+                }
+            }
+            errors: {
+                passwordsNotEqual: Пароли не совпадают
+                submitError: При создания менеджера возникла ошибка. Сорян)
+            }
+        }
+        update: {
+            labels: {
+                title: Обновление менеджера
+            }
+            actions: {
+                submit: Сохранить
+            }
+            inputs: {
+                fullName: {
+                    label: Полное имя
+                    placeholder: Введите полное имя
+                }
+                email: {
+                    label: Email
+                    placeholder: Введите новый email
+                }
+            }
+        }
+        changePassword: {
+            labels: {
+                title: Изменение пароля
+            }
+            actions: {
+                store: Сохранить
+            }
+            errors: {
+                passwordsNotEqual: Пароли не совпадают
+                submitError: При изменении пароля возникла ошибка
+            }
+            inputs: {
+                password: {
+                    label: Новый пароль
+                    placeholder: Введите новый пароль
+                }
+                confirmPassword: {
+                    label: Подтвердите пароль
+                    placeholder: Введите пароль второй раз
+                }
+            }
+        }
+    }
+    navbar: {
+        labels: {
+            main: Главная
+            newsAndOffers: Новости и предложения
+            models: Модели
+            service: Сервис
+            serviceCenters: Сервисный центры
+            serviceTerms: Условия обслуживания
+        }
+    }
+    footer: {
+        labels: {
+            controlPanel: Панель управления
+        }
+    }
+    components: {
+        confirmDialog: {
+            actions: {
+                confirm: Подтвердить
+                cancel: Отменить
+            }
+        }
+        I18nTextInput: {
+            labels: {
+                languages: {
+                    en: Английский
+                    ru: Русский
+                }
+            }
+        }
+        NumberInput: {
+            errors: {
+                integerOnly: Требуется целочисленное значение
+                numberOnly: Требуется численное значение
+            }
+        }
+        ModelThumbnail: {
+            actions: {
+                more: Подробнее
+            }
+        }
+    }
+    controlPanel: {
+        contacts: {
+            list: {
+                labels: {
+                    name: Название
+                    category: Категория
+                    delete: {
+                        dialogTitle: Удаление контактной информации
+                        dialog: Вы уверены что хотите удалить эту запись ?
+                    }
+                }
+                actions: {
+                    addInfo: Добавить контактную информацию
+                    delete: {
+                        confirm: Удалить
+                        cancel: Отменить
+                    }
+                }
+            }
+            form: {
+                labels: {
+                    title: Создание контактной информации
+                }
+                actions: {
+                    submit: Сохранить
+                }
+                inputs: {
+                    name: {
+                        label: Название
+                        placeholder: Название
+                    }
+                    category: {
+                        label: Категория
+                        placeholder: Категория
+                    }
+                }
+            }
+            fillForm: {
+                labels: {
+                    name: Название
+                    category: Категория
+                    numbers: Номера
+                    emails: Email адреса
+                    addresses: Адреса
+                }
+                numberForm: {
+                    inputs: {
+                        name: {
+                            label: Название
+                            placeholder: Название
+                        }
+                        number: {
+                            label: Номер
+                            placeholder: Номер
+                        }
+                    }
+                    actions: {
+                        submit: Сохранить
+                        cancel: Отменить
+                    }
+                }
+                emailForm: {
+                    inputs: {
+                        name: {
+                            label: Название
+                            placeholder: Название
+                        }
+                        email: {
+                            label: Email
+                            placeholder: Email
+                        }
+                    }
+                    actions: {
+                        submit: Сохранить
+                        cancel: Отменить
+                    }
+                }
+                addressForm: {
+                    inputs: {
+                        name: {
+                            label: Название
+                            placeholder: Название
+                        }
+                        address: {
+                            label: Адрес
+                            placeholder: Адрес
+                        }
+                    }
+                    actions: {
+                        submit: Сохранить
+                        cancel: Отменить
+                    }
+                }
+                numberDataFillForm: {
+                    actions: {
+                        delete: {
+                            confirm: Подтвердить
+                            cancel: Отменить
+                        }
+                    }
+                    labels: {
+                        name: Название
+                        number: Номер
+                        delete: {
+                            dialog: Вы уверены что хотите удалить этот номер ?
+                            dialogTitle: Удаление номера
+                        }
+                    }
+                }
+                emailDataFillForm: {
+                    actions: {
+                        delete: {
+                            confirm: Подтвердить
+                            cancel: Отменить
+                        }
+                    }
+                    labels: {
+                        name: Name
+                        email: Email
+                        delete: {
+                            dialog: Вы уверены что хотите удалить этот email ?
+                            dialogTitle: Удаление email
+                        }
+                    }
+                }
+                addressDataFillForm: {
+                    actions: {
+                        delete: {
+                            confirm: Подтведить
+                            cancel: Отменить
+                        }
+                    }
+                    labels: {
+                        name: Название
+                        address: Адрес
+                        delete: {
+                            dialog: Вы уверенны что хотите удалить этот адрес ?
+                            dialogTitle: Удаление адреса
+                        }
+                    }
+                }
+            }
+        }
+        models: {
+            main: {
+                labels: {
+                    models: Модели
+                    manageRanges: Редактирование модельных рядов
+                    manageModels: Редактирование моделей
+                }
+                actions: {
+                    manageRanges: Редактировать модельные ряды
+                    manageModels: Редактировать модели
+                }
+            }
+            ranges: {
+                labels: {
+                    ranges: Ряды
+                    name: Название
+                    delete: {
+                        dialogTitle: Удаление модельного ряда
+                        dialog: Вы уверены что хотите удалить этот модельный ряд ?
+                    }
+                }
+                actions: {
+                    submit: Сохранить
+                    cancel: Отменить
+                }
+                inputs: {
+                    name: {
+                        label: Название
+                        placeholder: Название
+                    }
+                    description: {
+                        label: Описание
+                        placeholder: Описание
+                    }
+                }
+            }
+            list: {
+                labels: {
+                    models: Модели
+                }
+                actions: {
+                    add: Добавить модель
+                }
+            }
+            store: {
+                labels: {
+                    creatingModel: Создание модеди
+                }
+            }
+            update: {
+                labels: {
+                    updatingModel: Редактирование модели
+                }
+            }
+            editMenu: {
+                labels: {
+                    editingModel: Редактировать модель
+                    editModel: Редактировать модель
+                    editEditions: Редактировать версии
+                    editPhotos: Редактировать фото
+                }
+                actions: {
+                    editModel: Редактировать модель
+                    editEditions: Редактировать версии
+                    editPhotos: Редактировать фото
+                }
+            }
+            models: {
+                inputs: {
+                    modelRangeId: {
+                        label: Модельный ряд
+                    }
+                    name: {
+                        label: Название модели
+                        placeholder: Название модели
+                    }
+                    passengerCapacity: {
+                        label: Пассажировместимость
+                        placeholder: Пассажировместимость
+                    }
+                    width: {
+                        label: Ширина
+                        placeholder: Ширина в метрах
+                    }
+                    height: {
+                        label: Высота
+                        placeholder: Высота в метрах
+                    }
+                    length: {
+                        label: Длинна
+                        placeholder: Длинна в метрах
+                    }
+                    groundClearance: {
+                        label: Клирренс
+                        placeholder: Клирренс в метрах
+                    }
+                    luggageSpace: {
+                        label: Объем багажника
+                        placeholder: Объем багажника в литрах
+                    }
+                }
+                actions: {
+                    submit: Сохранить
+                }
+            }
+            updatePhotos: {
+                labels: {
+                    photos: Фото модели
+                    backToEditMenu: Обратно в меню редактирования
+                }
+            }
+            updateEditions: {
+                labels: {
+                    backToEditMenu: Обратно в меню редактирования
+                    modelEditions: Версии автомобиля
+                    feature: Черта
+                    engineType: Тип двигателя
+                    engineVolume: Объем двигателя
+                }
+                deleteDialog: {
+                    actions: {
+                        cancel: Отменить
+                        confirm: Подтвердить
+                    }
+                    labels: {
+                        dialogText: Вы уверены что хотите удалить эту версию ?
+                    }
+                }
+                actions: {
+                    add: Добавить версию
+                }
+                form: {
+                    actions: {
+                        submit: Сохранить
+                        cancel: Отменить
+                    }
+                    inputs: {
+                        name: {
+                            label: Название версии
+                            placeholder: Название
+                        }
+                        engineType: {
+                            label: Тип двигателя
+                        }
+                        engineVolume: {
+                            label: Объем двигателя
+                            placeholder: Объем двигателя в литрах
+                        }
+                        engineCylinderCount: {
+                            label: Количество цилиндров
+                            placeholder: ""
+                        }
+                        enginePower: {
+                            label: Мощность двигателя
+                            placeholder: Мощность в лошадках
+                        }
+                        fuelTank: {
+                            label: Топливный бак
+                            placeholder: Литров
+                        }
+                        fuelConsumption: {
+                            label: Потребление топлива
+                            placeholder: Литров на 100 км
+                        }
+                        acceleration: {
+                            label: Ускорение
+                            placeholder: Секунд до 100 км/ч
+                        }
+                        maxSpeed: {
+                            label: Максимальная скорость
+                            placeholder: В км/ч
+                        }
+                        gearboxType: {
+                            label: Тип коробки передач
+                            placeholder: ""
+                        }
+                        gearboxLevels: {
+                            label: Количество ступеней коробки
+                            placeholder: ""
+                        }
+                        transmissionType: {
+                            label: Тип трансмиссии
+                            placeholder: ""
+                        }
+                    }
+                }
+            }
+        }
+        testDrives: {
+            labels: {
+                testDrive: Тест драйв
+                modelEdition: Версия модели
+                fullName: Полное имя
+                email: Email
+                number: Номер
+                submitStatus: {
+                    success: Ваш запрос на тест-драйв успешно отправлен!
+                    error: Упс! Чтото пошло не так.
+                }
+            }
+            actions: {
+                goToModels: Посмотреть другие модели
+            }
+            form: {
+                actions: {
+                    submit: Отправить
+                }
+                inputs: {
+                    models: {
+                        label: Модели
+                    }
+                    modelEditionId: {
+                        label: Версия модели
+                    }
+                    preferedContactAddressId: {
+                        label: Вы можете выбрать предпочитаемый адрес автосалона
+                    }
+                    clientFullName: {
+                        label: Ваше полное имя
+                        placeholder: Введите ваше имя
+                    }
+                    clientEmail: {
+                        label: Ваш email
+                        placeholder: Введите ваш email
+                    }
+                    clientNumber: {
+                        label: Ваш номер телефона
+                        placeholder: Введите ваш номер
+                    }
+                }
+            }
+        }
+        photos: {
+            labels: {
+                photoSet: Альбом
+                confirmDelete: Вы уверены что хотите удалить этот альбом ?
+            }
+            actions: {
+                add: Добавить фото
+            }
+            form: {
+                labels: {
+                    photo: Фото
+                }
+                actions: {
+                    submit: Сохранить
+                }
+                inputs: {
+                    name: {
+                        label: Название фото
+                        placeholder: Введите название
+                    }
+                }
+            }
+        }
+        articles: {
+            labels: {
+                articles: Статьи
+                article: Статья
+                articlePhotos: Альбом статьи
+                backToArticleForm: Вернуться в форме статьи
+                title: Заголовок
+                category: Категория
+                delete: {
+                    dialogTitle: Удаление статьи
+                    dialog: Вы уверены что хотите удалить эту статью ?
+                }
+                articleContentEditing: Редактирование текста статьи
+                titleIs: "Заголовок: {title}"
+                categoryIs: "Категория: {category}"
+            }
+            actions: {
+                addArticle: Добавить статью
+                editText: Редактировать текст
+                editPhotos: Редактировать фото
+            }
+            form: {
+                actions: {
+                    submit: Сохранить
+                }
+                inputs: {
+                    title: {
+                        label: Заголовок
+                        placeholder: Введите заголовок
+                    }
+                    category: {
+                        label: Категория
+                        placeholder: Введите категорию
+                    }
+                    createdAt: {
+                        label: ''
+                        placeholder: ''
+                    }
+                }
+            }
+        }
+        navbar: {
+            labels: {
+                managers: Менеджеры
+                contacts: Контакты
+                articles: Статьи
+                models: Модели
+                testDrive: Тест драйв
+            }
+        }
+    }
+    validators: {
+        errors: {
+            string: {
+                length: Строка должна быть не длиннее чем {maxLength} символов
+                whitespace: Строка не должна содержать пробельных символов
+                uppercase: Строка должна содержать лишь строчные символы
+                email: Строка должна быть валидным email адресом
+                phoneNumber: Строка должна быть валидным номером
+            }
+            numeric: {
+                nonNegative: Значение не можеть быть отрицательным
+                min: Значение не должно быть меньше чем {minValue}
+                max: Значение не должно быть больше чем {maxValue}
+                inRange: Значение должно быть в диапазоне {minValue} - {maxValue}
+            }
+            value: {
+                unique: Значение не уникально
+            }
+        }
+    }
+}

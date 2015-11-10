@@ -63,6 +63,7 @@ define(['react', 'reactRouter', 'allMixins'], function(React, Router, allMixins)
                                     <Item href='/models' labelKey='models'/>
                                     <li>
                                         <a href={this.makeHref('/service')}
+                                           style={{minWidth: '150px'}}
                                            ref='topDropdown'
                                            className='dropdown-button red-text text-darken-4'
                                            data-hover={true}
