@@ -72,11 +72,8 @@ define(['react', 'reactRouter', 'allMixins'], function(React, Router, allMixins)
                                         </a>
                                         <ul id='navbarTopServiceDropdown'
                                             className='dropdown-content grey lighten-4'>
-                                            <Item href='/service' labelKey='services.one'/>
-                                            <Item href='/service' labelKey='services.two'/>
-                                            <Item href='/service' labelKey='services.three'/>
-                                            <li className='divider'></li>
-                                            <Item href='/service' labelKey='services.four'/>
+                                            <Item href='service-centers' labelKey='serviceCenters'/>
+                                            <Item href='service-terms' labelKey='serviceTerms'/>
                                         </ul>
                                     </li>
                                 </ul>
@@ -94,11 +91,8 @@ define(['react', 'reactRouter', 'allMixins'], function(React, Router, allMixins)
                                         </a>
                                         <ul id='navbarLeftServiceDropdown'
                                             className='dropdown-content grey lighten-4'>
-                                            <Item href='/service' labelKey='services.one'/>
-                                            <Item href='/service' labelKey='services.two'/>
-                                            <Item href='/service' labelKey='services.three'/>
-                                            <li className='divider'></li>
-                                            <Item href='/service' labelKey='services.four'/>
+                                            <Item href='service-centers' labelKey='serviceCenters'/>
+                                            <Item href='service-terms' labelKey='serviceTerms'/>
                                         </ul>
                                     </li>
                                 </ul>

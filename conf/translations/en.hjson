@@ -108,7 +108,8 @@
                 '''
             termsOfService:
                 '''
-
+                Get the latest information about terms of guarantee service,
+                special propositions and extended guarantee terms
                 '''
         }
     }
@@ -215,12 +216,8 @@
             newsAndOffers: NewsAndOffers
             models: Models
             service: Service
-            services: {
-                one: One
-                two: Two
-                three: Three
-                four: Four
-            }
+            serviceCenters: Service centers
+            serviceTerms: Service terms
         }
     }
     footer: {
