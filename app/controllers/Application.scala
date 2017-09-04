@@ -20,7 +20,7 @@ class Application extends Controller with DefaultDbConfiguration {
   implicit val readsCredentials = Json.reads[Credentials]
 
   def index = Action {
-    Ok(views.html.main("Audi"))
+    Ok(views.html.main("Audi", publicUrl = Application.publicUrl))
   }
 
   def login = Authenticate.loginAction()
@@ -141,6 +141,8 @@ object Application {
   case class Credentials(email: String, password: String)
 
   case class ManagerRegistration(fullName: String, email: String, password: String, isAdmin: Option[Boolean])
+
+  val publicUrl = Play.application.configuration.getString("app.publicUrl").getOrElse("/")
 
   /**
    * Default language for client is English

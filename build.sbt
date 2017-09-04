@@ -1,13 +1,10 @@
-import com.typesafe.sbt.web.js.JS
-import com.typesafe.sbt.web.js.JS.Object
-
 name := """audi-cms"""
 
 version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala)
-  .enablePlugins(SbtWeb)
+//  .enablePlugins(SbtWeb)
 
 scalaVersion := "2.11.6"
 
@@ -20,21 +17,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick-evolutions" % "1.0.0",
   "com.github.tminglei" %% "slick-pg" % "0.9.1",
   "de.svenkubiak" % "jBCrypt" % "0.4",
-  "org.hjson" % "hjson" % "1.1.0",
-
-  // Client-side asset packages
-  "org.webjars.bower" % "system.js" % "0.18.4",
-  "org.webjars.bower" % "tinymce-dist" % "4.2.5",
-  "org.webjars.bower" % "momentjs" % "2.10.6",
-  "org.webjars.npm" % "react" % "0.13.3",
-  "org.webjars.bower" % "react-router" % "0.13.3",
-  "org.webjars.npm" % "jquery" % "2.1.4",
-  "org.webjars.npm" % "intl-messageformat" % "1.1.0",
-  "org.webjars" % "js-cookie" % "2.0.2",
-  "org.webjars.npm" % "underscore" % "1.8.3",
-  "org.webjars.npm" % "react-draggable2" % "0.5.1",
-  "org.webjars.bower" % "flag-icon-css" % "0.7.0",
-  "org.webjars.npm" % "classnames" % "2.1.3"
+  "org.hjson" % "hjson" % "1.1.0"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
@@ -47,8 +30,8 @@ routesGenerator := InjectedRoutesGenerator
 
 parallelExecution in Test := false
 
-JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
+//JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 
-BabelJSKeys.options :=  Object(("sourceMaps", JS("both")))
+//BabelJSKeys.options :=  Object(("sourceMaps", JS("both")))
 
 herokuAppName in Compile := "audicms"

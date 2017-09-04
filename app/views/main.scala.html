@@ -1,17 +1,21 @@
-@(title: String)
+@(title: String, publicUrl: String)
 
 <!DOCTYPE html>
 
 <html>
     <head>
         <title>@title</title>
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/materializecss/css/materialize.css")">
-        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/custom.css")">
-        <link rel="stylesheet" href="@routes.Assets.versioned("lib/flag-icon-css/css/flag-icon.css")"/>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="@routes.Assets.versioned("lib/system.js/dist/system.js")"></script>
-        <script src="@routes.Assets.versioned("javascripts/Launch.js")"></script>
+        <link rel="shortcut icon" type="image/png" href="@publicUrl@routes.Assets.at("images/favicon.png")">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="@publicUrl@routes.Assets.at("stylesheets/materialize/css/materialize.min.css")">
+        <link rel="stylesheet" href="@publicUrl@routes.Assets.at("stylesheets/styles.css")">
+        <script src="https://api-maps.yandex.ru/2.1/?lang=en_US" type="text/javascript"></script>
+        <script src="jsRoutes.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var __webpack_public_path__ = '@publicUrl';
+            var PUBLIC_URL = '@publicUrl';
+        </script>
+        <script src="@publicUrl@routes.Assets.at("javascripts/bundle.js")"></script>
     </head>
     <body>
         <div id="reactContent" class="reactContent"></div>
